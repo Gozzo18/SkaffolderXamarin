@@ -28,10 +28,15 @@ namespace SkaffolderTemplate.Rest
         {
             return service.SaveFilmMakerAsync(item, isNew);
         }
-
+        
+        /// <summary>
+        /// Richiesta DELETE per un film maker
+        /// </summary>
+        /// <param name="item">Film-maker da eliminare</param>
+        /// <returns></returns>
         public Task DELETE(FilmMaker item)
         {
-            return service.DeleteFilmMakerAsync(item.ID);
+            return service.DeleteFilmMakerAsync(item._id);
         }
     }
 }

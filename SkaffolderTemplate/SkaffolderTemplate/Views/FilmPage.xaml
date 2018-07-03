@@ -9,7 +9,7 @@
             <Label Text="Lista di film" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
             <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
-                <ListView x:Name="listaDiFilm" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" Refreshing="OnRefresh">
+                <ListView x:Name="listaDiFilm" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemSelected="eliminaFilm">
                     <ListView.ItemTemplate>
                         <DataTemplate >
                             <TextCell Text="{Binding title}" Detail="{Binding genre}" TextColor="Black" DetailColor="Red"/>

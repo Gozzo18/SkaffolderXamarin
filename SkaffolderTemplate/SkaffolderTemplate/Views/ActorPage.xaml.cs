@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkaffolderTemplate.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace SkaffolderTemplate.Views
 		public ActorPage ()
 		{
 			InitializeComponent ();
+            
 		}
 
         protected override async void OnAppearing()
@@ -31,6 +33,19 @@ namespace SkaffolderTemplate.Views
             ListaDiAttori.ItemsSource = await App.actorManager.GET();
 
             list.IsRefreshing = false;
+        }
+
+        private async void eliminaAttore(object sender, ItemTappedEventArgs e)
+        {
+            var selezionato = ((ListView)sender).SelectedItem;
+            Actor attoreDaEliminare = (Actor)selezionato;
+
+            var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo attore dalla lista?", "Conferma", "Indietro");
+
+            if (conferma)
+                await App.actorManager.DELETE(attoreDaEliminare);
+
+            OnRefresh(ListaDiAttori, null);
         }
     }
 }

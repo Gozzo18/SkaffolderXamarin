@@ -12,7 +12,7 @@ namespace SkaffolderTemplate.Rest
     public class ActorRestService
     {
         HttpClient client;
-        List<FilmMaker> attori { get; set; }
+        List<Actor> attori { get; set; }
 
 
         public ActorRestService()
@@ -35,7 +35,7 @@ namespace SkaffolderTemplate.Rest
                 var response = await client.DeleteAsync(uri);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film successfully deleted.");
+                    Debug.WriteLine(@"				Actor successfully deleted.");
             }
             catch (Exception e)
             {
@@ -48,9 +48,9 @@ namespace SkaffolderTemplate.Rest
         /// Ottieni la lista di attori memorizzati
         /// </summary>
         /// <returns>Lista di attori</returns>
-        public async Task<List<FilmMaker>> RefreshDataAsync()
+        public async Task<List<Actor>> RefreshDataAsync()
         {
-            attori = new List<FilmMaker>();
+            attori = new List<Actor>();
 
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
 
@@ -58,7 +58,7 @@ namespace SkaffolderTemplate.Rest
             {
                 //var content = await response.Content.ReadAsStringAsync();
                 var content = await client.GetStringAsync(uri);
-                attori = JsonConvert.DeserializeObject<List<FilmMaker>>(content);
+                attori = JsonConvert.DeserializeObject<List<Actor>>(content);
 
             }
             catch (Exception e)
@@ -75,7 +75,7 @@ namespace SkaffolderTemplate.Rest
         /// <param name="item">Attore da inserire o aggiornare</param>
         /// <param name="isNew">Inserire allora true, Aggiornare allora false</param>
         /// <returns>void</returns>
-        public async Task SaveActorAsync(FilmMaker item, bool isNew = false)
+        public async Task SaveActorAsync(Actor item, bool isNew = false)
         {
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
 

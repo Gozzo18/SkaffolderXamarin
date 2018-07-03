@@ -21,19 +21,24 @@ namespace SkaffolderTemplate.Rest
         /// Richiesta GET per gli attori
         /// </summary>
         /// <returns>Una lista di attori</returns>
-        public Task<List<FilmMaker>> GET()
+        public Task<List<Actor>> GET()
         {
             return service.RefreshDataAsync();
         }
 
-        public Task POST(FilmMaker item, bool isNew = false)
+        public Task POST(Actor item, bool isNew = false)
         {
             return service.SaveActorAsync(item, isNew);
         }
 
-        public Task DELETE(FilmMaker item)
+        /// <summary>
+        /// Richiesta DELETE per gli attori
+        /// </summary>
+        /// <param name="item">Film da eleminare</param>
+        /// <returns></returns>
+        public Task DELETE(Actor item)
         {
-            return service.DeleteActorAsync(item.ID);
+            return service.DeleteActorAsync(item._id);
         }
     }
 }

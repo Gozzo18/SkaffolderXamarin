@@ -29,9 +29,14 @@ namespace SkaffolderTemplate.Rest
             return restService.SaveFilmAsync(item, isNew);
         }
 
+        /// <summary>
+        /// Richiesta DELETE per un film
+        /// </summary>
+        /// <param name="item">Film da eliminare</param>
+        /// <returns></returns>
         public Task DELETE(Film item)
         {
-            return restService.DeleteFilmAsync(item.ID);
+            return restService.DeleteFilmAsync(item._id);
         }
     }
 }

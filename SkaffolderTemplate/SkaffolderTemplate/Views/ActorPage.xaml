@@ -6,10 +6,10 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Label Text="Lista di attori" AbsoluteLayout.LayoutBounds="85,10" TextColor="Black" FontSize="32"/>
-            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="80,50" WidthRequest="200"/>
+            <Label Text="Lista di attori" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
+            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
-                <ListView x:Name="ListaDiAttori" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" Refreshing="OnRefresh">
+                <ListView x:Name="ListaDiAttori" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemTapped="eliminaAttore">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding surname}" Detail="{Binding name}"/>

@@ -47,16 +47,21 @@ namespace SkaffolderTemplate.Views
             await Navigation.PushAsync(new FilmMakerPage(),false);
         }
 
-        /*  private async void cancellaElemento(object sender, ItemTappedEventArgs e)
-          {
-              Film film = ((Film)((ListView)sender).SelectedItem);
-              var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo film dalla lista?", "Conferma", "Indietro");
+        //Elimina il film selezionato
+        private async void eliminaFilm(object sender, SelectedItemChangedEventArgs e)
+        {
+            var selezionato = ((ListView)sender).SelectedItem;
+            Film filmDaEliminare = (Film)selezionato;
+            Debug.WriteLine("L'id del film da eliminare è : " + filmDaEliminare._id);
+            var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo film dalla lista?", "Conferma", "Indietro");
 
-              if (conferma)
-                   await App.fm.DELETE(film);
-          }
+            if (conferma)
+                await App.filmManager.DELETE(filmDaEliminare);
 
-          private async void aggiungiFilm(object sender, EventArgs e)
+             OnRefresh(listaDiFilm,null);
+        }
+
+         /* private async void aggiungiFilm(object sender, EventArgs e)
           {
               //await Navigation.PushAsync(FormInserimentoFilm);
           }*/

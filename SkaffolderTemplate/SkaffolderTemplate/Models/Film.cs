@@ -6,7 +6,7 @@ namespace SkaffolderTemplate.Models
 {
      public class Film
     {
-        public string ID { get; set; }
+        public string _id { get; set; }
         public string genre { get; set; }
         public string title { get; set; }
         public int year { get; set; }
