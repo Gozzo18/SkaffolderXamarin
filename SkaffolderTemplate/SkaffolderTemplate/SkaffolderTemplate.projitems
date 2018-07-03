@@ -11,6 +11,8 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -19,10 +21,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml.cs">
+      <DependentUpon>ManageOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml.cs">
+      <DependentUpon>FilmPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModel\" />
   </ItemGroup>
 </Project>
