@@ -1,5 +1,4 @@
 ﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,7 +23,7 @@ namespace SkaffolderTemplate.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            listaDiFilm.ItemsSource = await App.fm.GET();
+            listaDiFilm.ItemsSource = await App.filmManager.GET();
         }
 
         //Ricarica la lista dei film inseriti nel caso di aggiornamenti
@@ -32,23 +31,34 @@ namespace SkaffolderTemplate.Views
         {
             var list = (ListView)sender;
 
-            listaDiFilm.ItemsSource = await App.fm.GET();
+            listaDiFilm.ItemsSource = await App.filmManager.GET();
 
             list.IsRefreshing = false;
         }
 
-      /*  private async void cancellaElemento(object sender, ItemTappedEventArgs e)
+        private async void paginaAttori(object sender, EventArgs e)
         {
-            Film film = ((Film)((ListView)sender).SelectedItem);
-            var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo film dalla lista?", "Conferma", "Indietro");
-
-            if (conferma)
-                 await App.fm.DELETE(film);
+            await Navigation.PushAsync(new ActorPage(), false);
+            return;
         }
 
-        private async void aggiungiFilm(object sender, EventArgs e)
+        private async void paginaFilmMaker(object sender, EventArgs e)
         {
-            //await Navigation.PushAsync(FormInserimentoFilm);
-        }*/
+            await Navigation.PushAsync(new FilmMakerPage(),false);
+        }
+
+        /*  private async void cancellaElemento(object sender, ItemTappedEventArgs e)
+          {
+              Film film = ((Film)((ListView)sender).SelectedItem);
+              var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo film dalla lista?", "Conferma", "Indietro");
+
+              if (conferma)
+                   await App.fm.DELETE(film);
+          }
+
+          private async void aggiungiFilm(object sender, EventArgs e)
+          {
+              //await Navigation.PushAsync(FormInserimentoFilm);
+          }*/
     }
 }

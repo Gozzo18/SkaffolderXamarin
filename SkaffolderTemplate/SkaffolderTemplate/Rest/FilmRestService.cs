@@ -24,7 +24,7 @@ namespace SkaffolderTemplate.Rest
         /// <summary>
         /// Cancella un film
         /// </summary>
-        /// <param name="id">Id del film d cancellare</param>
+        /// <param name="id">Id del film da cancellare</param>
         /// <returns>void</returns>
         public async Task DeleteFilmAsync(string id)
         {
@@ -61,7 +61,6 @@ namespace SkaffolderTemplate.Rest
             } catch(Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
-            Debug.WriteLine("la lista contiene: " + ListaDiFilm.Count);
             return ListaDiFilm;
         }
         

@@ -2,14 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SkaffolderTemplate"
-             x:Class="SkaffolderTemplate.MainPage">
+             x:Class="SkaffolderTemplate.MainPage"
+             NavigationPage.HasNavigationBar="False">
 
     <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <!-- Place new controls here -->
     	<Label Text="Skaffolder" FontSize="32"/>
 
-        <Label Text="Login" HorizontalOptions="CenterAndExpand" Margin="20"/>
-        
+        <Label Text="Login" HorizontalOptions="CenterAndExpand" Margin="20">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="vaiAvanti"/>
+            </Label.GestureRecognizers>
+        </Label>
+
         <Label Text="Register" HorizontalOptions="CenterAndExpand"/>
     </StackLayout>
 
