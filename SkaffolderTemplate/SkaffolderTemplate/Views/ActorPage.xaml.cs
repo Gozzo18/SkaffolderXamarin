@@ -36,22 +36,29 @@ namespace SkaffolderTemplate.Views
             list.IsRefreshing = false;
         }
 
-        private async void eliminaAttore(object sender, ItemTappedEventArgs e)
+        private async void editAttore(object sender, ItemTappedEventArgs e)
         {
             var selezionato = ((ListView)sender).SelectedItem;
-            Actor attoreDaEliminare = (Actor)selezionato;
+            Actor attore = (Actor)selezionato;
 
-            var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo attore dalla lista?", "Conferma", "Indietro");
+            //Cancella = TRUE, Modifica = false
+            var scelta = await DisplayAlert("EDIT", "Vuoi cancellare o modificare questo attore ?", "Cancella", "Modifica");
 
-            if (conferma)
-                await App.actorManager.DELETE(attoreDaEliminare);
-
-            OnRefresh(ListaDiAttori, null);
+            if (scelta)
+            {
+                await App.actorManager.DELETE(attore);
+                OnRefresh(ListaDiAttori, null);
+            }
+            else
+            {
+                await Navigation.PushAsync(new formInserimentoAttore(attore), false);
+                return;
+            }
         }
 
         private async void aggiungiNuovoAttore(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new formInserimentoAttore());
+            await Navigation.PushAsync(new formInserimentoAttore(null),false);
         }
     }
 }

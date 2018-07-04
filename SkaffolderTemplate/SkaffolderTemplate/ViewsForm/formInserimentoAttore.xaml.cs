@@ -15,9 +15,24 @@ namespace SkaffolderTemplate.ViewsForm
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class formInserimentoAttore : ContentPage
 	{
-		public formInserimentoAttore ()
+
+        //booleano per vedere se l'attore è da modificare o da aggiungere: Aggiungere = TRUE, Modificare = FALSE
+        public bool isPresent = false;
+        public string idAttore = null;
+
+		public formInserimentoAttore (Actor attorePassato)
 		{
 			InitializeComponent ();
+
+            //Se i dati dell'attore sono da modificare, passo la form già completata
+            if (attorePassato != null)
+            {
+                datapicker.Date = attorePassato.birthDate;
+                nomeAttore.Text = attorePassato.name;
+                cognomeAttore.Text = attorePassato.surname;
+                idAttore = attorePassato._id;
+                isPresent = true;
+            }
            
 		}
 
@@ -32,10 +47,15 @@ namespace SkaffolderTemplate.ViewsForm
             datiAttore.name = nomeAttore.Text;
             datiAttore.surname = cognomeAttore.Text;
             datiAttore.birthDate = datapicker.Date;
+            datiAttore._id = idAttore;
 
-            await App.actorManager.POST(datiAttore, false);
+            if (isPresent)
+                await App.actorManager.PUT(datiAttore);
+            else
+                await App.actorManager.POST(datiAttore);
 
             await Navigation.PushAsync(new ActorPage(), false);
+            return;
         }
 
         private void nomeAttore_Completed(object sender, EventArgs e)

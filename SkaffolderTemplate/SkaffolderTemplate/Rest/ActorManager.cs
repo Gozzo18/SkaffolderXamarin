@@ -29,12 +29,21 @@ namespace SkaffolderTemplate.Rest
         /// <summary>
         /// Richiesta POST per gli attori
         /// </summary>
-        /// <param name="item">Attore da aggiungere o aggiornare</param>
-        /// <param name="isNew">True = aggiungere, False = aggiornare</param>
+        /// <param name="item">Attore da aggiungere</param>
         /// <returns></returns>
-        public Task POST(Actor item, bool isNew = false)
+        public Task POST(Actor item)
         {
-            return service.SaveActorAsync(item, isNew);
+            return service.SaveActorAsync(item);
+        }
+
+        /// <summary>
+        /// Richiesta PUT per gli attori
+        /// </summary>
+        /// <param name="item">Attore da modificare</param>
+        /// <returns></returns>
+        public Task PUT(Actor item)
+        {
+            return service.UpdateActorAsync(item);
         }
 
         /// <summary>

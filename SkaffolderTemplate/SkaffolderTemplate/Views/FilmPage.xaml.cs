@@ -61,9 +61,9 @@ namespace SkaffolderTemplate.Views
              OnRefresh(listaDiFilm,null);
         }
 
-         /* private async void aggiungiFilm(object sender, EventArgs e)
-          {
-              //await Navigation.PushAsync(FormInserimentoFilm);
-          }*/
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

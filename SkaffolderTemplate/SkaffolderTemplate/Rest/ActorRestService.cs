@@ -70,12 +70,11 @@ namespace SkaffolderTemplate.Rest
 
         //POST
         /// <summary>
-        /// Inserisce/Modifica i dati di un attore
+        /// Inserisce un attore
         /// </summary>
-        /// <param name="item">Attore da inserire o aggiornare</param>
-        /// <param name="isNew">Inserire allora true, Aggiornare allora false</param>
+        /// <param name="item">Attore da inserire</param>
         /// <returns>void</returns>
-        public async Task SaveActorAsync(Actor item, bool isNew = false)
+        public async Task SaveActorAsync(Actor item)
         {
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
 
@@ -86,11 +85,34 @@ namespace SkaffolderTemplate.Rest
 
                 HttpResponseMessage response;
 
-                if (!isNew)
                     response = await client.PostAsync(uri, content);
-                else
-                    response = await client.PutAsync(uri, content);
 
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"				Actor successfully saved.");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+        }
+
+        //PUT
+        /// <summary>
+        /// Modifica un attore già presente
+        /// </summary>
+        /// <param name="item">Attore da modificare</param>
+        /// <returns></returns>
+        public async Task UpdateActorAsync(Actor item)
+        {
+            //var uri = new Uri(String.Format(App.ACTOR_URL + item._id, string.Empty));
+
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+                HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL + item._id , content);
 
                 if (response.IsSuccessStatusCode)
                     Debug.WriteLine(@"				Actor successfully saved.");
