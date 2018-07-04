@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="SkaffolderTemplate.ViewsForm.formInserimentoAttore"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Label Text="INSERIMENTO NUOVO ATTORE" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional"/>
+           <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0">
+                <Entry Placeholder="Name*" x:Name="nomeAttore" Keyboard="Text" Completed="nomeAttore_Completed"/>
+                <Entry Placeholder="Surname" x:Name="cognomeAttore" Keyboard="Text" Margin="0,5,0,0" Completed="cognomeAttore_Completed"/>
+                <Label Text="BirthDate" Margin="3,20,0,0"/>
+                <DatePicker x:Name="datapicker" MinimumDate="01/01/1900" MaximumDate="{x:Static sys:DateTime.Now}" Margin="0,-15,0,0" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="1,0.5,1,40" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" HorizontalOptions="End" Margin="0,0,10,0">
+                <Button Text="Back To List" BackgroundColor="White" TextColor="Black" BorderWidth="1" Clicked="tornaIndietro"/>
+                <Button Text="Save" BackgroundColor="LightBlue" TextColor="White" BorderWidth="1" Margin="10,0,0,0" Clicked="salvaAttore" />
+            </StackLayout>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

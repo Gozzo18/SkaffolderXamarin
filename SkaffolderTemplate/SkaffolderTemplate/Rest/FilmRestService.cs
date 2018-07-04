@@ -83,14 +83,14 @@ namespace SkaffolderTemplate.Rest
 
                 HttpResponseMessage response;
 
-                if (isNew)
+                if (!isNew)
                     response = await client.PostAsync(uri, content);
                 else
                     response = await client.PutAsync(uri, content);
 
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				TodoItem successfully saved.");
+                    Debug.WriteLine(@"				Film successfully saved.");
             } catch (Exception e) {
                 Debug.WriteLine(@"				ERROR{0}", e);
             }            

@@ -1,4 +1,5 @@
 ﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.ViewsForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,11 @@ namespace SkaffolderTemplate.Views
                 await App.actorManager.DELETE(attoreDaEliminare);
 
             OnRefresh(ListaDiAttori, null);
+        }
+
+        private async void aggiungiNuovoAttore(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new formInserimentoAttore());
         }
     }
 }

@@ -18,6 +18,7 @@ namespace SkaffolderTemplate.Rest
         public ActorRestService()
         {
             client = new HttpClient();
+            client.MaxResponseContentBufferSize = 256000;
         }
 
         //DELETE
@@ -56,7 +57,6 @@ namespace SkaffolderTemplate.Rest
 
             try
             {
-                //var content = await response.Content.ReadAsStringAsync();
                 var content = await client.GetStringAsync(uri);
                 attori = JsonConvert.DeserializeObject<List<Actor>>(content);
 
@@ -86,14 +86,14 @@ namespace SkaffolderTemplate.Rest
 
                 HttpResponseMessage response;
 
-                if (isNew)
+                if (!isNew)
                     response = await client.PostAsync(uri, content);
                 else
                     response = await client.PutAsync(uri, content);
 
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				TodoItem successfully saved.");
+                    Debug.WriteLine(@"				Actor successfully saved.");
             }
             catch (Exception e)
             {

@@ -18,6 +18,7 @@ namespace SkaffolderTemplate.Rest
         public FilmMakerRestService()
         {
             client = new HttpClient();
+            client.MaxResponseContentBufferSize = 256000;
         }
 
         //DELETE
@@ -86,14 +87,14 @@ namespace SkaffolderTemplate.Rest
 
                 HttpResponseMessage response;
 
-                if (isNew)
+                if (!isNew)
                     response = await client.PostAsync(uri, content);
                 else
                     response = await client.PutAsync(uri, content);
 
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				TodoItem successfully saved.");
+                    Debug.WriteLine(@"				FilmMaker successfully saved.");
             }
             catch (Exception e)
             {
