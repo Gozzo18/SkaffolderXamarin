@@ -1,6 +1,8 @@
-﻿using SkaffolderTemplate.Models;
+﻿using Newtonsoft.Json;
+using SkaffolderTemplate.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,51 +11,97 @@ namespace SkaffolderTemplate.Rest
 {
     public class ActorManager
     {
-        ActorRestService service;
+        HttpClient client;
+        List<Actor> attori { get; set; }
 
-        public ActorManager(ActorRestService s)
+        public ActorManager()
         {
-            service = s;
+            client = new HttpClient();
+            client.MaxResponseContentBufferSize = 256000;
         }
 
-
+        //DELETE
         /// <summary>
-        /// Richiesta GET per gli attori
+        /// Cancella un attore
         /// </summary>
-        /// <returns>Una lista di attori</returns>
-        public Task<List<Actor>> GET()
+        /// <param name="id">Id dell'attore da cancellare</param>
+        /// <returns>void</returns>
+        public async Task DELETE(string id)
         {
-            return service.RefreshDataAsync();
+            try
+            {
+                var response = await client.DeleteAsync(App.ACTOR_URL + id);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"				Actor successfully deleted.");
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
         }
 
+        //POST
         /// <summary>
-        /// Richiesta POST per gli attori
+        /// Inserisce un attore
         /// </summary>
-        /// <param name="item">Attore da aggiungere</param>
-        /// <returns></returns>
-        public Task POST(Actor item)
+        /// <param name="item">Attore da inserire</param>
+        /// <returns>void</returns>
+        public async Task POST(Actor item)
         {
-            return service.SaveActorAsync(item);
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response;
+
+                response = await client.PostAsync(App.ACTOR_URL, content);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"				Actor successfully saved.");
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
         }
 
+        //PUT
         /// <summary>
-        /// Richiesta PUT per gli attori
+        /// Modifica un attore già presente
         /// </summary>
         /// <param name="item">Attore da modificare</param>
         /// <returns></returns>
-        public Task PUT(Actor item)
+        public async Task PUT(Actor item)
         {
-            return service.UpdateActorAsync(item);
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL + item._id, content);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"				Actor successfully saved.");
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
         }
 
+        //GET
         /// <summary>
-        /// Richiesta DELETE per gli attori
+        /// Ottieni la lista di attori memorizzati
         /// </summary>
-        /// <param name="item">Film da eleminare</param>
-        /// <returns></returns>
-        public Task DELETE(Actor item)
+        /// <returns>Lista di attori</returns>
+        public async Task<List<Actor>> GET()
         {
-            return service.DeleteActorAsync(item._id);
+            attori = new List<Actor>();
+            var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
+
+            try
+            {
+                var content = await client.GetStringAsync(uri);
+                attori = JsonConvert.DeserializeObject<List<Actor>>(content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            return attori;
         }
     }
 }

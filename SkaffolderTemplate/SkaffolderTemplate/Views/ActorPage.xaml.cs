@@ -46,7 +46,7 @@ namespace SkaffolderTemplate.Views
 
             if (scelta)
             {
-                await App.actorManager.DELETE(attore);
+                await App.actorManager.DELETE(attore._id);
                 OnRefresh(ListaDiAttori, null);
             }
             else

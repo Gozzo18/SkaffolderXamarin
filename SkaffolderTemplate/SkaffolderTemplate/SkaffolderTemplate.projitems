@@ -28,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmManager.cs" />

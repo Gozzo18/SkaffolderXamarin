@@ -29,7 +29,7 @@ namespace SkaffolderTemplate
 			InitializeComponent();
 
             filmManager = new FilmManager(new FilmRestService());
-            actorManager = new ActorManager(new ActorRestService());
+            actorManager = new ActorManager();
             filmMakerManager = new FilmMakerManager(new FilmMakerRestService());
 
             Page firstPage;
