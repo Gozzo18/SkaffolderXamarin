@@ -21,7 +21,7 @@ namespace SkaffolderTemplate.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ListaDiFilmMaker.ItemsSource = await App.filmMakerManager.GET();
+            ListaDiFilmMaker.ItemsSource = await App.filmMakerService.GETList();
         }
 
         //Ricarica la lista di film maker inseriti nel caso di aggiornamenti
@@ -29,7 +29,7 @@ namespace SkaffolderTemplate.Views
         {
             var list = (ListView)sender;
 
-            ListaDiFilmMaker.ItemsSource = await App.filmMakerManager.GET();
+            ListaDiFilmMaker.ItemsSource = await App.filmMakerService.GETList();
 
             list.IsRefreshing = false;
         }
@@ -42,7 +42,7 @@ namespace SkaffolderTemplate.Views
             var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo attore dalla lista?", "Conferma", "Indietro");
 
             if (conferma)
-                await App.filmMakerManager.DELETE(filmMakerDaEliminare);
+                await App.filmMakerService.DELETE(filmMakerDaEliminare._id);
 
             OnRefresh(ListaDiFilmMaker, null);
         }

@@ -27,13 +27,13 @@ namespace SkaffolderTemplate.Rest
         /// </summary>
         /// <param name="id">Id del film maker da cancellare</param>
         /// <returns>void</returns>
-        public async Task DeleteFilmMakerAsync(string id)
+        public async Task DELETE(string id)
         {
-            var uri = new Uri(String.Format(App.FILMMAKER_URL + id, string.Empty));
+          
 
             try
             {
-                var response = await client.DeleteAsync(uri);
+                var response = await client.DeleteAsync(App.FILMMAKER_URL + id);
 
                 if (response.IsSuccessStatusCode)
                     Debug.WriteLine(@"				Film successfully deleted.");
@@ -49,21 +49,16 @@ namespace SkaffolderTemplate.Rest
         /// Ottieni la lista di film maker memorizzati
         /// </summary>
         /// <returns>Lista di attori</returns>
-        public async Task<List<FilmMaker>> RefreshDataAsync()
+        public async Task<List<FilmMaker>> GETList()
         {
             filmMakers = new List<FilmMaker>();
 
-            var uri = new Uri(String.Format(App.FILMMAKER_URL, string.Empty));
-
             try
             {
-                //var content = await response.Content.ReadAsStringAsync();
-                var content = await client.GetStringAsync(uri);
+                var content = await client.GetStringAsync(App.FILMMAKER_URL);
                 filmMakers = JsonConvert.DeserializeObject<List<FilmMaker>>(content);
 
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
             return filmMakers;
@@ -71,33 +66,43 @@ namespace SkaffolderTemplate.Rest
 
         //POST
         /// <summary>
-        /// Inserisce/Modifica i dati di un film maker
+        /// Inserisce i dati di un film-maker
         /// </summary>
-        /// <param name="item">Film maker da inserire o aggiornare</param>
-        /// <param name="isNew">Inserire allora true, Aggiornare allora false</param>
+        /// <param name="item">Film maker da inserire</param>
         /// <returns>void</returns>
-        public async Task SaveFilmMakerAsync(FilmMaker item, bool isNew = false)
+        public async Task SaveFilmMakerAsync(FilmMaker item)
         {
-            var uri = new Uri(String.Format(App.FILMMAKER_URL, string.Empty));
-
             try
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response;
-
-                if (!isNew)
-                    response = await client.PostAsync(uri, content);
-                else
-                    response = await client.PutAsync(uri, content);
-
+                HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL,content);
 
                 if (response.IsSuccessStatusCode)
                     Debug.WriteLine(@"				FilmMaker successfully saved.");
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
             }
-            catch (Exception e)
+        }
+
+        //PUT
+        /// <summary>
+        /// Modifica un film-maker già presente
+        /// </summary>
+        /// <param name="item">Film-Maker da modificare</param>
+        /// <returns></returns>
+        public async Task PUT(FilmMaker item)
+        {
+            try
             {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL + item._id, content);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"				Film-Maker successfully saved.");
+            }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
         }

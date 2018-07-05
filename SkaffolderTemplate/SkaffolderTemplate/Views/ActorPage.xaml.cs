@@ -16,23 +16,20 @@ namespace SkaffolderTemplate.Views
 	{
 		public ActorPage ()
 		{
-			InitializeComponent ();
-            
+			InitializeComponent ();            
 		}
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ListaDiAttori.ItemsSource = await App.actorManager.GET();
+            ListaDiAttori.ItemsSource = await App.actorService.GETList();
         }
 
         //Ricarica la lista di attori inseriti nel caso di aggiornamenti
         private async void OnRefresh(object sender, EventArgs e)
         {
             var list = (ListView)sender;
-
-            ListaDiAttori.ItemsSource = await App.actorManager.GET();
-
+            ListaDiAttori.ItemsSource = await App.actorService.GETList();
             list.IsRefreshing = false;
         }
 
@@ -46,19 +43,19 @@ namespace SkaffolderTemplate.Views
 
             if (scelta)
             {
-                await App.actorManager.DELETE(attore._id);
+                await App.actorService.DELETE(attore._id);
                 OnRefresh(ListaDiAttori, null);
             }
             else
             {
-                await Navigation.PushAsync(new formInserimentoAttore(attore), false);
+                await Navigation.PushAsync(new ActorEdit(attore), false);
                 return;
             }
         }
 
         private async void aggiungiNuovoAttore(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new formInserimentoAttore(null),false);
+            await Navigation.PushAsync(new ActorEdit(null),false);
         }
     }
 }

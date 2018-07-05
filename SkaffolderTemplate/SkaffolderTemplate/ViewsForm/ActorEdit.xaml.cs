@@ -3,7 +3,6 @@ using SkaffolderTemplate.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,14 +12,14 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.ViewsForm
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class formInserimentoAttore : ContentPage
+	public partial class ActorEdit : ContentPage
 	{
 
         //booleano per vedere se l'attore è da modificare o da aggiungere: Aggiungere = TRUE, Modificare = FALSE
         public bool isPresent = false;
         public string idAttore = null;
 
-		public formInserimentoAttore (Actor attorePassato)
+		public ActorEdit(Actor attorePassato)
 		{
 			InitializeComponent ();
 
@@ -50,9 +49,9 @@ namespace SkaffolderTemplate.ViewsForm
             datiAttore._id = idAttore;
 
             if (isPresent)
-                await App.actorManager.PUT(datiAttore);
+                await App.actorService.PUT(datiAttore);
             else
-                await App.actorManager.POST(datiAttore);
+                await App.actorService.POST(datiAttore);
 
             await Navigation.PushAsync(new ActorPage(), false);
             return;

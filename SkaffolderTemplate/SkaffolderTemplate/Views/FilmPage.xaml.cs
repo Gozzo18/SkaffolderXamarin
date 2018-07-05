@@ -1,4 +1,5 @@
 ﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.ViewsForm;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +24,7 @@ namespace SkaffolderTemplate.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            listaDiFilm.ItemsSource = await App.filmManager.GET();
+            listaDiFilm.ItemsSource = await App.filmService.GETList();
         }
 
         //Ricarica la lista dei film inseriti nel caso di aggiornamenti
@@ -31,7 +32,7 @@ namespace SkaffolderTemplate.Views
         {
             var list = (ListView)sender;
 
-            listaDiFilm.ItemsSource = await App.filmManager.GET();
+            listaDiFilm.ItemsSource = await App.filmService.GETList();
 
             list.IsRefreshing = false;
         }
@@ -47,23 +48,34 @@ namespace SkaffolderTemplate.Views
             await Navigation.PushAsync(new FilmMakerPage(),false);
         }
 
-        //Elimina il film selezionato
-        private async void eliminaFilm(object sender, SelectedItemChangedEventArgs e)
+        private async void editFilm(object sender, SelectedItemChangedEventArgs e)
         {
             var selezionato = ((ListView)sender).SelectedItem;
-            Film filmDaEliminare = (Film)selezionato;
-            Debug.WriteLine("L'id del film da eliminare è : " + filmDaEliminare._id);
-            var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo film dalla lista?", "Conferma", "Indietro");
+            Film film = (Film)selezionato;
 
-            if (conferma)
-                await App.filmManager.DELETE(filmDaEliminare);
+            //Cancella = TRUE, Modifica = false
+            var scelta = await DisplayAlert("EDIT", "Vuoi cancellare o modificare questo film?", "Cancella", "Modifica");
 
-             OnRefresh(listaDiFilm,null);
+            if (scelta)
+            {
+                await App.filmService.DELETE(film._id);
+                OnRefresh(listaDiFilm, null);
+            }
+            else
+            {
+                await Navigation.PushAsync(new FilmEdit(film), false);
+            }
+
         }
 
         protected override bool OnBackButtonPressed()
         {
             return true;
+        }
+
+        private async void aggiungiFilm(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FilmEdit(null));
         }
     }
 }

@@ -20,17 +20,17 @@ namespace SkaffolderTemplate
         public const string ACTOR_URL = "http://192.168.140.73:3000/api/actors/";
         public const string FILMMAKER_URL = "http://192.168.140.73:3000/api/filmmakers/";
 
-        public static FilmManager filmManager { get; private set; }
-        public static ActorManager actorManager { get; private set; }
-        public static FilmMakerManager filmMakerManager { get; private set; }
+        public static FilmRestService filmService { get; private set; }
+        public static ActorRestService actorService { get; private set; }
+        public static FilmMakerRestService filmMakerService { get; private set; }
 
 		public App ()
 		{
 			InitializeComponent();
 
-            filmManager = new FilmManager(new FilmRestService());
-            actorManager = new ActorManager();
-            filmMakerManager = new FilmMakerManager(new FilmMakerRestService());
+            filmService = new FilmRestService();
+            actorService = new ActorRestService();
+            filmMakerService = new FilmMakerRestService();
 
             Page firstPage;
 

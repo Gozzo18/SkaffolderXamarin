@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace SkaffolderTemplate.Rest
 {
-    public class ActorManager
+    public class ActorRestService
     {
         HttpClient client;
         List<Actor> attori { get; set; }
 
-        public ActorManager()
+        public ActorRestService()
         {
             client = new HttpClient();
             client.MaxResponseContentBufferSize = 256000;
@@ -52,9 +52,7 @@ namespace SkaffolderTemplate.Rest
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response;
-
-                response = await client.PostAsync(App.ACTOR_URL, content);
+                HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL, content);
 
                 if (response.IsSuccessStatusCode)
                     Debug.WriteLine(@"				Actor successfully saved.");
@@ -89,7 +87,7 @@ namespace SkaffolderTemplate.Rest
         /// Ottieni la lista di attori memorizzati
         /// </summary>
         /// <returns>Lista di attori</returns>
-        public async Task<List<Actor>> GET()
+        public async Task<List<Actor>> GETList()
         {
             attori = new List<Actor>();
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
