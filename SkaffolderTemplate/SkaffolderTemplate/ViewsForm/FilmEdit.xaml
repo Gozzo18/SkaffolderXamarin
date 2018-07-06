@@ -1,26 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local1="clr-namespace:SkaffolderTemplate.CustomRenderer"
              x:Class="SkaffolderTemplate.ViewsForm.FilmEdit">
     <ContentPage.Content>
         <ScrollView>
             <AbsoluteLayout>
                 <Label Text="INSERIMENTO NUOVO FILM" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional"/>
-                <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0">
+                <Picker Title="Attori" x:Name="pickerCastAttori" AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.3, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" Unfocused="castDiAttori_Unfocused" SelectedIndexChanged="attoreSelezionato"/>
+                <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0" >
                     <Entry Placeholder="Title*" x:Name="titoloFilm" Keyboard="Text" Completed="titoloFilm_Completed"/>
                     <Entry Placeholder="Year" x:Name="annoFilm" Keyboard="Numeric" Margin="0,5,0,0" Completed="annoFilm_Completed"/>
-                    <Picker Title="Genre" x:Name="genereFilm" Margin="0,5,0,0"/>
+                    <Picker Title="Genre" x:Name="pickerGenereFilm" Margin="0,5,0,0"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Margin="0,20,0,0">
                         <Label Text="Cast" FontSize="Medium" Margin="0,10,0,0"></Label>
-                        <Button Text="+" Clicked="aggiungiNuovoPicker"/>
+                        <Button Text="+" Clicked="aggiungiNuovoAttore"/>
                     </StackLayout>
-                    <StackLayout x:Name="castDiAttori">
-                        <local1:CustomPicker>
-                            
-                        </local1:CustomPicker>
-                    </StackLayout>
-                    <Picker Title="FilmMaker" x:Name="filmMakerPicker"/>
+                    <StackLayout x:Name="attoriSelezionati"/>
+                    <Picker Title="FilmMaker" x:Name="pickerFilmMaker"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="1,0.7,1,40" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" HorizontalOptions="End" Margin="0,0,10,0">
                     <Button Text="Back To List" BackgroundColor="White" TextColor="Black" BorderWidth="1" Clicked="tornaIndietro"/>

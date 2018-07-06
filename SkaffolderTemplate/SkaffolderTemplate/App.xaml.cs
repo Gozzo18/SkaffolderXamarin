@@ -9,10 +9,10 @@ namespace SkaffolderTemplate
 {
 	public partial class App : Application
 	{
-        //casa
-        //public const string FILM_URL = "http://192.168.1.20:3000/api/films/";
-        //public const string ACTOR_URL = "http://192.168.1.20:3000/api/actors/";
-        //public const string FILMMAKER_URL = "http://192.168.140.73:3000/api/filmmakers/";
+        /*casa
+        public const string FILM_URL = "http://192.168.1.53:3000/api/films/";
+        public const string ACTOR_URL = "http://192.168.1.53:3000/api/actors/";
+        public const string FILMMAKER_URL = "http://192.168.1.53:3000/api/filmmakers/";*/
 
 
         //lavoro

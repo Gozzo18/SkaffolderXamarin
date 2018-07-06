@@ -13,7 +13,7 @@ namespace SkaffolderTemplate.Models
         
         public string filmMaker { get; set; }
 
-        public string[] actors { get; set; }
+        public string[] cast { get; set; }
         
     }
 }
