@@ -1,9 +1,11 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Views;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,7 +68,6 @@ namespace SkaffolderTemplate.ViewsForm
             listaDiAttoriDisponibili = await App.actorService.GETList();
             pickerCastAttori.ItemsSource = listaDiAttoriDisponibili;
             pickerCastAttori.ItemDisplayBinding = new Binding("surname");
-            
         }
 
         private async void tornaIndietro(object sender, EventArgs e)
@@ -125,29 +126,35 @@ namespace SkaffolderTemplate.ViewsForm
         /// </summary>
         private void castDiAttori_Unfocused(object sender, FocusEventArgs e)
         {
-            pickerCastAttori.IsVisible = false;           
+            pickerCastAttori.IsVisible = false;
         }
 
         /// <summary>
         /// Selezionata una opzione dal pickerCastAttori, aggiungo allo stack attoriSelezionati una nuova label che mostra il cognome dell'attore
         /// Intolre memorizza nella lista idFilm l'id di quell'attore
         /// </summary>
-        private void attoreSelezionato(object sender, FocusEventArgs e)
+        private  void attoreSelezionato(object sender, FocusEventArgs e)
         {
-            Actor actorSelected = new Actor();
-            Picker a = (Picker)sender;
-           // Debug.WriteLine("Cognome attore selezionato : " + ((Actor)a.SelectedItem).surname);
+            if (pickerCastAttori.SelectedIndex != -1) { 
+                Actor actorSelected = ((Actor)((Picker)sender).SelectedItem);
 
-            actorSelected = (Actor)a.SelectedItem;
+                idFilm.Add(actorSelected._id);
+                Debug.WriteLine("ID dell'attore selezionato : " + actorSelected._id);
+                attoriSelezionati.Children.Add(new Label
+                {
+                    Text = actorSelected.surname
+                });
 
-            idFilm.Add(actorSelected._id);
-            Debug.WriteLine("ID dell'attore selezionato : " + actorSelected._id);
-            attoriSelezionati.Children.Add(new Label
-            {
-                Text = actorSelected.surname
-            });
+                /*Rimettendo l'index del picker a -1, viene invocato nuovamente questo metodo dunque, grazie alla verifica messa la seconda chiamata non produce nessuno effetto
+                 *E' stato fatto questo per eliminare un determinato problema grafico che si verifica quando il picker riappare
+                 */
+                pickerCastAttori.SelectedIndex = -1;
+            }
+        }
 
-           // listaDiAttoriDisponibili.Remove(actorSelected);
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
         <ScrollView>
             <AbsoluteLayout>
                 <Label Text="INSERIMENTO NUOVO FILM" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional"/>
-                <Picker Title="Attori" x:Name="pickerCastAttori" AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.3, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" Unfocused="castDiAttori_Unfocused" SelectedIndexChanged="attoreSelezionato"/>
+                <Picker x:Name="pickerCastAttori" AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.3, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" Unfocused="castDiAttori_Unfocused" SelectedIndexChanged="attoreSelezionato"/>
                 <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0" >
                     <Entry Placeholder="Title*" x:Name="titoloFilm" Keyboard="Text" Completed="titoloFilm_Completed"/>
                     <Entry Placeholder="Year" x:Name="annoFilm" Keyboard="Numeric" Margin="0,5,0,0" Completed="annoFilm_Completed"/>
