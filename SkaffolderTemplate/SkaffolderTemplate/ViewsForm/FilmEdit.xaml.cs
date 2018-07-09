@@ -3,6 +3,7 @@ using SkaffolderTemplate.Views;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,9 +16,9 @@ using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.ViewsForm
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmEdit : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class FilmEdit : ContentPage
+    {
         //booleano per vedere se il film è da modificare o da aggiungere: Aggiungere = TRUE, Modificare = FALSE
         public bool isPresent = false;
 
@@ -25,20 +26,35 @@ namespace SkaffolderTemplate.ViewsForm
 
         public List<FilmMaker> listaDiFilmakersDisponibili;
         public List<string> generiFilm;
-        public List<Actor> listaDiAttoriDisponibili;
+        public ObservableCollection<Actor> listaDiAttoriDisponibili;
 
-
+        public string genereFilmPassato { get; set; }
+        public FilmMaker filmMakerPassato { get; set; } = new FilmMaker();
+        public Actor attoreSingletonPassato { get; set; } = new Actor();
+        public List<string> idAttoriPassati { get; set; } = new List<string>();
+        public List<Actor> listaDiAttoriPassati { get; set; } = new List<Actor>();
+        public string idFilmPassato { get; set; }
+      
 
         public FilmEdit (Film filmPassato)
 		{
+            BindingContext = this;
 			InitializeComponent ();
             idFilm = new List<string>();
 
             //Se i dati del film sono da modificare, passo la form già completata
             if (filmPassato != null)
             {
+                idFilmPassato = filmPassato._id;
                 titoloFilm.Text = filmPassato.title;
                 annoFilm.Text = filmPassato.year.ToString();
+                genereFilmPassato = filmPassato.genre;
+                filmMakerPassato._id = filmPassato.filmMaker;
+                for (int i = 0; i < filmPassato.cast.Length; i++)
+                {
+                    Debug.WriteLine("Id attori del filmPassato : " + filmPassato.cast[i]);
+                    idAttoriPassati.Add(filmPassato.cast[i]);
+                }
                 isPresent = true;
             }
 
@@ -47,27 +63,65 @@ namespace SkaffolderTemplate.ViewsForm
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            Debug.WriteLine("E' Presente : " + isPresent);
             generiFilm = new List<string>();
             generiFilm.Add("Action");
             generiFilm.Add("Crime");
             generiFilm.Add("Fantasy");
             generiFilm.Add("Horror");
-            popolaPickers();
+            inizializzaPickers();
+
         }
 
-        private async void popolaPickers()
+
+        private async void inizializzaPickers()
         {
             //Picker relativo ai filmMakers
             listaDiFilmakersDisponibili = await App.filmMakerService.GETList();
             pickerFilmMaker.ItemsSource = listaDiFilmakersDisponibili;
             pickerFilmMaker.ItemDisplayBinding = new Binding("surname");
-
+                    
             //Picker relativo ai generi
             pickerGenereFilm.ItemsSource = generiFilm;
-
+            
+            //picker relativo agli attori
             listaDiAttoriDisponibili = await App.actorService.GETList();
             pickerCastAttori.ItemsSource = listaDiAttoriDisponibili;
             pickerCastAttori.ItemDisplayBinding = new Binding("surname");
+
+            //se sto modificando il film, allora devo selezionare per i picker i valori già presenti
+            if (isPresent)
+            {
+                filmMakerPassato = await App.filmMakerService.GETId(filmMakerPassato._id);
+                pickerFilmMaker.SelectedIndex = pickerFilmMaker.Items.IndexOf(filmMakerPassato.surname);
+
+                pickerGenereFilm.SelectedItem = genereFilmPassato;
+
+                foreach(string s in idAttoriPassati)
+                {
+                    //prendo l'attore tramite il suo id
+                    attoreSingletonPassato = await App.actorService.GETId(s);
+
+                    //aggiungo la label con il suo cognome
+                    attoriSelezionati.Children.Add(new Label
+                    {
+                        Text = attoreSingletonPassato.surname
+                    });
+
+                    //aggiungo l'id dell'attore alla lista idFilm che dovrà poi essere salvata
+                    idFilm.Add(s);
+
+                    //rimuovo l'attore dalla lista degli attori selezionabili
+                    foreach(Actor a in listaDiAttoriDisponibili.ToList())
+                    {
+                        if (attoreSingletonPassato._id.Equals(a._id))
+                        {
+                            listaDiAttoriDisponibili.Remove(a);
+                        }
+                    }
+                }
+
+            }
         }
 
         private async void tornaIndietro(object sender, EventArgs e)
@@ -80,7 +134,10 @@ namespace SkaffolderTemplate.ViewsForm
             Film filmDaSalvare = salvaDatiFilm();
 
             if (isPresent)
+            {
+                filmDaSalvare._id = idFilmPassato;
                 await App.filmService.PUT(filmDaSalvare);
+            }
             else
                 await App.filmService.POST(filmDaSalvare);
 
@@ -145,16 +202,14 @@ namespace SkaffolderTemplate.ViewsForm
                     Text = actorSelected.surname
                 });
 
+                listaDiAttoriDisponibili.Remove(actorSelected);
+
                 /*Rimettendo l'index del picker a -1, viene invocato nuovamente questo metodo dunque, grazie alla verifica messa la seconda chiamata non produce nessuno effetto
                  *E' stato fatto questo per eliminare un determinato problema grafico che si verifica quando il picker riappare
                  */
                 pickerCastAttori.SelectedIndex = -1;
-            }
-        }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            base.OnPropertyChanged(propertyName);
+            }
         }
 
         /// <summary>

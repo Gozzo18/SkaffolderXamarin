@@ -2,6 +2,7 @@
 using SkaffolderTemplate.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
@@ -12,7 +13,7 @@ namespace SkaffolderTemplate.Rest
     public class ActorRestService
     {
         HttpClient client;
-        List<Actor> attori { get; set; }
+        ObservableCollection<Actor> attori { get; set; }
 
         public ActorRestService()
         {
@@ -76,7 +77,7 @@ namespace SkaffolderTemplate.Rest
                 HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL + item._id, content);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Actor successfully saved.");
+                    Debug.WriteLine(@"				Actor successfully modified.");
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -87,19 +88,43 @@ namespace SkaffolderTemplate.Rest
         /// Ottieni la lista di attori memorizzati
         /// </summary>
         /// <returns>Lista di attori</returns>
-        public async Task<List<Actor>> GETList()
+        public async Task<ObservableCollection<Actor>> GETList()
         {
-            attori = new List<Actor>();
+            attori = new ObservableCollection<Actor>();
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
 
             try
             {
                 var content = await client.GetStringAsync(uri);
-                attori = JsonConvert.DeserializeObject<List<Actor>>(content);
+                attori = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
             return attori;
+        }
+
+
+        //GET ID
+        /// <summary>
+        /// Ottieni l'attore a partire dall'id
+        /// </summary>
+        /// <returns>Attore</returns>
+        public async Task<Actor> GETId(string actorId)
+        {
+            Actor actor = new Actor();
+
+            try
+            {
+                var content = await client.GetStringAsync(App.ACTOR_URL + actorId);
+                actor = JsonConvert.DeserializeObject<Actor>(content);
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            return actor;
+
         }
     }
 }

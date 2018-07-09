@@ -59,6 +59,28 @@ namespace SkaffolderTemplate.Rest
             return ListaDiFilm;
         }
 
+
+        //GET ID
+        /// <summary>
+        /// Ottieni il film a partire dall'id
+        /// </summary>
+        /// <returns>Film</returns>
+        public async Task<Film> GETId(string filmId)
+        {
+            Film film = new Film();
+
+            try
+            {
+                var content = await client.GetStringAsync(App.FILM_URL + filmId);
+                film = JsonConvert.DeserializeObject<Film>(content);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            return film;
+        }
+
         //POST
         /// <summary>
         /// Inserisce un film
@@ -96,7 +118,7 @@ namespace SkaffolderTemplate.Rest
                 HttpResponseMessage response = await client.PostAsync(App.FILM_URL + item._id, content);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film successfully saved.");
+                    Debug.WriteLine(@"				Film successfully modified.");
             }
             catch (Exception e)
             {

@@ -64,6 +64,30 @@ namespace SkaffolderTemplate.Rest
             return filmMakers;
         }
 
+        //GET ID
+        /// <summary>
+        /// Ottieni il film-maker a partire dall'id
+        /// </summary>
+        /// <returns>Film Maker</returns>
+        public async Task<FilmMaker> GETId(string filmMakerId)
+        {
+            FilmMaker filmMaker = new FilmMaker();
+
+            try
+            {
+                var content = await client.GetStringAsync(App.FILMMAKER_URL + filmMakerId);
+                filmMaker = JsonConvert.DeserializeObject<FilmMaker>(content);
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            Debug.WriteLine("FilmMaker trovato: " + filmMaker.surname);
+            return filmMaker;
+            
+        }
+
         //POST
         /// <summary>
         /// Inserisce i dati di un film-maker
@@ -101,7 +125,7 @@ namespace SkaffolderTemplate.Rest
                 HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL + item._id, content);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film-Maker successfully saved.");
+                    Debug.WriteLine(@"				Film-Maker successfully modified.");
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
