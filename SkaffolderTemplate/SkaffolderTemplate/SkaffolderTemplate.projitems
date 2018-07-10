@@ -17,6 +17,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\ActorEdit.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -31,7 +32,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\PickerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml.cs">
       <DependentUpon>ManageOptions.xaml</DependentUpon>
     </Compile>
@@ -50,5 +55,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml.cs">
       <DependentUpon>FilmEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml.cs">
+      <DependentUpon>FilmMakerEdit.xaml</DependentUpon>
+    </Compile>    
   </ItemGroup>
 </Project>

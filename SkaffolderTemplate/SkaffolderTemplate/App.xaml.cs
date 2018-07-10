@@ -32,11 +32,9 @@ namespace SkaffolderTemplate
             actorService = new ActorRestService();
             filmMakerService = new FilmMakerRestService();
 
-            Page firstPage;
+           
 
-            firstPage =new FilmPage();
-
-			MainPage = new NavigationPage(firstPage);
+			MainPage = new NavigationPage(new FilmMakerPage());
 		}
 
 		protected override void OnStart ()

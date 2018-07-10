@@ -7,12 +7,12 @@
     <ContentPage.Content>
         <AbsoluteLayout>
             <Label Text="Lista di film maker" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
-            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200"/>
+            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200" Clicked="aggiungiNuovoFilmMaker"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
-                  <ListView x:Name="ListaDiFilmMaker" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemTapped="eliminaFilmMaker">
+                  <ListView ItemsSource="{Binding LISTADIFILMMAKER}" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" IsRefreshing="{Binding REFRESHING, Mode=OneWay}" Refreshing="OnRefresh" ItemSelected="EditFilmMaker">
                      <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding surname}" Detail="{Binding name}"/>
+                            <TextCell Text="{Binding SURNAME}" Detail="{Binding NAME}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate> 
                 </ListView>

@@ -1,6 +1,8 @@
 ﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,30 +23,25 @@ namespace SkaffolderTemplate.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ListaDiFilmMaker.ItemsSource = await App.filmMakerService.GETList();
+            ObservableCollection<FilmMaker> listaFilmMakers = await App.filmMakerService.GETList();
+            BindingContext = new FilmMakerPageViewModel(listaFilmMakers, new PageService());
         }
 
         //Ricarica la lista di film maker inseriti nel caso di aggiornamenti
-        private async void OnRefresh(object sender, EventArgs e)
+        private void OnRefresh(object sender, EventArgs e)
         {
-            var list = (ListView)sender;
-
-            ListaDiFilmMaker.ItemsSource = await App.filmMakerService.GETList();
-
-            list.IsRefreshing = false;
+            (BindingContext as FilmMakerPageViewModel).RefreshList();
         }
 
-        private async void eliminaFilmMaker(object sender, ItemTappedEventArgs e)
+        private async Task aggiungiNuovoFilmMaker(object sender, EventArgs e)
         {
-            var selezionato = ((ListView)sender).SelectedItem;
-            FilmMaker filmMakerDaEliminare = (FilmMaker)selezionato;
+            await (BindingContext as FilmMakerPageViewModel).AggiungiFilmMaker();
+        }
 
-            var conferma = await DisplayAlert("Sei sicuro?", "Vuoi cancellare questo attore dalla lista?", "Conferma", "Indietro");
-
-            if (conferma)
-                await App.filmMakerService.DELETE(filmMakerDaEliminare._id);
-
-            OnRefresh(ListaDiFilmMaker, null);
+        private async Task EditFilmMaker(object sender, SelectedItemChangedEventArgs e)
+        {
+            var scelta = await DisplayActionSheet("Cancellare o modificare questo film maker?", "Indietro", "Eliminare", "Modifica");
+            await (BindingContext as FilmMakerPageViewModel).SelectedItem(e.SelectedItem as FilmMaker, scelta);
         }
     }
 }

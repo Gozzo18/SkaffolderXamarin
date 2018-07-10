@@ -24,7 +24,7 @@ namespace SkaffolderTemplate.ViewsForm
 
         public List<string> idFilm;
 
-        public List<FilmMaker> listaDiFilmakersDisponibili;
+        public ObservableCollection<FilmMaker> listaDiFilmakersDisponibili;
         public List<string> generiFilm;
         public ObservableCollection<Actor> listaDiAttoriDisponibili;
 

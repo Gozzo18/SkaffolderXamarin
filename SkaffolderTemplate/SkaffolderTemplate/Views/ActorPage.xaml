@@ -9,10 +9,10 @@
             <Label Text="Lista di attori" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
             <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200" Clicked="aggiungiNuovoAttore"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
-                <ListView x:Name="ListaDiAttori" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemTapped="editAttore">
+                <ListView x:Name="ListaDiAttori" ItemsSource="{Binding LISTADIATTORI}" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" IsRefreshing="{Binding REFRESHING, Mode=OneWay}" Refreshing="OnRefresh" ItemSelected="EditAttore">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding surname}" Detail="{Binding name}"/>
+                            <TextCell Text="{Binding SURNAME}" Detail="{Binding NAME}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

@@ -1,7 +1,9 @@
 ﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.ViewsForm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,40 +24,25 @@ namespace SkaffolderTemplate.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ListaDiAttori.ItemsSource = await App.actorService.GETList();
+            ObservableCollection<Actor> listaAttori = await App.actorService.GETList();
+            BindingContext = new ActorPageViewModel(listaAttori, new PageService());
         }
 
         //Ricarica la lista di attori inseriti nel caso di aggiornamenti
-        private async void OnRefresh(object sender, EventArgs e)
+        private void OnRefresh(object sender, EventArgs e)
         {
-            var list = (ListView)sender;
-            ListaDiAttori.ItemsSource = await App.actorService.GETList();
-            list.IsRefreshing = false;
+            (BindingContext as ActorPageViewModel).RefreshList();
         }
 
-        private async void editAttore(object sender, ItemTappedEventArgs e)
+        private async Task aggiungiNuovoAttore(object sender, EventArgs e)
         {
-            var selezionato = ((ListView)sender).SelectedItem;
-            Actor attore = (Actor)selezionato;
-
-            //Cancella = TRUE, Modifica = false
-            var scelta = await DisplayAlert("EDIT", "Vuoi cancellare o modificare questo attore ?", "Cancella", "Modifica");
-
-            if (scelta)
-            {
-                await App.actorService.DELETE(attore._id);
-                OnRefresh(ListaDiAttori, null);
-            }
-            else
-            {
-                await Navigation.PushAsync(new ActorEdit(attore), false);
-                return;
-            }
+           await (BindingContext as ActorPageViewModel).AggiungiAttore();
         }
 
-        private async void aggiungiNuovoAttore(object sender, EventArgs e)
+        private async void EditAttore(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushAsync(new ActorEdit(null),false);
+            var scelta = await DisplayActionSheet("Cancellare o modificare questo film attore?", "Indietro", "Eliminare", "Modifica");
+            await (BindingContext as ActorPageViewModel).SelectedItem(e.SelectedItem as Actor, scelta);
         }
     }
 }

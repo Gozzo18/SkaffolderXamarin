@@ -2,6 +2,7 @@
 using SkaffolderTemplate.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
@@ -12,7 +13,7 @@ namespace SkaffolderTemplate.Rest
     public class FilmMakerRestService
     {
         HttpClient client;
-        List<FilmMaker> filmMakers { get; set; }
+        ObservableCollection<FilmMaker> filmMakers { get; set; }
 
 
         public FilmMakerRestService()
@@ -49,14 +50,14 @@ namespace SkaffolderTemplate.Rest
         /// Ottieni la lista di film maker memorizzati
         /// </summary>
         /// <returns>Lista di attori</returns>
-        public async Task<List<FilmMaker>> GETList()
+        public async Task<ObservableCollection<FilmMaker>> GETList()
         {
-            filmMakers = new List<FilmMaker>();
+            filmMakers = new ObservableCollection<FilmMaker>();
 
             try
             {
                 var content = await client.GetStringAsync(App.FILMMAKER_URL);
-                filmMakers = JsonConvert.DeserializeObject<List<FilmMaker>>(content);
+                filmMakers = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
 
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
