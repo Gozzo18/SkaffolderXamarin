@@ -1,20 +1,14 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Views;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.ViewsForm
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActorEdit : ContentPage
 	{
-
         //booleano per vedere se l'attore è da modificare o da aggiungere: Aggiungere = TRUE, Modificare = FALSE
         public bool isPresent = false;
         public string idAttore = null;

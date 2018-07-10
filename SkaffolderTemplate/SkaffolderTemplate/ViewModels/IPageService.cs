@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace SkaffolderTemplate.ViewModels
@@ -10,5 +7,6 @@ namespace SkaffolderTemplate.ViewModels
     {
         Task PushAsync(Page page, bool animation);
         Task<bool> DisplayAlert(string title, string message, string ok, string cancel);
+        Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons);
     }
 }

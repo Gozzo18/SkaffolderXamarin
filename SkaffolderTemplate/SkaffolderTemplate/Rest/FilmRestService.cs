@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
@@ -12,7 +12,7 @@ namespace SkaffolderTemplate.Rest
     public class FilmRestService
     {
         HttpClient client;
-        public List<Film> ListaDiFilm { get; private set; }
+        public ObservableCollection<Film> _listaDiFilm { get; private set; }
 
         public FilmRestService()
         {
@@ -22,17 +22,51 @@ namespace SkaffolderTemplate.Rest
 
         //DELETE
         /// <summary>
-        /// Cancella un film
+        /// Delete a Film
         /// </summary>
-        /// <param name="id">Id del film da cancellare</param>
+        /// <param name="id">Id of the Film to Delete</param>
         /// <returns>void</returns>
         public async Task DELETE(string id)
         {
             try
             {
                 var response = await client.DeleteAsync(App.FILM_URL + id);
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film successfully deleted.");
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+        }
+
+        //POST
+        /// <summary>
+        /// Add a new Film
+        /// </summary>
+        /// <param name="item">Film to Add</param>
+        /// <returns>void</returns>
+        public async Task POST(Film item)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(App.FILM_URL, content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+        }
+
+        //PUT
+        /// <summary>
+        /// Update info of a Film
+        /// </summary>
+        /// <param name="item">Film to Update</param>
+        /// <returns></returns>
+        public async Task PUT(Film item)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(App.FILM_URL + item._id, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -40,29 +74,27 @@ namespace SkaffolderTemplate.Rest
 
         //GET
         /// <summary>
-        /// Ottieni la lista di film memorizzati
+        /// Get the complete list of Films
         /// </summary>
-        /// <returns>Lista di film</returns>
-        public async Task<List<Film>> GETList()
+        /// <returns>Film List</returns>
+        public async Task<ObservableCollection<Film>> GETList()
         {
-            ListaDiFilm = new List<Film>();
+            _listaDiFilm = new ObservableCollection<Film>();
             var uri = new Uri(String.Format(App.FILM_URL, string.Empty));
 
             try
             {
                 var content = await client.GetStringAsync(uri);
-                ListaDiFilm = JsonConvert.DeserializeObject<List<Film>>(content);
-
+                _listaDiFilm = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
-            return ListaDiFilm;
+            return _listaDiFilm;
         }
-
 
         //GET ID
         /// <summary>
-        /// Ottieni il film a partire dall'id
+        /// Get a Film
         /// </summary>
         /// <returns>Film</returns>
         public async Task<Film> GETId(string filmId)
@@ -73,57 +105,10 @@ namespace SkaffolderTemplate.Rest
             {
                 var content = await client.GetStringAsync(App.FILM_URL + filmId);
                 film = JsonConvert.DeserializeObject<Film>(content);
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
             return film;
-        }
-
-        //POST
-        /// <summary>
-        /// Inserisce un film
-        /// </summary>
-        /// <param name="item">Film da inserire</param>
-        /// <returns>void</returns>
-        public async Task POST(Film item)
-        {
-            try
-            {
-                var json = JsonConvert.SerializeObject(item);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(App.FILM_URL, content);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film successfully saved.");
-            }catch (Exception e){
-                Debug.WriteLine(@"				ERROR{0}", e);
-            }
-        }
-
-        //PUT
-        /// <summary>
-        /// Modifica un film già presente
-        /// </summary>
-        /// <param name="item">Film da modificare</param>
-        /// <returns></returns>
-        public async Task PUT(Film item)
-        {
-            try
-            {
-                var json = JsonConvert.SerializeObject(item);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.FILM_URL + item._id, content);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film successfully modified.");
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(@"				ERROR{0}", e);
-            }
         }
     }
 }

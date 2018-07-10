@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
@@ -13,7 +12,7 @@ namespace SkaffolderTemplate.Rest
     public class ActorRestService
     {
         HttpClient client;
-        ObservableCollection<Actor> attori { get; set; }
+        ObservableCollection<Actor> _actors { get; set; }
 
         public ActorRestService()
         {
@@ -23,18 +22,15 @@ namespace SkaffolderTemplate.Rest
 
         //DELETE
         /// <summary>
-        /// Cancella un attore
+        /// Delete an Actor
         /// </summary>
-        /// <param name="id">Id dell'attore da cancellare</param>
+        /// <param name="id">Id of the Actor to Delete</param>
         /// <returns>void</returns>
         public async Task DELETE(string id)
         {
             try
             {
                 var response = await client.DeleteAsync(App.ACTOR_URL + id);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Actor successfully deleted.");
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -42,9 +38,9 @@ namespace SkaffolderTemplate.Rest
 
         //POST
         /// <summary>
-        /// Inserisce un attore
+        /// Add a new Actor
         /// </summary>
-        /// <param name="item">Attore da inserire</param>
+        /// <param name="item">Actor to Add</param>
         /// <returns>void</returns>
         public async Task POST(Actor item)
         {
@@ -52,11 +48,7 @@ namespace SkaffolderTemplate.Rest
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-
                 HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL, content);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Actor successfully saved.");
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -64,9 +56,9 @@ namespace SkaffolderTemplate.Rest
 
         //PUT
         /// <summary>
-        /// Modifica un attore già presente
+        /// Update info of an Actor
         /// </summary>
-        /// <param name="item">Attore da modificare</param>
+        /// <param name="item">Actor to update</param>
         /// <returns></returns>
         public async Task PUT(Actor item)
         {
@@ -75,9 +67,6 @@ namespace SkaffolderTemplate.Rest
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL + item._id, content);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Actor successfully modified.");
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -85,30 +74,29 @@ namespace SkaffolderTemplate.Rest
 
         //GET
         /// <summary>
-        /// Ottieni la lista di attori memorizzati
+        /// Get the complete list of Actors
         /// </summary>
-        /// <returns>Lista di attori</returns>
+        /// <returns>Actor list</returns>
         public async Task<ObservableCollection<Actor>> GETList()
         {
-            attori = new ObservableCollection<Actor>();
+            _actors = new ObservableCollection<Actor>();
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
 
             try
             {
                 var content = await client.GetStringAsync(uri);
-                attori = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
+                _actors = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
-            return attori;
+            return _actors;
         }
-
 
         //GET ID
         /// <summary>
-        /// Ottieni l'attore a partire dall'id
+        /// Get an Actor  
         /// </summary>
-        /// <returns>Attore</returns>
+        /// <returns>Actor</returns>
         public async Task<Actor> GETId(string actorId)
         {
             Actor actor = new Actor();
@@ -117,14 +105,10 @@ namespace SkaffolderTemplate.Rest
             {
                 var content = await client.GetStringAsync(App.ACTOR_URL + actorId);
                 actor = JsonConvert.DeserializeObject<Actor>(content);
-
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
             }
             return actor;
-
         }
     }
 }

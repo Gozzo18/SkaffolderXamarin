@@ -6,13 +6,13 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Label Text="Lista di attori" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
-            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200" Clicked="aggiungiNuovoAttore"/>
+            <Label Text="Actor List" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
+            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200" Command="{Binding Add}"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
-                <ListView x:Name="ListaDiAttori" ItemsSource="{Binding LISTADIATTORI}" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" IsRefreshing="{Binding REFRESHING, Mode=OneWay}" Refreshing="OnRefresh" ItemSelected="EditAttore">
+                <ListView ItemsSource="{Binding ActorsList}" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="ActorEdit">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding SURNAME}" Detail="{Binding NAME}"/>
+                            <TextCell Text="{Binding Surname}" Detail="{Binding Name}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

@@ -13,21 +13,22 @@ namespace SkaffolderTemplate.ViewModels
 {
     public class FilmMakerPageViewModel : BaseViewModel
     {
-        private ObservableCollection<FilmMaker> _listaDiFilmMakers;
-        public ObservableCollection<FilmMaker> LISTADIFILMMAKER
+        #region Attributes and Properties
+        private ObservableCollection<FilmMaker> _filmMakersList;
+        public ObservableCollection<FilmMaker> FilmMakersList
         {
             get
             {
-                return _listaDiFilmMakers;
+                return _filmMakersList;
             }
             set
             {
-                SetValue(ref _listaDiFilmMakers, value);
+                SetValue(ref _filmMakersList, value);
             }
         }
 
-        private bool _refreshing = false;
-        public bool REFRESHING
+        private bool _refreshing;
+        public bool Refreshing
         {
             get
             {
@@ -38,37 +39,56 @@ namespace SkaffolderTemplate.ViewModels
                 SetValue(ref _refreshing, value);
             }
         }
+        #endregion
 
         private readonly IPageService _pageService;
 
-        public FilmMakerPageViewModel(ObservableCollection<FilmMaker> lis, PageService pageService)
+        #region Commands
+        public ICommand Add { get; private set; }
+        public ICommand Refresh { get; private set; }
+        public ICommand SelectedFilmMaker { get; private set; }
+        public ICommand LoadData { get; private set; }
+        #endregion
+
+        public FilmMakerPageViewModel(PageService pageService)
         {
-            LISTADIFILMMAKER = lis;
             _pageService = pageService;
+            Add = new Command(async vm => await AddNewFilmMaker());
+            Refresh = new Command(async vm => await RefreshList());
+            SelectedFilmMaker = new Command<FilmMaker>(async vm => await SelectedItem(vm));
+            LoadData = new Command<ObservableCollection<FilmMaker>>(async vm => await GetRequest());
         }
 
-        public async Task SelectedItem(FilmMaker selectedFilmMaker, string scelta)
+        private async Task SelectedItem(FilmMaker filmMaker)
         {
-
-            if (scelta.Equals("Eliminare"))
-                await App.filmMakerService.DELETE(selectedFilmMaker._id);
-            else if (scelta.Equals("Modifica"))
-                await _pageService.PushAsync(new FilmMakerEdit(null), false);
-
-            RefreshList();
+            var choose = await _pageService.DisplayActionSheet("Do you want to Delete or Edit this film maker?", "Cancel", "Delete", "Edit");
+            if (choose.Equals("Delete"))
+            {
+                await App.filmMakerService.DELETE(filmMaker._id);
+                await RefreshList();
+            }
+            else if (choose.Equals("Edit"))
+            {
+                await _pageService.PushAsync(new FilmMakerEdit(filmMaker), false);
+                return;
+            }
         }
 
-        public async void RefreshList()
+        private async Task GetRequest()
         {
-            REFRESHING = true;
-            LISTADIFILMMAKER = await App.filmMakerService.GETList();
-            REFRESHING = false;
+            FilmMakersList = await App.filmMakerService.GETList();
         }
 
-        public async Task AggiungiFilmMaker()
+        private async Task RefreshList()
+        {
+            Refreshing = true;
+            FilmMakersList = await App.filmMakerService.GETList();
+            Refreshing = false;
+        }
+
+        private async Task AddNewFilmMaker()
         {
             await _pageService.PushAsync(new FilmMakerEdit(null), false);
         }
-
     }
 }

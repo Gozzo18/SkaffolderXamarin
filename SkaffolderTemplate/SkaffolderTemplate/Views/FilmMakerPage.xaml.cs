@@ -1,47 +1,42 @@
-﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using SkaffolderTemplate.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FilmMakerPage : ContentPage
 	{
+        //Set ViewModel for BindingContext
+        public FilmMakerPageViewModel ViewModel
+        {
+            get
+            {
+                return BindingContext as FilmMakerPageViewModel;
+            }
+            set
+            {
+                BindingContext = value;
+            }
+        }
+        
 		public FilmMakerPage ()
 		{
-			InitializeComponent ();
+            //Setting BindingContext
+            ViewModel = new FilmMakerPageViewModel(new PageService());
+            InitializeComponent ();
 		}
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            ObservableCollection<FilmMaker> listaFilmMakers = await App.filmMakerService.GETList();
-            BindingContext = new FilmMakerPageViewModel(listaFilmMakers, new PageService());
+            //Loading data with API request
+            ViewModel.LoadData.Execute(null);           
         }
 
-        //Ricarica la lista di film maker inseriti nel caso di aggiornamenti
-        private void OnRefresh(object sender, EventArgs e)
+        private void EditFilmMaker(object sender, SelectedItemChangedEventArgs e)
         {
-            (BindingContext as FilmMakerPageViewModel).RefreshList();
-        }
-
-        private async Task aggiungiNuovoFilmMaker(object sender, EventArgs e)
-        {
-            await (BindingContext as FilmMakerPageViewModel).AggiungiFilmMaker();
-        }
-
-        private async Task EditFilmMaker(object sender, SelectedItemChangedEventArgs e)
-        {
-            var scelta = await DisplayActionSheet("Cancellare o modificare questo film maker?", "Indietro", "Eliminare", "Modifica");
-            await (BindingContext as FilmMakerPageViewModel).SelectedItem(e.SelectedItem as FilmMaker, scelta);
+            ViewModel.SelectedFilmMaker.Execute(e.SelectedItem);
         }
     }
 }

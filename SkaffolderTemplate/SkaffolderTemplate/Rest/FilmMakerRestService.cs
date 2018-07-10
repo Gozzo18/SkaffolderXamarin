@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
@@ -13,8 +12,7 @@ namespace SkaffolderTemplate.Rest
     public class FilmMakerRestService
     {
         HttpClient client;
-        ObservableCollection<FilmMaker> filmMakers { get; set; }
-
+        ObservableCollection<FilmMaker> _filmMakers { get; set; }
 
         public FilmMakerRestService()
         {
@@ -24,76 +22,25 @@ namespace SkaffolderTemplate.Rest
 
         //DELETE
         /// <summary>
-        /// Cancella un film maker
+        /// Delete a Film Maker
         /// </summary>
-        /// <param name="id">Id del film maker da cancellare</param>
+        /// <param name="id">Id of the Film Maker to Delete</param>
         /// <returns>void</returns>
         public async Task DELETE(string id)
         {
-          
-
             try
             {
                 var response = await client.DeleteAsync(App.FILMMAKER_URL + id);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film successfully deleted.");
-            }
-            catch (Exception e)
-            {
+            }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
         }
 
-        //GET
-        /// <summary>
-        /// Ottieni la lista di film maker memorizzati
-        /// </summary>
-        /// <returns>Lista di attori</returns>
-        public async Task<ObservableCollection<FilmMaker>> GETList()
-        {
-            filmMakers = new ObservableCollection<FilmMaker>();
-
-            try
-            {
-                var content = await client.GetStringAsync(App.FILMMAKER_URL);
-                filmMakers = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
-
-            }catch (Exception e){
-                Debug.WriteLine(@"				ERROR {0}", e);
-            }
-            return filmMakers;
-        }
-
-        //GET ID
-        /// <summary>
-        /// Ottieni il film-maker a partire dall'id
-        /// </summary>
-        /// <returns>Film Maker</returns>
-        public async Task<FilmMaker> GETId(string filmMakerId)
-        {
-            FilmMaker filmMaker = new FilmMaker();
-
-            try
-            {
-                var content = await client.GetStringAsync(App.FILMMAKER_URL + filmMakerId);
-                filmMaker = JsonConvert.DeserializeObject<FilmMaker>(content);
-
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(@"				ERROR {0}", e);
-            }
-            Debug.WriteLine("FilmMaker trovato: " + filmMaker.surname);
-            return filmMaker;
-            
-        }
-
         //POST
         /// <summary>
-        /// Inserisce i dati di un film-maker
+        /// Add a new Film Maker
         /// </summary>
-        /// <param name="item">Film maker da inserire</param>
+        /// <param name="item">Film maker to Add</param>
         /// <returns>void</returns>
         public async Task SaveFilmMakerAsync(FilmMaker item)
         {
@@ -102,10 +49,7 @@ namespace SkaffolderTemplate.Rest
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL,content);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				FilmMaker successfully saved.");
+                HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -113,7 +57,7 @@ namespace SkaffolderTemplate.Rest
 
         //PUT
         /// <summary>
-        /// Modifica un film-maker già presente
+        /// Update info of a Film Maker
         /// </summary>
         /// <param name="item">Film-Maker da modificare</param>
         /// <returns></returns>
@@ -124,12 +68,47 @@ namespace SkaffolderTemplate.Rest
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL + item._id, content);
-
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"				Film-Maker successfully modified.");
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
+        }
+
+        //GET
+        /// <summary>
+        /// Get the complete list of Film Makers
+        /// </summary>
+        /// <returns>Lista di attori</returns>
+        public async Task<ObservableCollection<FilmMaker>> GETList()
+        {
+            _filmMakers = new ObservableCollection<FilmMaker>();
+
+            try
+            {
+                var content = await client.GetStringAsync(App.FILMMAKER_URL);
+                _filmMakers = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            return _filmMakers;
+        }
+
+        //GET ID
+        /// <summary>
+        /// Get a Film Maker
+        /// </summary>
+        /// <returns>Film Maker</returns>
+        public async Task<FilmMaker> GETId(string filmMakerId)
+        {
+            FilmMaker filmMaker = new FilmMaker();
+
+            try
+            {
+                var content = await client.GetStringAsync(App.FILMMAKER_URL + filmMakerId);
+                filmMaker = JsonConvert.DeserializeObject<FilmMaker>(content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            return filmMaker;          
         }
     }
 }

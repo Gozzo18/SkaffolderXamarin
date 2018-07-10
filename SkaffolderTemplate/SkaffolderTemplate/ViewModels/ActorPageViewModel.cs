@@ -5,27 +5,29 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace SkaffolderTemplate.ViewModels
 {
     public class ActorPageViewModel : BaseViewModel
     {
-
-        private ObservableCollection<Actor> _listaDiAttori;
-        public ObservableCollection<Actor> LISTADIATTORI
+        #region Attributes and Properties
+        private ObservableCollection<Actor> _actorList;
+        public ObservableCollection<Actor> ActorsList
         {
             get
             {
-                return _listaDiAttori;
+                return _actorList;
             }
             set
             {
-                SetValue(ref _listaDiAttori, value);
+                SetValue(ref _actorList, value);
             }
         }
 
         private bool _refreshing;
-        public bool REFRESHING
+        public bool Refreshing
         {
             get
             {
@@ -36,43 +38,56 @@ namespace SkaffolderTemplate.ViewModels
                 SetValue(ref _refreshing, value);
             }
         }
+        #endregion
 
         private readonly IPageService _pageService;
 
-        public ActorPageViewModel(ObservableCollection<Actor> lis, IPageService pageService)
+        #region Commands
+        public ICommand Add { get; private set; }
+        public ICommand Refresh { get; private set; }
+        public ICommand SelectedActor { get; private set; }
+        public ICommand LoadData { get; private set; }
+        #endregion
+
+        public ActorPageViewModel(IPageService pageService)
         {
-            LISTADIATTORI = lis;
             _pageService = pageService;
+            Add = new Command(async vm => await AddNewActor());
+            Refresh = new Command(async vm => await RefreshList());
+            SelectedActor = new Command<Actor>(async vm => await SelectedItem(vm));
+            LoadData = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
         }
 
-        public async void RefreshList()
+        private async Task RefreshList()
         {
-            REFRESHING = true;
-            LISTADIATTORI = await App.actorService.GETList();
-            REFRESHING = false;
+            Refreshing = true;
+            ActorsList = await App.actorService.GETList();
+            Refreshing = false;
         }
 
-        public async Task SelectedItem(Actor actorSelected, string scelta)
+        private async Task SelectedItem(Actor actor)
         {
-
-            if (scelta.Equals("Eliminare"))
+            var choose = await _pageService.DisplayActionSheet("Do you want to Delete or Edit this actor?", "Cancel", "Delete", "Edit");
+            if (choose.Equals("Delete"))
             {
-                await App.actorService.DELETE(actorSelected._id);
-                RefreshList();
+                await App.actorService.DELETE(actor._id);
+                await RefreshList();
             }
-            else if(scelta.Equals("Modifica"))
+            else if(choose.Equals("Edit"))
             {
-                await _pageService.PushAsync(new ActorEdit(actorSelected), false);
+                await _pageService.PushAsync(new ActorEdit(actor), false);
                 return;
             }
         }
 
-        public async Task AggiungiAttore()
+        private async Task AddNewActor()
         {
             await _pageService.PushAsync(new ActorEdit(null), false);
         }
 
-
-
+        private async Task GetRequest()
+        {
+            ActorsList = await App.actorService.GETList();
+        }
     }
 }

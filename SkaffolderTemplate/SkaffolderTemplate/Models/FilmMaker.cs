@@ -1,15 +1,11 @@
 ﻿using SkaffolderTemplate.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SkaffolderTemplate.Models
 {
     public class FilmMaker : BaseViewModel
     {
-
         public string _id;
-        public string ID
+        public string Id
         {
             get
             {
@@ -22,7 +18,7 @@ namespace SkaffolderTemplate.Models
         }
 
         public string name;
-        public string NAME
+        public string Name
         {
             get
             {
@@ -35,7 +31,7 @@ namespace SkaffolderTemplate.Models
         }
 
         public string surname;
-        public string SURNAME
+        public string Surname
         {
             get
             {
