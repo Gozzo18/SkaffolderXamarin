@@ -8,7 +8,7 @@ namespace SkaffolderTemplate.Views
 	public partial class ActorPage : ContentPage
 	{
         //Set ViewModel for BindingContext
-        public ActorPageViewModel ViewModel
+        private ActorPageViewModel ViewModel
         {
             get
             {
@@ -37,7 +37,7 @@ namespace SkaffolderTemplate.Views
 
         private void ActorEdit(object sender, SelectedItemChangedEventArgs e)
         {
-            ViewModel.SelectedActor.Execute(null);
+            ViewModel.SelectedActor.Execute(e.SelectedItem);
         }
     }
 }

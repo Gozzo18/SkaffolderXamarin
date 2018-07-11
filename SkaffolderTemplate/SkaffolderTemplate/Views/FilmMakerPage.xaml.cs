@@ -8,7 +8,7 @@ namespace SkaffolderTemplate.Views
 	public partial class FilmMakerPage : ContentPage
 	{
         //Set ViewModel for BindingContext
-        public FilmMakerPageViewModel ViewModel
+        private FilmMakerPageViewModel ViewModel
         {
             get
             {

@@ -42,7 +42,7 @@ namespace SkaffolderTemplate.Rest
         /// </summary>
         /// <param name="item">Film maker to Add</param>
         /// <returns>void</returns>
-        public async Task SaveFilmMakerAsync(FilmMaker item)
+        public async Task POST(FilmMaker item)
         {
             try
             {

@@ -18,6 +18,11 @@ namespace SkaffolderTemplate.ViewModels
             return await Application.Current.MainPage.DisplayAlert(title, message, ok, cancel);
         }
 
+        public async Task<Page> PopAsync()
+        {
+            return await Application.Current.MainPage.Navigation.PopAsync();
+        }
+
         public async Task PushAsync(Page page, bool animation)
         {
             await Application.Current.MainPage.Navigation.PushAsync(page, animation);

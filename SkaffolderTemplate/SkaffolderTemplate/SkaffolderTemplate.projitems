@@ -32,8 +32,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPageService.cs" />

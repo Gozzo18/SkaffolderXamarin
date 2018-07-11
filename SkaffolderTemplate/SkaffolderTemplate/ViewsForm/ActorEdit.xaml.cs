@@ -1,6 +1,8 @@
 ﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
 using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,56 +11,43 @@ namespace SkaffolderTemplate.ViewsForm
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActorEdit : ContentPage
 	{
-        //booleano per vedere se l'attore è da modificare o da aggiungere: Aggiungere = TRUE, Modificare = FALSE
-        public bool isPresent = false;
-        public string idAttore = null;
-
-		public ActorEdit(Actor attorePassato)
-		{
-			InitializeComponent ();
-
-            //Se i dati dell'attore sono da modificare, passo la form già completata
-            if (attorePassato != null)
+        private ActorEditViewModel ViewModel
+        {
+            get
             {
-                datapicker.Date = attorePassato.birthDate;
-                nomeAttore.Text = attorePassato.name;
-                cognomeAttore.Text = attorePassato.surname;
-                idAttore = attorePassato._id;
-                isPresent = true;
+                return BindingContext as ActorEditViewModel;
             }
-           
+            set
+            {
+                BindingContext = value;
+            }
+        }
+
+		public ActorEdit(Actor actor)
+		{
+            ViewModel = new ActorEditViewModel(actor, new PageService());
+			InitializeComponent ();
 		}
 
-        private async void tornaIndietro(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            await Navigation.PopAsync(false);
+            base.OnAppearing();
+            ViewModel.SetPreviewsValue.Execute(null);           
         }
 
-        private async void salvaAttore(object sender, EventArgs e)
+        private void ActorNameEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            Actor datiAttore = new Actor();
-            datiAttore.name = nomeAttore.Text;
-            datiAttore.surname = cognomeAttore.Text;
-            datiAttore.birthDate = datapicker.Date;
-            datiAttore._id = idAttore;
-
-            if (isPresent)
-                await App.actorService.PUT(datiAttore);
-            else
-                await App.actorService.POST(datiAttore);
-
-            await Navigation.PushAsync(new ActorPage(), false);
-            return;
+            ViewModel.NameCompleted.Execute(sender as Entry);
         }
 
-        private void nomeAttore_Completed(object sender, EventArgs e)
+        private void ActorSurnameEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            cognomeAttore.Focus();
+            ViewModel.SurnameCompleted.Execute(sender as Entry);
         }
 
-        private void cognomeAttore_Completed(object sender, EventArgs e)
+        private void BirthDate_Selected(object sender, DateChangedEventArgs e)
         {
-            datapicker.Focus();
+            ViewModel.BirthDateCompleted.Execute(e.NewDate);
         }
     }
 }
