@@ -65,7 +65,7 @@ namespace SkaffolderTemplate.ViewModels
             var choose = await _pageService.DisplayActionSheet("Do you want to Delete or Edit this film?", "Cancel", "Delete", "Edit");
             if (choose.Equals("Delete"))
             {
-                await App.filmMakerService.DELETE(film._id);
+                await App.filmService.DELETE(film._id);
                 await RefreshList();
             }
             else if (choose.Equals("Edit"))

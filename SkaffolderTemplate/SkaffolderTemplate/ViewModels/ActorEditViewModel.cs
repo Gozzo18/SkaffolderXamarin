@@ -159,7 +159,6 @@ namespace SkaffolderTemplate.ViewModels
                 await App.actorService.POST(actor);
 
             await _pageService.PushAsync(new ActorPage(), false);
-
         }
 
     }

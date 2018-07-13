@@ -6,21 +6,44 @@
         <ScrollView>
             <AbsoluteLayout>
                 <Label Text="FILM EDIT" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional"/>
-                <Picker x:Name="pickerCastAttori" AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.3, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" Unfocused="castDiAttori_Unfocused" SelectedIndexChanged="attoreSelezionato"/>
+                <Picker x:Name="actorPicker" IsVisible="False" ItemsSource="{Binding ActorsCastAvailable}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerActor_SelectedIndexChanged" AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.4, 0.2" AbsoluteLayout.LayoutFlags="All"/>
                 <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0" >
-                    <Entry Placeholder="Title*" x:Name="titoloFilm" Keyboard="Text" Completed="titoloFilm_Completed"/>
-                    <Entry Placeholder="Year" x:Name="annoFilm" Keyboard="Numeric" Margin="0,5,0,0" Completed="annoFilm_Completed"/>
-                    <Picker Title="Genre" x:Name="pickerGenereFilm" Margin="0,5,0,0"/>
+                    <Entry Placeholder="Title*" Text="{Binding Title}" Unfocused="FilmTitleEntry_Unfocused" Keyboard="Text"/>
+                    <Entry Placeholder="Year" Text="{Binding Year}" Unfocused="FilmYearEntry_Unfocused" Keyboard="Numeric" Margin="0,5,0,0"/>
+                    <Picker Title="Genre" Margin="0,5,0,0" SelectedItem="{Binding Genre}" SelectedIndexChanged="PickerGenre_SelectedIndexChanged">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Action</x:String>
+                                <x:String>Crime</x:String>
+                                <x:String>Fantasy</x:String>
+                                <x:String>Horror</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Margin="0,20,0,0">
                         <Label Text="Cast" FontSize="Medium" Margin="0,10,0,0"></Label>
-                        <Button Text="+" Clicked="aggiungiNuovoAttore"/>
+                        <Button Text="+" Clicked="showActorPicker"/>
                     </StackLayout>
-                    <StackLayout x:Name="attoriSelezionati"/>
-                    <Picker Title="FilmMaker" x:Name="pickerFilmMaker"/>
+                    <StackLayout>
+                        <ListView x:Name="castInserted" ItemsSource="{Binding ActorsCastInserted}" RowHeight="40" HasUnevenRows="True" SeparatorVisibility="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout x:Name="Item" Orientation="Horizontal">
+                                            <Button Text="B" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding DeleteItem}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
+                                            <Label Text="{Binding Surname}" VerticalOptions="Center"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <StackLayout/>
+                    <Picker Title="FilmMaker" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="1,0.7,1,40" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" HorizontalOptions="End" Margin="0,0,10,0">
-                    <Button Text="Back To List" BackgroundColor="White" TextColor="Black" BorderWidth="1" Clicked="tornaIndietro"/>
-                    <Button Text="Save" x:Name="completo" BackgroundColor="LightBlue" TextColor="White" BorderWidth="1" Margin="10,0,0,0" Clicked="salvaFilm" />
+                    <Button Text="Back To List" Command="{Binding Back}" BackgroundColor="White" TextColor="Black" BorderWidth="1" />
+                    <Button Text="Save" Command="{Binding Save}" BackgroundColor="LightBlue" TextColor="White" BorderWidth="1" Margin="10,0,0,0" />
                 </StackLayout>
            </AbsoluteLayout>
         </ScrollView>

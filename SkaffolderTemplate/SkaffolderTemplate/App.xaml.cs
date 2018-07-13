@@ -25,7 +25,7 @@ namespace SkaffolderTemplate
 
 		public App ()
 		{
-			InitializeComponent();
+            InitializeComponent();
 
             filmService = new FilmRestService();
             actorService = new ActorRestService();
