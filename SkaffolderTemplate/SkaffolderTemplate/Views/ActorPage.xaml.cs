@@ -35,9 +35,9 @@ namespace SkaffolderTemplate.Views
             
         }
 
-        private void ActorEdit(object sender, SelectedItemChangedEventArgs e)
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ViewModel.SelectedActor.Execute(e.SelectedItem);
+            ViewModel.SearchCommand.Execute(null);
         }
     }
 }
