@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
              x:Class="SkaffolderTemplate.Views.ActorPage"
              Title="Actor">
     <ContentPage.Content>
@@ -20,7 +21,7 @@
                         </ListView.Header>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell>
+                                <customrenderer:CustomViewCell>
                                     <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout HorizontalOptions="Start" x:Name="ActorItem">
@@ -32,20 +33,17 @@
                                                 <Label Text="{Binding BirthDate}" TextColor="White"/>
                                             </StackLayout>
                                             <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
-                                                <Label Text="Edit" HorizontalOptions="Center">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Label Text="Remove" VerticalOptions="EndAndExpand">
-                                                    <Label.GestureRecognizers>
+                                                <Image Source="delete.png" HorizontalOptions="End">
+                                                    <Image.GestureRecognizers>
                                                         <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
-                                                    </Label.GestureRecognizers>
-                                                </Label>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                                <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="25" HeightRequest="50" WidthRequest="50" BackgroundColor="White"
+                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>
-                                </ViewCell>
+                                </customrenderer:CustomViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -81,7 +79,7 @@
                             ElementName=mainElement,
                             Property=Height,
                             Factor=0.98}">
-                <Button Text="+" Margin="10,-25,0,0" TextColor="White" FontSize="Large" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
+                <Button Image="add.png" Margin="10,-25,0,0" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
             </StackLayout>
             <!--         
             <StackLayout x:Name="supportStackLayout" BackgroundColor="LightGray"
