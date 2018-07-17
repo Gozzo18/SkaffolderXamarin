@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
@@ -24,8 +24,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomViewCell.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)MasterPage.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
@@ -41,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml.cs">
       <DependentUpon>ManageOptions.xaml</DependentUpon>

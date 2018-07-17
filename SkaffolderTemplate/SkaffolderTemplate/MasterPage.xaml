@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="SkaffolderTemplate.MasterPage">
+    <MasterDetailPage.Master>
+        <ContentPage Title=" " BackgroundColor="#7970F5">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="Center"  VerticalOptions="Start" Spacing="20" Padding="0,20,0,0">
+                    <Button Text="Home" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                    <Button Text="Actor" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                    <Button Text="Film" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                    <Button Text="FilmMaker" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="Center"  VerticalOptions="EndAndExpand" Spacing="20" Padding="0,0,0,10">
+                    <Button Text="Profile" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                    <Button Text="Manage Users" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                    <Button Text="Logout" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                </StackLayout>  
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <ContentPage />
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
