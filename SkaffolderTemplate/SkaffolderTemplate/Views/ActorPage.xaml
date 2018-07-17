@@ -15,7 +15,7 @@
                             Property=Height,
                             Factor=0.9}">
                 <StackLayout>
-                    <ListView x:Name="MainListOfActors" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}">
+                    <ListView x:Name="MainListOfActors" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfActors_ItemSelected">
                         <ListView.Header>
                             <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                         </ListView.Header>
@@ -81,39 +81,6 @@
                             Factor=0.98}">
                 <Button Image="add.png" Margin="10,-25,0,0" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
             </StackLayout>
-            <!--         
-            <StackLayout x:Name="supportStackLayout" BackgroundColor="LightGray"
-                         RelativeLayout.WidthConstraint="{ConstraintExpression
-                            Type=RelativeToParent,
-                            Property=Width,
-                            Factor=1}"
-                          RelativeLayout.HeightConstraint="{ConstraintExpression
-                            Type=RelativeToParent,
-                            Property=Height,
-                            Factor=0.2}"                        
-                         RelativeLayout.YConstraint="{ConstraintExpression
-                            Type=RelativeToView,
-                            ElementName=actorListArea,
-                            Property=Height,
-                            Factor=1,
-                            Constant=-1}">
-            </StackLayout>
-            <StackLayout BackgroundColor="#7970F5"
-                         RelativeLayout.WidthConstraint="{ConstraintExpression
-                            Type=RelativeToParent,
-                            Property=Width,
-                            Factor=1}"
-                          RelativeLayout.HeightConstraint="{ConstraintExpression
-                            Type=RelativeToParent,
-                            Property=Height,
-                            Factor=0.2}"                        
-                         RelativeLayout.YConstraint="{ConstraintExpression
-                            Type=RelativeToView,
-                            ElementName=actorListArea,
-                            Property=Height,
-                            Factor=1}">
-                <Button Text="+" Margin="10,-25,0,0" TextColor="White" FontSize="Large" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
-            </StackLayout> -->
         </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

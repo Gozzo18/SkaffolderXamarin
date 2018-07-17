@@ -1,6 +1,4 @@
 using SkaffolderTemplate.Rest;
-using SkaffolderTemplate.Views;
-using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,7 +21,7 @@ namespace SkaffolderTemplate
         public static ActorRestService actorService { get; private set; }
         public static FilmMakerRestService filmMakerService { get; private set; }
 
-		public App ()
+        public App ()
 		{
             InitializeComponent();
 
@@ -31,8 +29,7 @@ namespace SkaffolderTemplate
             actorService = new ActorRestService();
             filmMakerService = new FilmMakerRestService();
 
-            //MainPage = new NavigationPage(new ActorPage());
-            MainPage = new MasterPage();
+            MainPage = new MasterPage();           
 		}
 
 		protected override void OnStart ()

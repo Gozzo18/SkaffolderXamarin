@@ -11,6 +11,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
@@ -43,6 +44,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml.cs">
       <DependentUpon>ManageOptions.xaml</DependentUpon>
     </Compile>

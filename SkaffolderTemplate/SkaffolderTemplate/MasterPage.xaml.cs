@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate
 {
-	public partial class MasterPage : MasterDetailPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MasterPage : MasterDetailPage
 	{
 
         private MasterPageViewModel ViewModel
@@ -37,7 +39,7 @@ namespace SkaffolderTemplate
         protected override void OnAppearing()
         {
 
-            MessagingCenter.Subscribe<MasterPageViewModel, string>(this, "Detail", (arg1, arg2) => {
+                MessagingCenter.Subscribe<MasterPageViewModel, string>(this, "Detail", (arg1, arg2) => {
                 switch (arg2)
                 {
                     /*    case "Home":

@@ -1,22 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SkaffolderTemplate.Views.FilmMakerPage"
-             BackgroundColor="Gray"
-             NavigationPage.HasNavigationBar="False">
+             xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
+             x:Class="SkaffolderTemplate.Views.FilmMakerPage">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <Label Text="Film Maker List" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
-            <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200" Command="{Binding Add}"/>
-            <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
-                  <ListView ItemsSource="{Binding FilmMakersList}" HorizontalOptions="Start" SeparatorColor="White" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="EditFilmMaker">
-                     <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding Surname}" Detail="{Binding Name}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate> 
-                </ListView>
-            </StackLayout> 
-        </AbsoluteLayout>
+        <RelativeLayout>
+            <ScrollView x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.9}">
+                <StackLayout>
+                    <ListView x:Name="MainListOfFilmMakers" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfFilmMakers_ItemSelected">
+                        <ListView.Header>
+                            <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <customrenderer:CustomViewCell>
+                                    <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">
+                                                <Label Text="_id:"/>
+                                                <Label Text="{Binding Id}" TextColor="White"/>
+                                                <Label Text="Name:"/>
+                                                <Label Text="{Binding Name}" TextColor="White"/>
+                                                <Label Text="Surname:"/>
+                                                <Label Text="{Binding Surname}" TextColor="White"/>
+                                            </StackLayout>
+                                            <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
+                                                <Image Source="delete.png" HorizontalOptions="End">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteActor}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                                <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="25" HeightRequest="50" WidthRequest="50" BackgroundColor="White"
+                                                        BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMaker}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </customrenderer:CustomViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout x:Name="supportStackLayout" BackgroundColor="LightGray"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0,
+                            Constant=1}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=mainElement,
+                            Property=Height,
+                            Factor=0.98}">
+            </StackLayout>
+            <StackLayout BackgroundColor="#7970F5"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.2}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=mainElement,
+                            Property=Height,
+                            Factor=0.98}">
+                <Button Image="add.png" Margin="10,-25,0,0" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
+            </StackLayout>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

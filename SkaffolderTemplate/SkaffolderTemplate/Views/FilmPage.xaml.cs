@@ -23,7 +23,7 @@ namespace SkaffolderTemplate.Views
 		public FilmPage ()
 		{
             //Setting BindingContext
-            ViewModel = new FilmPageViewModel(new PageService());
+            ViewModel = new FilmPageViewModel();
 			InitializeComponent ();
 		}
 
@@ -34,9 +34,17 @@ namespace SkaffolderTemplate.Views
             ViewModel.LoadData.Execute(null);
         }
 
-        private void EditFilm(object sender, SelectedItemChangedEventArgs e)
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ViewModel.SelectedFilm.Execute(e.SelectedItem);
+            ViewModel.SearchCommand.Execute(null);
+        }
+
+        //Remove graphic effect on ListView
+        private void MainListOfFilms_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

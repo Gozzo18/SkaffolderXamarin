@@ -1,7 +1,7 @@
 ﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views;
 using SkaffolderTemplate.ViewsForm;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -24,6 +24,19 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
+        private ObservableCollection<Film> _supportList;
+        public ObservableCollection<Film> SupportList
+        {
+            get
+            {
+                return _supportList;
+            }
+            set
+            {
+                SetValue(ref _supportList, value);
+            }
+        }
+
         private bool _refreshing;
         public bool Refreshing
         {
@@ -36,70 +49,95 @@ namespace SkaffolderTemplate.ViewModels
                 SetValue(ref _refreshing, value);
             }
         }
-        #endregion
 
-        private readonly IPageService _pageService;
+        private string _searchedWord;
+        public string SearchedWord
+        {
+            get
+            {
+                return _searchedWord;
+            }
+            set
+            {
+                SetValue(ref _searchedWord, value);
+            }
+        }
+        #endregion
 
         #region Command
         public ICommand Add { get; private set; }
         public ICommand Refresh { get; private set; }
-        public ICommand SelectedFilm { get; private set; }
         public ICommand LoadData { get; private set; }
-        public ICommand ActorPage { get; private set; }
-        public ICommand FilmMakerPage { get; private set; }
-        #endregion
+        public ICommand SearchCommand { get; private set; }
 
-        public FilmPageViewModel(PageService pageService)
+        public ICommand EditFilm
         {
-            _pageService = pageService;
-            Add = new Command(async vm => await AddNewFilm());
-            Refresh = new Command(async vm => await RefreshList());
-            SelectedFilm = new Command<Film>(async vm => await SelectedItem(vm));
-            LoadData = new Command<ObservableCollection<Film>>(async vm => await GetRequest());
-            ActorPage = new Command(async vm => await GoToActorPage());
-            FilmMakerPage = new Command(async vm => await GoToFilmMakerPage());
+            get
+            {
+                return new Command(async (e) =>
+                {
+                    var film = (e as Film);
+                    var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null), false);
+                });
+
+            }
         }
 
-        private async Task SelectedItem(Film film)
+        public ICommand DeleteFilm
         {
-            var choose = await _pageService.DisplayActionSheet("Do you want to Delete or Edit this film?", "Cancel", "Delete", "Edit");
-            if (choose.Equals("Delete"))
+            get
             {
-                await App.filmService.DELETE(film._id);
-                await RefreshList();
+                return new Command(async (e) =>
+                {
+                    var film = (e as Film);
+                    await App.actorService.DELETE(film._id);
+                    await RefreshList();
+                });
+
             }
-            else if (choose.Equals("Edit"))
-            {
-                await _pageService.PushAsync(new FilmEdit(film), false);
-                return;
-            }
+        }
+        #endregion
+
+        public FilmPageViewModel()
+        {
+            Add = new Command(async vm => await AddNewFilm());
+            Refresh = new Command(async vm => await RefreshList());
+            LoadData = new Command<ObservableCollection<Film>>(async vm => await GetRequest());
+            SearchCommand = new Command(SearchWord);
         }
 
         private async Task GetRequest()
         {
             FilmsList = await App.filmService.GETList();
+            SupportList = new ObservableCollection<Film>(FilmsList);
         }
 
         private async Task RefreshList()
         {
             Refreshing = true;
             FilmsList = await App.filmService.GETList();
+            SupportList = new ObservableCollection<Film>(FilmsList);
             Refreshing = false;
         }
 
         private async Task AddNewFilm()
         {
-            await _pageService.PushAsync(new FilmEdit(null), false);
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null), false);
         }
 
-        private async Task GoToActorPage()
+        private void SearchWord()
         {
-            await _pageService.PushAsync(new ActorPage(), false);
-        }
-
-        private async Task GoToFilmMakerPage()
-        {
-            await _pageService.PushAsync(new FilmMakerPage(), false);
+            if (SearchedWord.Length >= 1)
+                SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
+            if (string.IsNullOrWhiteSpace(SearchedWord))
+                SupportList = new ObservableCollection<Film>(FilmsList);
+            else
+            {
+                var tempRecords = FilmsList.Where(c => c.title.Contains(SearchedWord));
+                SupportList = new ObservableCollection<Film>(tempRecords);
+            }
         }
     }
 }

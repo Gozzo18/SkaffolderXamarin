@@ -23,7 +23,7 @@ namespace SkaffolderTemplate.Views
 		public ActorPage ()
 		{
             //Setting BindingContext
-            ViewModel = new ActorPageViewModel(new PageService());
+            ViewModel = new ActorPageViewModel();
             InitializeComponent ();            
 		}
 
@@ -38,6 +38,14 @@ namespace SkaffolderTemplate.Views
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             ViewModel.SearchCommand.Execute(null);
+        }
+
+        //Hide graphic effect on ListView
+        private void MainListOfActors_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

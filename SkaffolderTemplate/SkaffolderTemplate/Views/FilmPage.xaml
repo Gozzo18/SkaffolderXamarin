@@ -1,11 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
              x:Class="SkaffolderTemplate.Views.FilmPage"
-             BackgroundColor="Gray"
-             NavigationPage.HasNavigationBar="False">
+             Title="Film">
     <ContentPage.Content>
-        <AbsoluteLayout>
+        <RelativeLayout>
+            <ScrollView x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.9}">
+                <StackLayout>
+                    <ListView x:Name="MainListOfFilms" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfFilms_ItemSelected">
+                        <ListView.Header>
+                            <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <customrenderer:CustomViewCell>
+                                    <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout HorizontalOptions="Start" x:Name="FilmItem">
+                                                <Label Text="_id:"/>
+                                                <Label Text="{Binding Id}" TextColor="White"/>
+                                                <Label Text="Title:"/>
+                                                <Label Text="{Binding Title}" TextColor="White"/>
+                                                <Label Text="Year"/>
+                                                <Label Text="{Binding Year}" TextColor="White"/>
+                                            </StackLayout>
+                                            <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
+                                                <Image Source="delete.png" HorizontalOptions="End">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilms}, Path=BindingContext}" Command="{Binding DeleteFilm}" CommandParameter="{Binding Source={x:Reference FilmItem}, Path=BindingContext}"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                                <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="25" HeightRequest="50" WidthRequest="50" BackgroundColor="White"
+                                                        BindingContext="{Binding Source={x:Reference MainListOfFilms}, Path=BindingContext}" Command="{Binding EditFilm}" CommandParameter="{Binding Source={x:Reference FilmItem}, Path=BindingContext}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </customrenderer:CustomViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout x:Name="supportStackLayout" BackgroundColor="LightGray"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0,
+                            Constant=1}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=mainElement,
+                            Property=Height,
+                            Factor=0.98}">
+            </StackLayout>
+            <StackLayout BackgroundColor="#7970F5"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.2}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=mainElement,
+                            Property=Height,
+                            Factor=0.98}">
+                <Button Image="add.png" Margin="10,-25,0,0" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
+            </StackLayout>
+        </RelativeLayout>
+<!--        <AbsoluteLayout>
             <Label Text="Film List" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional" TextColor="Black" FontSize="32"/>
             <Button Text="Add" HorizontalOptions="StartAndExpand" AbsoluteLayout.LayoutBounds="0.5,50" AbsoluteLayout.LayoutFlags="XProportional" WidthRequest="200" Command="{Binding Add}"/>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 100">
@@ -19,6 +96,6 @@
             </StackLayout>
             <Button Text="Actors" Command="{Binding ActorPage}" AbsoluteLayout.LayoutBounds="0,1" AbsoluteLayout.LayoutFlags="YProportional"/>
             <Button Text="FilmMakers" Command="{Binding FilmMakerPage}" AbsoluteLayout.LayoutBounds="1, 1" AbsoluteLayout.LayoutFlags="PositionProportional"/>
-        </AbsoluteLayout>
+        </AbsoluteLayout> -->
     </ContentPage.Content>
 </ContentPage>

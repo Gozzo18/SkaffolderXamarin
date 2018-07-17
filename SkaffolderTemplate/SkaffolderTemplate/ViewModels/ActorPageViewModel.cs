@@ -64,8 +64,6 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        private readonly IPageService _pageService;
-
         #region Commands
         public ICommand Add { get; private set; }
         public ICommand Refresh { get; private set; }
@@ -79,7 +77,8 @@ namespace SkaffolderTemplate.ViewModels
                 return new Command(async (e) =>
                 {
                     var actor = (e as Actor);
-                    await _pageService.PushAsync(new ActorEdit(actor), false);
+                    var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                    await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(actor), false);
                 });
                 
             }
@@ -100,12 +99,10 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public ActorPageViewModel(IPageService pageService)
+        public ActorPageViewModel()
         {
-            _pageService = pageService;
             Add = new Command(async vm => await AddNewActor());
             Refresh = new Command(async vm => await RefreshList());
-         // SelectedActor = new Command<Actor>(async vm => await SelectedItem(vm));
             LoadData = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
@@ -121,7 +118,8 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task AddNewActor()
         {
-            await _pageService.PushAsync(new ActorEdit(null), false);
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null), false);
         }
 
         private async Task GetRequest()

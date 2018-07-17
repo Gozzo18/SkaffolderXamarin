@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using SkaffolderTemplate.ViewsForm;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SkaffolderTemplate.ViewModels
 {
@@ -27,6 +28,19 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
+        private ObservableCollection<FilmMaker> _supportList;
+        public ObservableCollection<FilmMaker> SupportList
+        {
+            get
+            {
+                return _supportList;
+            }
+            set
+            {
+                SetValue(ref _supportList, value);
+            }
+        }
+
         private bool _refreshing;
         public bool Refreshing
         {
@@ -39,56 +53,96 @@ namespace SkaffolderTemplate.ViewModels
                 SetValue(ref _refreshing, value);
             }
         }
-        #endregion
 
-        private readonly IPageService _pageService;
+        private string _searchedWord;
+        public string SearchedWord
+        {
+            get
+            {
+                return _searchedWord;
+            }
+            set
+            {
+                SetValue(ref _searchedWord, value);
+            }
+        }
+        #endregion
 
         #region Commands
         public ICommand Add { get; private set; }
         public ICommand Refresh { get; private set; }
         public ICommand SelectedFilmMaker { get; private set; }
         public ICommand LoadData { get; private set; }
-        #endregion
+        public ICommand SearchCommand { get; private set; }
 
-        public FilmMakerPageViewModel(PageService pageService)
+        public ICommand EditFilmMaker
         {
-            _pageService = pageService;
-            Add = new Command(async vm => await AddNewFilmMaker());
-            Refresh = new Command(async vm => await RefreshList());
-            SelectedFilmMaker = new Command<FilmMaker>(async vm => await SelectedItem(vm));
-            LoadData = new Command<ObservableCollection<FilmMaker>>(async vm => await GetRequest());
+            get
+            {
+                return new Command(async (e) =>
+                {
+                    var filmMaker = (e as FilmMaker);
+                    var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null), false);
+                });
+
+            }
         }
 
-        private async Task SelectedItem(FilmMaker filmMaker)
+        public ICommand DeleteFilmMaker
         {
-            var choose = await _pageService.DisplayActionSheet("Do you want to Delete or Edit this film maker?", "Cancel", "Delete", "Edit");
-            if (choose.Equals("Delete"))
+            get
             {
-                await App.filmMakerService.DELETE(filmMaker._id);
-                await RefreshList();
+                return new Command(async (e) =>
+                {
+                    var filmMaker = (e as FilmMaker);
+                    await App.actorService.DELETE(filmMaker._id);
+                    await RefreshList();
+                });
+
             }
-            else if (choose.Equals("Edit"))
+        }
+        #endregion
+
+        public FilmMakerPageViewModel()
+        {
+            Add = new Command(async vm => await AddNewFilmMaker());
+            Refresh = new Command(async vm => await RefreshList());
+            LoadData = new Command<ObservableCollection<FilmMaker>>(async vm => await GetRequest());
+            SearchCommand = new Command(SearchWord);
+        }
+
+        private void SearchWord()
+        {
+            if (SearchedWord.Length >= 1)
+                SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
+            if (string.IsNullOrWhiteSpace(SearchedWord))
+                SupportList = new ObservableCollection<FilmMaker>(FilmMakersList);
+            else
             {
-                await _pageService.PushAsync(new FilmMakerEdit(filmMaker), false);
-                return;
+                var tempRecords = FilmMakersList.Where(c => c.Name.Contains(SearchedWord));
+                SupportList = new ObservableCollection<FilmMaker>(tempRecords);
             }
         }
 
         private async Task GetRequest()
         {
             FilmMakersList = await App.filmMakerService.GETList();
+            SupportList = new ObservableCollection<FilmMaker>(FilmMakersList);
         }
 
         private async Task RefreshList()
         {
             Refreshing = true;
             FilmMakersList = await App.filmMakerService.GETList();
+            SupportList = new ObservableCollection<FilmMaker>(FilmMakersList);
             Refreshing = false;
         }
 
         private async Task AddNewFilmMaker()
         {
-            await _pageService.PushAsync(new FilmMakerEdit(null), false);
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null), false);
         }
     }
 }
