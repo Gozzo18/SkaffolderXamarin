@@ -3,8 +3,6 @@ using SkaffolderTemplate.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -171,9 +169,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        private readonly IPageService _pageService;
-
-        #region Command
+        #region Commands
         public ICommand SetPickersItemSource { get; private set; }
 
         public ICommand TitleCompleted { get; private set; }
@@ -211,10 +207,9 @@ namespace SkaffolderTemplate.ViewModels
 
         #endregion
 
-        public FilmEditViewModel(Film alreadyPresentFilm, IPageService pageService)
+        public FilmEditViewModel(Film alreadyPresentFilm)
         {
             Film = alreadyPresentFilm;
-            _pageService = pageService;
 
             SetPickersItemSource = new Command(async vm => await PopulatePickers());
             Save = new Command(async vm => await SaveFilmData());
@@ -270,6 +265,7 @@ namespace SkaffolderTemplate.ViewModels
                         {
                             ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
                             k = 0;
+                            h = 0;
                         }
                     }
                 }
@@ -324,7 +320,8 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task GoBack()
         {
-            await _pageService.PopAsync();
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();
         }
 
         private async Task SaveFilmData()
@@ -347,7 +344,8 @@ namespace SkaffolderTemplate.ViewModels
             else
                 await App.filmService.POST(film);
 
-            await _pageService.PushAsync(new FilmPage(), false);
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();
         }
 
     }

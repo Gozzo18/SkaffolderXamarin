@@ -1,9 +1,5 @@
 ﻿using SkaffolderTemplate.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using SkaffolderTemplate.ViewsForm;
@@ -83,7 +79,7 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     var filmMaker = (e as FilmMaker);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(filmMaker), false);
                 });
 
             }
@@ -96,7 +92,7 @@ namespace SkaffolderTemplate.ViewModels
                 return new Command(async (e) =>
                 {
                     var filmMaker = (e as FilmMaker);
-                    await App.actorService.DELETE(filmMaker._id);
+                    await App.filmMakerService.DELETE(filmMaker._id);
                     await RefreshList();
                 });
 

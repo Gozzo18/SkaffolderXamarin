@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
-             x:Class="SkaffolderTemplate.Views.FilmMakerPage">
+             x:Class="SkaffolderTemplate.Views.FilmMakerPage"
+             Title="FilmMaker">
     <ContentPage.Content>
         <RelativeLayout>
             <ScrollView x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
@@ -34,10 +35,10 @@
                                             <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                                 <Image Source="delete.png" HorizontalOptions="End">
                                                     <Image.GestureRecognizers>
-                                                        <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteActor}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                        <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteFilmMaker}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
                                                     </Image.GestureRecognizers>
                                                 </Image>
-                                                <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="25" HeightRequest="50" WidthRequest="50" BackgroundColor="White"
+                                                <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
                                                         BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMaker}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
                                             </StackLayout>
                                         </StackLayout>

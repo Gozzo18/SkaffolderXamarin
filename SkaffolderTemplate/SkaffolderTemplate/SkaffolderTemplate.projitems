@@ -41,9 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

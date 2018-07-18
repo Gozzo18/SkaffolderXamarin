@@ -1,8 +1,5 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -78,9 +75,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        private readonly IPageService _pageService;
-
-        #region Command
+        #region Commands
         public ICommand Save { get; private set; }
         public ICommand Back { get; private set; }
         public ICommand SetPreviewsValue { get; private set; }
@@ -88,10 +83,9 @@ namespace SkaffolderTemplate.ViewModels
         public ICommand SurnameCompleted { get; private set; }
         #endregion
 
-        public FilmMakerEditViewModel(FilmMaker alreadyPresentFilmMaker, IPageService pageService)
+        public FilmMakerEditViewModel(FilmMaker alreadyPresentFilmMaker)
         {
             FilmMaker = alreadyPresentFilmMaker;
-            _pageService = pageService;
             Save = new Command(async vm => await SaveActorData());
             Back = new Command(async vm => await GoBack());
             SetPreviewsValue = new Command(SetData);
@@ -122,7 +116,8 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task GoBack()
         {
-            await _pageService.PopAsync();
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();
         }
 
         private async Task SaveActorData()
@@ -139,7 +134,8 @@ namespace SkaffolderTemplate.ViewModels
             else
                 await App.filmMakerService.POST(fm);
 
-            await _pageService.PushAsync(new FilmMakerPage(), false);
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();
 
         }
     }

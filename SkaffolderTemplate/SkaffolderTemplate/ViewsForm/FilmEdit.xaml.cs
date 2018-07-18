@@ -1,18 +1,7 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
-using SkaffolderTemplate.Views;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.ViewsForm
@@ -34,7 +23,7 @@ namespace SkaffolderTemplate.ViewsForm
 
         public FilmEdit (Film film)
 		{
-            ViewModel = new FilmEditViewModel(film, new PageService());
+            ViewModel = new FilmEditViewModel(film);
 			InitializeComponent ();
         }
 

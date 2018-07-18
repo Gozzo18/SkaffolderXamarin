@@ -2,21 +2,55 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             x:Class="SkaffolderTemplate.ViewsForm.ActorEdit">
+             x:Class="SkaffolderTemplate.ViewsForm.ActorEdit"
+             Title="Actor">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <Label Text="ACTOR EDIT" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional"/>
-           <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0">
-                <Entry Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="ActorNameEntry_Unfocused" Keyboard="Text"/>
-                <Entry Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="ActorSurnameEntry_Unfocused" Keyboard="Text" Margin="0,5,0,0"/>
-                <Label Text="BirthDate" Margin="3,20,0,0"/>
-                <DatePicker MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-15,0,0"/>
+        <RelativeLayout>
+            <Label x:Name="Title" Text="Edit Actor" FontSize="Large" TextColor="#7970F5"
+                   RelativeLayout.XConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.35}"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=1}"/>
+            <Frame  x:Name="Data" BackgroundColor="#7970F5" CornerRadius="10"
+                    RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToView,
+                        Property=Height,
+                        ElementName=Title,
+                        Factor=1,
+                        Constant=10}"
+                    RelativeLayout.XConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.1}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.8}">
+                <StackLayout Spacing="5">
+                    <Label Text="Name"/>
+                    <Entry Placeholder="Name*" PlaceholderColor="White" Text="{Binding Name, Mode=TwoWay}" TextColor="White" Unfocused="ActorNameEntry_Unfocused" Keyboard="Text"/>
+                    <Label Text="Surname"/>
+                    <Entry Placeholder="Surname" PlaceholderColor="White" Text="{Binding Surname, Mode=TwoWay}" TextColor="White" Unfocused="ActorSurnameEntry_Unfocused" Keyboard="Text" Margin="0,5,0,0"/>
+                    <Label Text="BirthDate" Margin="3,20,0,0"/>
+                    <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-15,0,0"/>
+                </StackLayout>
+            </Frame>
+            <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                    RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.91}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=1}">
+                <Button Text="Back To List" BackgroundColor="Transparent" TextColor="White" Command="{Binding Back}"/>
+                <Button Text="Save" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding Save}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="1,0.6,1,40" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" HorizontalOptions="End" Margin="0,0,10,0">
-                <Button Text="Back To List" BackgroundColor="White" TextColor="Black" BorderWidth="1" Command="{Binding Back}"/>
-                <Button Text="Save" BackgroundColor="LightBlue" TextColor="White" BorderWidth="1" Margin="10,0,0,0" Command="{Binding Save}"/>
-            </StackLayout>
-        </AbsoluteLayout>
-
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,9 +1,6 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Views;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -12,6 +9,7 @@ namespace SkaffolderTemplate.ViewModels
 {
     public class ActorEditViewModel : BaseViewModel
     {
+        #region Attributes and Properties
         private string _id;
         public string Id
         {
@@ -89,20 +87,20 @@ namespace SkaffolderTemplate.ViewModels
                 SetValue(ref _isPresent, value);
             }
         }
+        #endregion
 
-        private readonly IPageService _pageService;
-
+        #region Commands
         public ICommand Save { get; private set; }
         public ICommand Back { get; private set; }
         public ICommand SetPreviewsValue { get; private set; }
         public ICommand NameCompleted { get; private set; }
         public ICommand SurnameCompleted { get; private set; }
         public ICommand BirthDateCompleted { get; private set; }
+        #endregion
 
-        public ActorEditViewModel(Actor alreadyPresentActor, IPageService pageService)
+        public ActorEditViewModel(Actor alreadyPresentActor)
         {
             Actor = alreadyPresentActor;
-            _pageService = pageService;
             Save = new Command(async vm => await SaveActorData());
             Back = new Command(async vm => await GoBack());
             SetPreviewsValue = new Command(SetData);
@@ -140,7 +138,8 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task GoBack()
         {
-            await _pageService.PopAsync();
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();
         }
 
         private async Task SaveActorData()
@@ -158,7 +157,8 @@ namespace SkaffolderTemplate.ViewModels
             else
                 await App.actorService.POST(actor);
 
-            await _pageService.PushAsync(new ActorPage(), false);
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();
         }
 
     }

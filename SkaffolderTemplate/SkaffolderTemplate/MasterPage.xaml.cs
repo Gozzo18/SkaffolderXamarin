@@ -29,10 +29,10 @@ namespace SkaffolderTemplate
 
 		public MasterPage()
 		{
-            ViewModel = new MasterPageViewModel(new PageService());
+            ViewModel = new MasterPageViewModel();
 			InitializeComponent();
             Title = "MasterPage";
-            Detail = new NavigationPage(new ActorPage());
+            Detail = new NavigationPage(new FilmPage());
             IsPresented = false;
 		}
 

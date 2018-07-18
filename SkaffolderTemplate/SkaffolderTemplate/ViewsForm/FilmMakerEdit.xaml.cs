@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SkaffolderTemplate.Models;
+﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.ViewsForm
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FilmMakerEdit : ContentPage
 	{
         private FilmMakerEditViewModel ViewModel
@@ -27,7 +22,7 @@ namespace SkaffolderTemplate.ViewsForm
 
 		public FilmMakerEdit (FilmMaker filmMaker)
 		{
-            ViewModel = new FilmMakerEditViewModel(filmMaker, new PageService());
+            ViewModel = new FilmMakerEditViewModel(filmMaker);
 			InitializeComponent ();
 		}
 

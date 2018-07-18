@@ -1,5 +1,4 @@
 ﻿using SkaffolderTemplate.ViewModels;
-using System;
 
 namespace SkaffolderTemplate.Models
 {

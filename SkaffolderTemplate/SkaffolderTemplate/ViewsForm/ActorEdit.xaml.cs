@@ -1,8 +1,5 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
-using SkaffolderTemplate.Views;
-using System;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,7 +22,7 @@ namespace SkaffolderTemplate.ViewsForm
 
 		public ActorEdit(Actor actor)
 		{
-            ViewModel = new ActorEditViewModel(actor, new PageService());
+            ViewModel = new ActorEditViewModel(actor);
 			InitializeComponent ();
 		}
 

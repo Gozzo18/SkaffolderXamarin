@@ -64,7 +64,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        #region Command
+        #region Commands
         public ICommand Add { get; private set; }
         public ICommand Refresh { get; private set; }
         public ICommand LoadData { get; private set; }
@@ -78,7 +78,7 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     var film = (e as Film);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(film), false);
                 });
 
             }
@@ -91,7 +91,7 @@ namespace SkaffolderTemplate.ViewModels
                 return new Command(async (e) =>
                 {
                     var film = (e as Film);
-                    await App.actorService.DELETE(film._id);
+                    await App.filmService.DELETE(film._id);
                     await RefreshList();
                 });
 
