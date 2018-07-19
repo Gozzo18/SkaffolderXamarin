@@ -32,7 +32,7 @@ namespace SkaffolderTemplate
             ViewModel = new MasterPageViewModel();
 			InitializeComponent();
             Title = "MasterPage";
-            Detail = new NavigationPage(new FilmPage());
+            Detail = new NavigationPage(new HomePage());
             IsPresented = false;
 		}
 
@@ -60,7 +60,12 @@ namespace SkaffolderTemplate
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                }
+
+                    case "Home":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
+                    }
             });
             base.OnAppearing();
         }

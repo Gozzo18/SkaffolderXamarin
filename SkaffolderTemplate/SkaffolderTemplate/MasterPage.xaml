@@ -28,7 +28,7 @@
                     <StackLayout Spacing="20" HorizontalOptions="Center">
                         <Button Text="Profile" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
                         <Button Text="Manage Users" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Logout" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Image="logout.png"  Text="Logout" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
                     </StackLayout>
                 </Frame>
             </StackLayout>

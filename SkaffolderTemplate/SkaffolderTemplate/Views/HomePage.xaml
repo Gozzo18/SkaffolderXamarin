@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SkaffolderTemplate.Views.HomePage"
+             Title="Home">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
+            <StackLayout HorizontalOptions="Center">
+                <Label Text="Actor" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center">
+                <Label Text="Film" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center">
+                <Label Text="FilmMaker" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
