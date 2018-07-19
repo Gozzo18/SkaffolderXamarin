@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
              x:Class="SkaffolderTemplate.ViewsForm.FilmEdit"
              Title="Film">
     <ContentPage.Content>
@@ -33,66 +34,14 @@
                         Type=RelativeToParent,
                         Property=Height,
                         Factor=0.8}">
-                <ScrollView VerticalOptions="FillAndExpand">
-                    <StackLayout>
-                        <Picker x:Name="actorPicker" IsVisible="False" ItemsSource="{Binding ActorsCastAvailable}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerActor_SelectedIndexChanged"/>
-                        <Entry Placeholder="Title*" PlaceholderColor="White" FontSize="Small" Text="{Binding Title}" TextColor="White" Unfocused="FilmTitleEntry_Unfocused" Keyboard="Text"/>
-                        <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year}" TextColor="White" Unfocused="FilmYearEntry_Unfocused" Keyboard="Numeric" Margin="0,5,0,0"/>
-                        <Picker Title="Genre" TextColor="White" Margin="0,5,0,0" FontSize="Small" SelectedItem="{Binding Genre}" SelectedIndexChanged="PickerGenre_SelectedIndexChanged">
-                            <Picker.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
-                                    <x:String>Action</x:String>
-                                    <x:String>Crime</x:String>
-                                    <x:String>Fantasy</x:String>
-                                    <x:String>Horror</x:String>
-                                </x:Array>
-                            </Picker.ItemsSource>
-                        </Picker>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Margin="0,10,0,0">
-                            <Label Text="Cast" TextColor="White" FontSize="Small" Margin="0,10,0,0"></Label>
-                            <Button Text="+" TextColor="White" Clicked="showActorPicker"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <ListView x:Name="castInserted" ItemsSource="{Binding ActorsCastInserted}" RowHeight="20" HasUnevenRows="True" SeparatorVisibility="None">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <StackLayout x:Name="Item" Orientation="Horizontal">
-                                                <Button Text="B" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding DeleteItem}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
-                                                <Label Text="{Binding Surname}" TextColor="White" VerticalOptions="Center"/>
-                                            </StackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <Picker Title="FilmMaker" TextColor="White" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
-                        </StackLayout>
-                        <StackLayout/>
-                        
-                    </StackLayout>
-                </ScrollView>
-            </Frame>
-            <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
-                    RelativeLayout.YConstraint="{ConstraintExpression
-                        Type=RelativeToParent,
-                        Property=Height,
-                        Factor=0.91}"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression
-                        Type=RelativeToParent,
-                        Property=Width,
-                        Factor=1}">
-                <Button Text="Back To List" Command="{Binding Back}" BackgroundColor="Transparent" TextColor="White" BorderWidth="1" />
-                <Button Text="Save" HorizontalOptions="EndAndExpand" Command="{Binding Save}" BackgroundColor="Transparent" TextColor="White" BorderWidth="1" Margin="10,0,0,0" />
-            </StackLayout>
-        </RelativeLayout>
-    <!--    <ScrollView>
-            <AbsoluteLayout>
-                <Label Text="FILM EDIT" AbsoluteLayout.LayoutBounds="0.5,10" AbsoluteLayout.LayoutFlags="XProportional"/>
-                <Picker x:Name="actorPicker" IsVisible="False" ItemsSource="{Binding ActorsCastAvailable}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerActor_SelectedIndexChanged" AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.4, 0.2" AbsoluteLayout.LayoutFlags="All"/>
-                <StackLayout AbsoluteLayout.LayoutBounds="0.2,0.3, 0.9,0.5" AbsoluteLayout.LayoutFlags="All" Margin="0,0,-25,0" >
-                    <Entry Placeholder="Title*" Text="{Binding Title}" Unfocused="FilmTitleEntry_Unfocused" Keyboard="Text"/>
-                    <Entry Placeholder="Year" Text="{Binding Year}" Unfocused="FilmYearEntry_Unfocused" Keyboard="Numeric" Margin="0,5,0,0"/>
-                    <Picker Title="Genre" Margin="0,5,0,0" SelectedItem="{Binding Genre}" SelectedIndexChanged="PickerGenre_SelectedIndexChanged">
+                <StackLayout VerticalOptions="FillAndExpand">
+                    <Picker x:Name="actorPicker" IsVisible="False" ItemsSource="{Binding ActorsCastAvailable}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerActor_SelectedIndexChanged"/>
+                    <Label Text="Title" Margin="3,0,0,0"/>
+                    <Entry Placeholder="Title*" PlaceholderColor="White" FontSize="Small" Text="{Binding Title}" TextColor="White" Unfocused="FilmTitleEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                    <Label Text="Year" Margin="3,0,0,0"/>
+                    <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year}" TextColor="White" Unfocused="FilmYearEntry_Unfocused" Keyboard="Numeric" Margin="0,-6,0,0"/>
+                    <Label Text="Genre" Margin="3,0,0,0"/>
+                    <Picker Title="Genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre}" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Action</x:String>
@@ -102,32 +51,48 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Margin="0,20,0,0">
-                        <Label Text="Cast" FontSize="Medium" Margin="0,10,0,0"></Label>
-                        <Button Text="+" Clicked="showActorPicker"/>
+                    <Label Text="FilmMaker" Margin="3,0,0,0"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,10,0,0">
+                        <Label Text="Cast" VerticalOptions="Center" FontSize="Medium" Margin="0,10,0,0"></Label>
+                        <Image Source="add.png" VerticalOptions="Start" WidthRequest="75" HeightRequest="75">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="showActorPicker"/>
+                            </Image.GestureRecognizers>
+                        </Image>
                     </StackLayout>
                     <StackLayout>
-                        <ListView x:Name="castInserted" ItemsSource="{Binding ActorsCastInserted}" RowHeight="40" HasUnevenRows="True" SeparatorVisibility="None">
+                        <ListView CachingStrategy="RecycleElement" x:Name="castInserted" ItemsSource="{Binding ActorsCastInserted}" RowHeight="20" HasUnevenRows="True" SeparatorVisibility="None">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
                                         <StackLayout x:Name="Item" Orientation="Horizontal">
                                             <Button Text="B" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding DeleteItem}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
-                                            <Label Text="{Binding Surname}" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Surname}" TextColor="White" VerticalOptions="Center"/>
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                        <Picker Title="FilmMaker" TextColor="White" FontSize="Small" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
                     </StackLayout>
-                    <StackLayout/>
-                    <Picker Title="FilmMaker" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="1,0.7,1,40" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" HorizontalOptions="End" Margin="0,0,10,0">
-                    <Button Text="Back To List" Command="{Binding Back}" BackgroundColor="White" TextColor="Black" BorderWidth="1" />
-                    <Button Text="Save" Command="{Binding Save}" BackgroundColor="LightBlue" TextColor="White" BorderWidth="1" Margin="10,0,0,0" />
-                </StackLayout>
-           </AbsoluteLayout>
-        </ScrollView> -->
+            </Frame>
+            <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                    RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.91}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.2}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=1}">
+                <Button Text="Back To List" VerticalOptions="Start" Command="{Binding Back}" BackgroundColor="Transparent" TextColor="White" BorderWidth="1" />
+                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" Command="{Binding Save}" BackgroundColor="Transparent" TextColor="White" BorderWidth="1" Margin="10,0,0,0" />
+            </StackLayout>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

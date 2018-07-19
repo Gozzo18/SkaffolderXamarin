@@ -31,12 +31,12 @@
                         Property=Width,
                         Factor=0.8}">
                 <StackLayout Spacing="5">
-                    <Label Text="Name"/>
-                    <Entry Placeholder="Name*" PlaceholderColor="White" Text="{Binding Name, Mode=TwoWay}" TextColor="White" Unfocused="ActorNameEntry_Unfocused" Keyboard="Text"/>
-                    <Label Text="Surname"/>
-                    <Entry Placeholder="Surname" PlaceholderColor="White" Text="{Binding Surname, Mode=TwoWay}" TextColor="White" Unfocused="ActorSurnameEntry_Unfocused" Keyboard="Text" Margin="0,5,0,0"/>
-                    <Label Text="BirthDate" Margin="3,20,0,0"/>
-                    <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-15,0,0"/>
+                    <Label Text="Name" Margin="3,0,0,0"/>
+                    <Entry Placeholder="Name*" PlaceholderColor="White" Text="{Binding Name, Mode=TwoWay}" TextColor="White" Unfocused="ActorNameEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                    <Label Text="Surname" Margin="3,0,0,0"/>
+                    <Entry Placeholder="Surname" PlaceholderColor="White" Text="{Binding Surname, Mode=TwoWay}" TextColor="White" Unfocused="ActorSurnameEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                    <Label Text="BirthDate" Margin="3,0,0,0"/>
+                    <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
                 </StackLayout>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
@@ -44,12 +44,16 @@
                         Type=RelativeToParent,
                         Property=Height,
                         Factor=0.91}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.2}"
                     RelativeLayout.WidthConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Width,
                         Factor=1}">
-                <Button Text="Back To List" BackgroundColor="Transparent" TextColor="White" Command="{Binding Back}"/>
-                <Button Text="Save" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding Save}"/>
+                <Button Text="Back To List" VerticalOptions="Start" BackgroundColor="Transparent" TextColor="White" Command="{Binding Back}"/>
+                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding Save}"/>
             </StackLayout>
         </RelativeLayout>
     </ContentPage.Content>

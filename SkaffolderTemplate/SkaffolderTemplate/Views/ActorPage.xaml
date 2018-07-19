@@ -6,7 +6,7 @@
              Title="Actor">
     <ContentPage.Content>
         <RelativeLayout>
-            <ScrollView x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
+            <StackLayout x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
                             Type=RelativeToParent,
                             Property=Width,
                             Factor=1}"
@@ -14,41 +14,39 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <StackLayout>
-                    <ListView x:Name="MainListOfActors" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfActors_ItemSelected">
-                        <ListView.Header>
-                            <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
-                        </ListView.Header>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <customrenderer:CustomViewCell>
-                                    <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
-                                        <StackLayout Orientation="Horizontal">
-                                            <StackLayout HorizontalOptions="Start" x:Name="ActorItem">
-                                                <Label Text="_id:"/>
-                                                <Label Text="{Binding Id}" TextColor="White"/>
-                                                <Label Text="Name:"/>
-                                                <Label Text="{Binding Name}" TextColor="White"/>
-                                                <Label Text="Date of Birth:"/>
-                                                <Label Text="{Binding BirthDate}" TextColor="White"/>
-                                            </StackLayout>
-                                            <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
-                                                <Image Source="delete.png" HorizontalOptions="End">
-                                                    <Image.GestureRecognizers>
-                                                        <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
-                                                    </Image.GestureRecognizers>
-                                                </Image>
-                                                <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
-                                            </StackLayout>
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfActors" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfActors_ItemSelected">
+                    <ListView.Header>
+                        <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <customrenderer:CustomViewCell>
+                                <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout HorizontalOptions="Start" x:Name="ActorItem">
+                                            <Label Text="_id:"/>
+                                            <Label Text="{Binding Id}" TextColor="White"/>
+                                            <Label Text="Name:"/>
+                                            <Label Text="{Binding Name}" TextColor="White"/>
+                                            <Label Text="Date of Birth:"/>
+                                            <Label Text="{Binding BirthDate}" TextColor="White"/>
                                         </StackLayout>
-                                    </Frame>
-                                </customrenderer:CustomViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-            </ScrollView>
+                                        <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
+                                            <Image Source="delete.png" HorizontalOptions="End">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
+                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </customrenderer:CustomViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
             <StackLayout x:Name="supportStackLayout" BackgroundColor="LightGray"
                          RelativeLayout.WidthConstraint="{ConstraintExpression
                             Type=RelativeToParent,
@@ -63,7 +61,7 @@
                             Type=RelativeToView,
                             ElementName=mainElement,
                             Property=Height,
-                            Factor=0.98}">
+                            Factor=0.979}">
             </StackLayout>
             <StackLayout BackgroundColor="#7970F5"
                          RelativeLayout.WidthConstraint="{ConstraintExpression
@@ -79,7 +77,11 @@
                             ElementName=mainElement,
                             Property=Height,
                             Factor=0.98}">
-                <Button Image="add.png" Margin="10,-25,0,0" VerticalOptions="Center"  HorizontalOptions="Center" BackgroundColor="Blue" BorderRadius="25" HeightRequest="50" WidthRequest="50" Command="{Binding Add}"/>
+                <Image Source="add.png" Aspect="AspectFit" Margin="10,-62,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="125" WidthRequest="125">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Add}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </StackLayout>
         </RelativeLayout>
     </ContentPage.Content>

@@ -11,14 +11,14 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\ActorEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageOptions.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\ActorEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -29,8 +29,11 @@
       <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ActorBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMakerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
