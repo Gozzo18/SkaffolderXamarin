@@ -62,6 +62,32 @@ namespace SkaffolderTemplate.ViewModels
                 SetValue(ref _searchedWord, value);
             }
         }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                SetValue(ref _isBusy, value);
+            }
+        }
+
+        private bool _isLoaded;
+        public bool IsLoaded
+        {
+            get
+            {
+                return _isLoaded;
+            }
+            set
+            {
+                SetValue(ref _isLoaded, value);
+            }
+        }
         #endregion
 
         #region Commands
@@ -109,8 +135,16 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task GetRequest()
         {
+            //Set ActivityIndicator visible, hide the ListView
+            IsBusy = true;
+            IsLoaded = false;
+
             FilmsList = await App.filmService.GETList();
             SupportList = new ObservableCollection<Film>(FilmsList);
+
+            //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
+            IsBusy = false;
+            IsLoaded = true;
         }
 
         private async Task RefreshList()

@@ -17,7 +17,7 @@ namespace SkaffolderTemplate.Views
 			InitializeComponent ();
 		}
 
-        private async Task TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             var label = sender as Label;
             var masterPage = App.Current.MainPage as MasterDetailPage;

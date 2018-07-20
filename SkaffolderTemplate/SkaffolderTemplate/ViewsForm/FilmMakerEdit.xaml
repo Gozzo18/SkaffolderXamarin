@@ -5,7 +5,7 @@
              Title="FilmMaker">
     <ContentPage.Content>
         <RelativeLayout>
-            <Label x:Name="Title" Text="Edit Film Maker" FontSize="Large" TextColor="#7970F5"
+            <Label x:Name="Subtitle" Text="Edit Film Maker" FontSize="Large" TextColor="#7970F5"
                    RelativeLayout.XConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Width,
@@ -18,7 +18,7 @@
                     RelativeLayout.YConstraint="{ConstraintExpression
                         Type=RelativeToView,
                         Property=Height,
-                        ElementName=Title,
+                        ElementName=Subtitle,
                         Factor=1,
                         Constant=10}"
                     RelativeLayout.XConstraint="{ConstraintExpression

@@ -1,5 +1,6 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewsForm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,6 +61,32 @@ namespace SkaffolderTemplate.ViewModels
             set
             {
                 SetValue(ref _searchedWord, value);
+            }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                SetValue(ref _isBusy, value);
+            }
+        }
+
+        private bool _isLoaded;
+        public bool IsLoaded
+        {
+            get
+            {
+                return _isLoaded;
+            }
+            set
+            {
+                SetValue(ref _isLoaded, value);
             }
         }
         #endregion
@@ -124,8 +151,16 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task GetRequest()
         {
+            //Set ActivityIndicator visible, hide the ListView
+            IsBusy = true;
+            IsLoaded = false;
+
             ActorsList = await App.actorService.GETList();
             SupportList = new ObservableCollection<Actor>(ActorsList);
+
+            //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
+            IsBusy = false;
+            IsLoaded = true;           
         }
 
         private void SearchWord()

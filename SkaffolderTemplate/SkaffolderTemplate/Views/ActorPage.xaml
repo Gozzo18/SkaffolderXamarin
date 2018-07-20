@@ -6,6 +6,15 @@
              Title="Actor">
     <ContentPage.Content>
         <RelativeLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.4}"
+                         RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.45}"/>
             <StackLayout x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
                             Type=RelativeToParent,
                             Property=Width,
@@ -14,7 +23,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfActors" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfActors_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfActors" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfActors_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>
@@ -29,7 +38,7 @@
                                             <Label Text="Name:"/>
                                             <Label Text="{Binding Name}" TextColor="White"/>
                                             <Label Text="Date of Birth:"/>
-                                            <Label Text="{Binding BirthDate}" TextColor="White"/>
+                                            <Label Text="{Binding BirthDate,StringFormat='{0: MM/dd/yyyy}'}" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">

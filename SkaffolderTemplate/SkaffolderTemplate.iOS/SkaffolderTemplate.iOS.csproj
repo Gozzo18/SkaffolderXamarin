@@ -150,6 +150,18 @@
     <ImageAsset Include="Assets.xcassets\Edit.imageset\edit.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Padlock.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Logout.imageset\logout.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Padlock.imageset\padlock.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\User.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Logout.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -159,7 +171,7 @@
     <ImageAsset Include="Assets.xcassets\Edit.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Logout.imageset\logout.png">
+    <ImageAsset Include="Assets.xcassets\User.imageset\user.png">
       <Visible>false</Visible>
     </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

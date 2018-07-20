@@ -1,10 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SkaffolderTemplate.Views.LoginPage">
+             x:Class="SkaffolderTemplate.Views.LoginPage"
+             BackgroundColor="#7970F5"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Clicked="Button_Clicked" Text="LOGIN"/>
-        </StackLayout>
+        <RelativeLayout>
+            <Frame BackgroundColor="White" CornerRadius="10" 
+                   RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.8}"
+                   RelativeLayout.XConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.1}"
+                   RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.5}"
+                   RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.2}">
+                <StackLayout x:Name="MainLayout" Spacing="20">
+                    <Label Text="Login" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <StackLayout>
+                        <Label Text="Username" TextColor="#7970F5" HorizontalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Image Source="user.png"/>
+                            <Entry Text="{Binding Username}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Unfocused="Entry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                        </StackLayout>
+                        
+                        <Label Text="Password" TextColor="#7970F5" HorizontalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Image Source="padlock.png"/>
+                            <Entry x:Name="Password" Text="{Binding Password}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Completed="Password_Completed" IsPassword="True" Margin="0,-6,0,0"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
+                    
+                </StackLayout>
+            </Frame>
+        </RelativeLayout>
+
     </ContentPage.Content>
 </ContentPage>

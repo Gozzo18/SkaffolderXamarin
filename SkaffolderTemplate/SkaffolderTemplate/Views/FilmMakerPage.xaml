@@ -6,6 +6,15 @@
              Title="FilmMaker">
     <ContentPage.Content>
         <RelativeLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.4}"
+                         RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.45}"/>
             <StackLayout x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
                             Type=RelativeToParent,
                             Property=Width,
@@ -14,7 +23,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfFilmMakers" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfFilmMakers_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfFilmMakers" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfFilmMakers_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>

@@ -1,6 +1,7 @@
 using SkaffolderTemplate.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SkaffolderTemplate.Views;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace SkaffolderTemplate
@@ -29,7 +30,8 @@ namespace SkaffolderTemplate
             actorService = new ActorRestService();
             filmMakerService = new FilmMakerRestService();
 
-            MainPage = new MasterPage();           
+            //  MainPage = new MasterPage(); 
+            MainPage = new NavigationPage(new LoginPage());
 		}
 
 		protected override void OnStart ()
