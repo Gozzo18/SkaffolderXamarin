@@ -18,29 +18,33 @@
                    RelativeLayout.HeightConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Height,
-                        Factor=0.5}"
+                        Factor=0.6}"
                    RelativeLayout.YConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Height,
                         Factor=0.2}">
                 <StackLayout x:Name="MainLayout" Spacing="20">
-                    <Label Text="Login" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="Login" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                     <StackLayout>
                         <Label Text="Username" TextColor="#7970F5" HorizontalOptions="Center"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                             <Image Source="user.png"/>
-                            <Entry Text="{Binding Username}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Unfocused="Entry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                            <Entry Text="{Binding Username}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Completed="Entry_Completed" Keyboard="Text" Margin="0,-6,0,0"/>
                         </StackLayout>
-                        
+
                         <Label Text="Password" TextColor="#7970F5" HorizontalOptions="Center"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                             <Image Source="padlock.png"/>
-                            <Entry x:Name="Password" Text="{Binding Password}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Completed="Password_Completed" IsPassword="True" Margin="0,-6,0,0"/>
+                            <Entry x:Name="Password" Text="{Binding Password}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Completed="Login_Clicked" IsPassword="True" Margin="0,-6,0,0"/>
                         </StackLayout>
-                    </StackLayout>
 
+                        <Label VerticalOptions="Start" IsVisible="{Binding ErrorData}" HorizontalOptions="Center" Text="{Binding ErrorMessage}" TextColor="Red"/>
+                    </StackLayout>
                     <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
-                    
                 </StackLayout>
             </Frame>
         </RelativeLayout>

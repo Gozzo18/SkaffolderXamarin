@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SkaffolderTemplate.Views.Profile"
+             Title="My Profile">
+    <ContentPage.Content>
+        <RelativeLayout>
+            <Frame x:Name="MainElement" CornerRadius="10" BorderColor="#7970F5"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.8}"
+                        RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.4}"
+                        RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.1}">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Label Text="Username:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
+                    <Label Text="{Binding Username}" TextColor="#7970F5"/>
+                    <StackLayout HorizontalOptions="Fill" Orientation="Horizontal" Spacing="30">
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="-15">
+                            <Label Text="Name:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
+                            <Entry Text="{Binding Name, Mode=TwoWay}" TextColor="#7970F5" HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="-15">
+                            <Label Text="Last Name:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
+                            <Entry Text="{Binding LastName, Mode=TwoWay}" TextColor="#7970F5"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <Label Text="Email:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
+                    <Entry Text="{Binding Email}" TextColor="#7970F5" Margin="0,-15,0,0"/>
+                </StackLayout>
+            </Frame>
+            <StackLayout x:Name="Buttons" HorizontalOptions="FillAndExpand"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.8}"
+                        RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.1}"
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=MainElement,
+                            Property=Height,
+                            Factor=1.4}"
+                         RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.1}">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                    <Button Text="&lt; Back" BackgroundColor="Transparent" TextColor="DarkBlue" FontAttributes="Bold"/>
+                    <Button Text="Save" HorizontalOptions="EndAndExpand" TextColor="White" BackgroundColor="DarkBlue" FontAttributes="Bold" BorderRadius="30"/>
+                </StackLayout>
+                <Button Text="Change Password" HorizontalOptions="Start" TextColor="#7970F5" BackgroundColor="Transparent"/>
+            </StackLayout>
+            <StackLayout BackgroundColor="#7970F5"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.2}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.88}"/>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>

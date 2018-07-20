@@ -105,6 +105,9 @@
     <ImageAsset Include="Assets.xcassets\Add.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Add2.imageset\add2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
       <Visible>false</Visible>
     </ImageAsset>
@@ -150,10 +153,13 @@
     <ImageAsset Include="Assets.xcassets\Edit.imageset\edit.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Padlock.imageset\Contents.json">
+    <ImageAsset Include="Assets.xcassets\Add2.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Logout.imageset\logout.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Padlock.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Padlock.imageset\padlock.png">

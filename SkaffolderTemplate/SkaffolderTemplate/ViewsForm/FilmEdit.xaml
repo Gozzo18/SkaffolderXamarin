@@ -52,8 +52,12 @@
                         </Picker.ItemsSource>
                     </Picker>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
-                        <Label Text="Cast" VerticalOptions="Center" FontSize="Medium" Margin="0,10,0,0"></Label>
-                        <Image Source="add.png" VerticalOptions="Start" WidthRequest="75" HeightRequest="75">
+                        <Label Text="Cast" VerticalOptions="Center" FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="showActorPicker"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Image Source="add.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="showActorPicker"/>
                             </Image.GestureRecognizers>

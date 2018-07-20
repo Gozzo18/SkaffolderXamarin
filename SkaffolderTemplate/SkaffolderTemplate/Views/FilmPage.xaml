@@ -70,7 +70,7 @@
                             Type=RelativeToView,
                             ElementName=mainElement,
                             Property=Height,
-                            Factor=0.98}">
+                            Factor=0.979}">
             </StackLayout>
             <StackLayout BackgroundColor="#7970F5"
                          RelativeLayout.WidthConstraint="{ConstraintExpression
@@ -86,7 +86,7 @@
                             ElementName=mainElement,
                             Property=Height,
                             Factor=0.98}">
-                <Image Source="add.png" Aspect="AspectFit" Margin="10,-62,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="125" WidthRequest="125">
+                <Image Source="add2.png" Margin="10,-39,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Add}"/>
                     </Image.GestureRecognizers>

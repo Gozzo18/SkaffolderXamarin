@@ -42,10 +42,6 @@ namespace SkaffolderTemplate
                 MessagingCenter.Subscribe<MasterPageViewModel, string>(this, "Detail", (arg1, arg2) => {
                 switch (arg2)
                 {
-                    /*    case "Home":
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage();
-                            break;*/
-
                     case "Actor":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
@@ -63,6 +59,16 @@ namespace SkaffolderTemplate
 
                     case "Home":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
+
+                    case "Profile":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new Profile());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
+
+                    case "Manage User":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUser());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
                     }

@@ -31,19 +31,20 @@ namespace SkaffolderTemplate.Views
 			InitializeComponent ();
 		}
 
-        private void Entry_Unfocused(object sender, FocusEventArgs e)
+        private void Entry_Completed(object sender, FocusEventArgs e)
         {
             Password.Focus();
-        }
-
-        private void Password_Completed(object sender, EventArgs e)
-        {
-            Login.Clicked +=Login_Clicked;
         }
 
         private void Login_Clicked(object sender, EventArgs e)
         {
             ViewModel.LoginClicked.Execute(null);
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            App.Current.MainPage = new MasterPage();
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
         }
     }
 }
