@@ -31,6 +31,14 @@ namespace SkaffolderTemplate.Views
 			InitializeComponent ();
 		}
 
+        protected override void OnAppearing()
+        {
+            //Check if token is present
+            ViewModel.CheckToken.Execute(null);
+
+            base.OnAppearing();
+        }
+
         private void Entry_Completed(object sender, FocusEventArgs e)
         {
             Password.Focus();

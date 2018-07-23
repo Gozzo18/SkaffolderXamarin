@@ -29,6 +29,17 @@
                 </Label>
                 <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
             </StackLayout>
+
+            <!-- DEBUG -->
+            <StackLayout HorizontalOptions="Center">
+                <Label Text="Home" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+            </StackLayout> 
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

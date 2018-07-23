@@ -23,10 +23,14 @@ namespace SkaffolderTemplate.Views
             var masterPage = App.Current.MainPage as MasterDetailPage;
             if (label.Text.Equals("Actor"))
                 masterPage.Detail = new NavigationPage(new ActorPage());
-            else if(label.Text.Equals("Film"))
+            else if (label.Text.Equals("Film"))
                 masterPage.Detail = new NavigationPage(new FilmPage());
             else if (label.Text.Equals("FilmMaker"))
                 masterPage.Detail = new NavigationPage(new FilmMakerPage());
+
+            //DEBUG
+            else if (label.Text.Equals("Home"))
+                masterPage.Detail = new NavigationPage(new LoginPage());
         }
     }
 }

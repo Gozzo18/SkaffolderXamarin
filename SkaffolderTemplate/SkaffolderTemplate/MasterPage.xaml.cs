@@ -71,6 +71,13 @@ namespace SkaffolderTemplate
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUser());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
+
+                    case "Logout":
+                        var app = App.Current as App;
+                        app.AuthenticationToken = "";
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
                     }
             });
             base.OnAppearing();

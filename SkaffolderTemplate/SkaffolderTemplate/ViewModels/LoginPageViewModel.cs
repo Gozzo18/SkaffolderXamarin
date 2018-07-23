@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -64,13 +65,27 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         public ICommand LoginClicked { get; private set; }
+        public ICommand CheckToken { get; private set; }
 
         public LoginPageViewModel()
         {
-            LoginClicked = new Command(VerifyData);
+            LoginClicked = new Command(async vm => await VerifyData());
+            CheckToken = new Command(async vm => await StepOverLogin());
         }
 
-        private async void VerifyData(object obj)
+        private async Task StepOverLogin()
+        {
+            var app = App.Current as App;
+
+            if(await App.loginService.VerifyToken(app.AuthenticationToken))
+            {
+                App.Current.MainPage = new MasterPage();
+                var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            }
+
+        }
+
+        private async Task VerifyData()
         {
             if(string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
@@ -79,7 +94,7 @@ namespace SkaffolderTemplate.ViewModels
                 return;
             }
 
-            if (Username.Equals("admin") && Password.Equals("pass"))
+            if(await App.loginService.LoginAsync(Username, Password))
             {
                 App.Current.MainPage = new MasterPage();
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
