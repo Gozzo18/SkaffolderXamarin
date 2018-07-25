@@ -6,6 +6,7 @@ namespace SkaffolderTemplate.Models.Base
     public class UserBase : BaseViewModel
     {
         private string _id;
+        [JsonProperty(PropertyName = "_id")]
         public string Id
         {
             get
@@ -19,6 +20,7 @@ namespace SkaffolderTemplate.Models.Base
         }
 
         private string username;
+        [JsonProperty(PropertyName = "username")]
         public string Username
         {
             get
@@ -32,6 +34,7 @@ namespace SkaffolderTemplate.Models.Base
         }
 
         private string password;
+        [JsonProperty(PropertyName = "password")]
         public string Password
         {
             get
@@ -45,6 +48,7 @@ namespace SkaffolderTemplate.Models.Base
         }
 
         private string[] roles;
+        [JsonProperty(PropertyName = "roles")]
         public string[] Roles
         {
             get
@@ -58,6 +62,7 @@ namespace SkaffolderTemplate.Models.Base
         }
 
         private string name;
+        [JsonProperty(PropertyName = "name")]
         public string Name
         {
             get
@@ -71,6 +76,7 @@ namespace SkaffolderTemplate.Models.Base
         }
 
         private string surname;
+        [JsonProperty(PropertyName = "surname")]
         public string Surname
         {
             get
@@ -84,6 +90,7 @@ namespace SkaffolderTemplate.Models.Base
         }
 
         private string mail;
+        [JsonProperty(PropertyName = "mail")]
         public string Mail
         {
             get

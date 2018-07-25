@@ -1,8 +1,6 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using SkaffolderTemplate.Views;
-using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -12,8 +10,10 @@ namespace SkaffolderTemplate.ViewModels
     public class MasterPageViewModel : BaseViewModel
     {
 
+        #region Commands
         public ICommand GetUserById { get; private set; }
         public ICommand SetDetailPage { get; private set; }
+        #endregion
 
         public MasterPageViewModel()
         {
@@ -32,6 +32,5 @@ namespace SkaffolderTemplate.ViewModels
         {
             MessagingCenter.Send<MasterPageViewModel, string>(this, Events.DetailPageChanged, button.Text);
         }
-
     }
 }

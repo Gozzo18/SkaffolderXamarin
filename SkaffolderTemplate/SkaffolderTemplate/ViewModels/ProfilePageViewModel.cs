@@ -10,7 +10,6 @@ namespace SkaffolderTemplate.ViewModels
     public class ProfilePageViewModel : BaseViewModel
     {
         #region Attributes and Properties
-
         private string _name;
         public string Name
         {
@@ -97,14 +96,17 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task SaveInfo()
         {
-            User.Name = Name;
-            User.Surname = Surname;
-            User.Mail = Mail;
+            if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Mail))
+            {
+                User.Name = char.ToUpper(Name[0]) + Name.Substring(1);
+                User.Surname = char.ToUpper(Surname[0]) + Surname.Substring(1);
+                User.Mail = Mail;
 
-            await App.userService.PUT(User);
+                await App.userService.PUT(User);
 
-            var masterPage = App.Current.MainPage as MasterDetailPage;
-            masterPage.Detail = new NavigationPage(new HomePage());
+                var masterPage = App.Current.MainPage as MasterDetailPage;
+                masterPage.Detail = new NavigationPage(new HomePage());
+            }
         }
 
         private Task ModifyPassword()

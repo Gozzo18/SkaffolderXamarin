@@ -1,5 +1,4 @@
 ﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;

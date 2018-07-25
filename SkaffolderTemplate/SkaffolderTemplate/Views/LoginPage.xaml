@@ -51,7 +51,7 @@
                         <Label Text="Username" Style="{StaticResource label}"/>
                         <StackLayout Style="{StaticResource stackLayout}">
                             <Image Source="user.png"/>
-                            <Entry Text="{Binding Username}" Style="{StaticResource entry}" Completed="Entry_Completed" Keyboard="Text"/>
+                            <Entry Text="{Binding Username}" Style="{StaticResource entry}" Completed="Entry_Completed" Keyboard="Default"/>
                         </StackLayout>
 
                         <Label Text="Password" Style="{StaticResource label}"/>

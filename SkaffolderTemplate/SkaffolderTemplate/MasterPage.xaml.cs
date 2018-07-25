@@ -1,13 +1,7 @@
-﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Support;
+﻿using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

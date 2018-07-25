@@ -64,8 +64,10 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
+        #region Commands
         public ICommand LoginClicked { get; private set; }
         public ICommand CheckToken { get; private set; }
+        #endregion
 
         public LoginPageViewModel()
         {

@@ -1,5 +1,4 @@
 ﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -160,6 +159,5 @@ namespace SkaffolderTemplate.ViewModels
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             await masterDetailPage.Detail.Navigation.PopAsync();
         }
-
     }
 }

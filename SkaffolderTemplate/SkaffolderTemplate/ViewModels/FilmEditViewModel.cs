@@ -346,6 +346,5 @@ namespace SkaffolderTemplate.ViewModels
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             await masterDetailPage.Detail.Navigation.PopAsync();
         }
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SkaffolderTemplate.Models;
 using System;
 using System.Collections.ObjectModel;
@@ -82,9 +81,8 @@ namespace SkaffolderTemplate.Rest.Base
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(App.USER_URL + item.Id, content);
-            }
-            catch (Exception e)
-            {
+                var responseString = await response.Content.ReadAsStringAsync();
+            }catch(Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
         }

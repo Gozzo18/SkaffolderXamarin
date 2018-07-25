@@ -28,12 +28,7 @@ namespace SkaffolderTemplate
         public static UserRestService userService { get; private set; }
         public static LoginRestService loginService { get; private set; }
 
-            private const string AUTHENTICATION_TOKEN = "AuthenticationToken";
-        /*    private const string USERNAME = "Username";
-            private const string NAME = "Name";
-            private const string LASTNAME = "Lastname";
-            private const string EMAIL = "Email";
-            private const string PASSWORD = "Password";*/
+        private const string AUTHENTICATION_TOKEN = "AuthenticationToken";
         private const string USER_ID = "UserId";
 
         public App ()
@@ -46,7 +41,6 @@ namespace SkaffolderTemplate
             userService = new UserRestService();
             loginService = new LoginRestService();
 
-            //  MainPage = new MasterPage(); 
             MainPage = new NavigationPage(new LoginPage());
 		}
 
@@ -79,76 +73,6 @@ namespace SkaffolderTemplate
             }
         }
 
-    /*    public string Username
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(USERNAME))
-                    return (string)Current.Properties[USERNAME];
-                return "";
-            }
-            set
-            {
-                Current.Properties[USERNAME] = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(NAME))
-                    return (string)Current.Properties[NAME];
-                return "";
-            }
-            set
-            {
-                Current.Properties[NAME] = value;
-            }
-        }
-
-        public string Lastname
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(LASTNAME))
-                    return (string)Current.Properties[LASTNAME];
-                return "";
-            }
-            set
-            {
-                Current.Properties[LASTNAME] = value;
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(EMAIL))
-                    return (string)Current.Properties[EMAIL];
-                return "";
-            }
-            set
-            {
-                Current.Properties[EMAIL] = value;
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(PASSWORD))
-                    return (string)Current.Properties[PASSWORD];
-                return "";
-            }
-            set
-            {
-                Current.Properties[PASSWORD] = value;
-            }
-        }*/
-
         public string UserId
         {
             get
@@ -162,6 +86,5 @@ namespace SkaffolderTemplate
                 Current.Properties[USER_ID] = value;
             }
         }
-
 	}
 }
