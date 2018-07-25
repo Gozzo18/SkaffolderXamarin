@@ -1,4 +1,6 @@
-﻿using SkaffolderTemplate.ViewModels;
+﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Support;
+using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,6 @@ namespace SkaffolderTemplate
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterPage : MasterDetailPage
 	{
-
         private MasterPageViewModel ViewModel
         {
             get
@@ -38,49 +39,56 @@ namespace SkaffolderTemplate
 
         protected override void OnAppearing()
         {
-
-                MessagingCenter.Subscribe<MasterPageViewModel, string>(this, "Detail", (arg1, arg2) => {
+            var app = App.Current as App;
+            MessagingCenter.Subscribe<MasterPageViewModel, string>(this, Events.DetailPageChanged, (arg1, arg2) => {
                 switch (arg2)
-                {
+                {   
                     case "Actor":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
-
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            break;
+                
                     case "Film":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmPage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmPage());
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            break;
 
                     case "FilmMaker":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            break;
 
                     case "Home":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            break;
 
                     case "Profile":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new Profile());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
+                            loadUserData();
+                            break;
 
                     case "Manage User":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUser());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUser());
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            break;
 
                     case "Logout":
-                        var app = App.Current as App;
-                        app.AuthenticationToken = "";
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
-                    }
+                            #region Delete all reference to UserLogged
+                            app.AuthenticationToken = "";
+                            app.UserId = "";
+                            app.SavePropertiesAsync();
+                            #endregion
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            break;
+                }
             });
             base.OnAppearing();
+        }
+
+        private void loadUserData()
+        {
+          // ViewModel.GetUserById.Execute(null);
         }
 
         protected override void OnDisappearing()

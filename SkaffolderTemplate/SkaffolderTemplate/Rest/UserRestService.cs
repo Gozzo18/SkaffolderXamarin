@@ -2,7 +2,7 @@
 
 namespace SkaffolderTemplate.Rest
 {
-    public class FilmMakerRestService : FilmMakerRestServiceBase
+    public class UserRestService : UserRestServiceBase
     {
     }
 }

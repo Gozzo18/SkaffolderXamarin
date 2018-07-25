@@ -4,6 +4,24 @@
              x:Class="SkaffolderTemplate.Views.LoginPage"
              BackgroundColor="#7970F5"
              NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="label" TargetType="Label">
+                <Setter Property="TextColor" Value="#7970F5"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="entry" TargetType="Entry">
+                <Setter Property="IsSpellCheckEnabled" Value="False"/>
+                <Setter Property="TextColor" Value="#7970F5"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Margin" Value="0,-6,0,0"/>
+            </Style>
+            <Style x:Key="stackLayout" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout>
             <Frame BackgroundColor="White" CornerRadius="10" 
@@ -18,11 +36,11 @@
                    RelativeLayout.HeightConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Height,
-                        Factor=0.6}"
+                        Factor=0.55}"
                    RelativeLayout.YConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Height,
-                        Factor=0.2}">
+                        Factor=0.15}">
                 <StackLayout x:Name="MainLayout" Spacing="20">
                     <Label Text="Login" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.GestureRecognizers>
@@ -30,21 +48,21 @@
                         </Label.GestureRecognizers>
                     </Label>
                     <StackLayout>
-                        <Label Text="Username" TextColor="#7970F5" HorizontalOptions="Center"/>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="Username" Style="{StaticResource label}"/>
+                        <StackLayout Style="{StaticResource stackLayout}">
                             <Image Source="user.png"/>
-                            <Entry Text="{Binding Username}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Completed="Entry_Completed" Keyboard="Text" Margin="0,-6,0,0"/>
+                            <Entry Text="{Binding Username}" Style="{StaticResource entry}" Completed="Entry_Completed" Keyboard="Text"/>
                         </StackLayout>
 
-                        <Label Text="Password" TextColor="#7970F5" HorizontalOptions="Center"/>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="Password" Style="{StaticResource label}"/>
+                        <StackLayout Style="{StaticResource stackLayout}">
                             <Image Source="padlock.png"/>
-                            <Entry x:Name="Password" Text="{Binding Password}" TextColor="#7970F5" HorizontalOptions="FillAndExpand" Completed="Login_Clicked" IsPassword="True" Margin="0,-6,0,0"/>
+                            <Entry x:Name="Password" Text="{Binding Password}" Style="{StaticResource entry}" Completed="Login_Clicked" IsPassword="True"/>
                         </StackLayout>
 
                         <Label VerticalOptions="Start" IsVisible="{Binding ErrorData}" HorizontalOptions="Center" Text="{Binding ErrorMessage}" TextColor="Red"/>
                     </StackLayout>
-                    <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
+                    <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" VerticalOptions="End" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
                 </StackLayout>
             </Frame>
         </RelativeLayout>

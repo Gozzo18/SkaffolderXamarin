@@ -27,18 +27,26 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomViewCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\UserBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\UserRestServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Support\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ActorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\ActorBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMakerBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmMakerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\ActorRestServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmMakerRestServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmRestServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Security\LoginRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorPageViewModel.cs" />
@@ -49,6 +57,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

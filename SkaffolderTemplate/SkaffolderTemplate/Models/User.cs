@@ -2,7 +2,7 @@
 
 namespace SkaffolderTemplate.Models
 {
-    public class FilmMaker : FilmMakerBase
+    public class User : UserBase
     {
     }
 }

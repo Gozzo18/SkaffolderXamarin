@@ -3,32 +3,42 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="SkaffolderTemplate.MasterPage"
                   NavigationPage.HasNavigationBar="False">
+    <MasterDetailPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="button" TargetType="Button">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+        </ResourceDictionary>
+    </MasterDetailPage.Resources>
     <MasterDetailPage.Master>
         <ContentPage Title=" " BackgroundColor="#7970F5">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <ScrollView HorizontalOptions="Center"  VerticalOptions="Start" Padding="0,20,0,0">
                     <StackLayout>
-                        <Button Text="Home" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Actor" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Film" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="FilmMaker" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Home" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="Actor" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="Film" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="FilmMaker" Style="{StaticResource button}" Clicked="Button_Clicked"/>
                         <!-- Attivano la Scrollview    
-                        <Button Text="Home" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Actor" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Film" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="FilmMaker" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Home1" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Actor1" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Film1" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="FilmMaker1" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
 
-                        <Button Text="Home" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Actor" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Film" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="FilmMaker" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/> -->
+                        <Button Text="Home2" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Actor2" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Film2" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="FilmMaker2" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/> -->
                     </StackLayout>
                 </ScrollView>
                 <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">
                     <StackLayout Spacing="20" HorizontalOptions="Center">
-                        <Button Text="Profile" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Text="Manage User" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
-                        <Button Image="logout.png"  Text="Logout" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+                        <Button Text="Profile" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="Manage User" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Image="logout.png"  Text="Logout" Style="{StaticResource button}" Clicked="Button_Clicked"/>
                     </StackLayout>
                 </Frame>
             </StackLayout>

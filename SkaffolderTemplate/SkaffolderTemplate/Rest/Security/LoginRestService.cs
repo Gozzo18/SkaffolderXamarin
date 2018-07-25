@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
 
 namespace SkaffolderTemplate.Rest.Security
 {
@@ -35,27 +36,28 @@ namespace SkaffolderTemplate.Rest.Security
 
                 HttpResponseMessage response = await client.PostAsync(App.LOGIN_URL, content);
            
-
                 //If data are correct...
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     isPresent = true;
 
-                    //Extract the token from response body
+                    //Extract the token and the id from response body
                     var data = (JObject)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
-                    var result = data.SelectToken("token").ToString();
+                    var token = data.SelectToken("token").ToString();
+                    var id = data.SelectToken("_id").ToString();
 
-                    //Save the token permanently
+                    //Set the authorization type of client
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    //Save the token and the id permanently
                     var app = App.Current as App;
-                    app.AuthenticationToken = result;
-                    
+                    app.AuthenticationToken = token;
+                    app.UserId = id;
                     await app.SavePropertiesAsync();
                 }
-
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
-
             return isPresent;
         }
 
@@ -74,13 +76,10 @@ namespace SkaffolderTemplate.Rest.Security
                     HttpResponseMessage response = await client.PostAsync(App.VERIFY_TOKEN_URL, content);
                     if (response.IsSuccessStatusCode)
                         tokenPresent = true;
-                }
-                catch (Exception e)
-                {
+                }catch (Exception e){
                     Debug.WriteLine(@"				ERROR{0}", e);
                 }
             }
-
             return tokenPresent;
         }
 

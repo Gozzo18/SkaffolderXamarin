@@ -1,7 +1,7 @@
 ﻿using SkaffolderTemplate.ViewModels;
 using System;
 
-namespace SkaffolderTemplate.Models
+namespace SkaffolderTemplate.Models.Base
 {
     public class ActorBase : BaseViewModel
     {

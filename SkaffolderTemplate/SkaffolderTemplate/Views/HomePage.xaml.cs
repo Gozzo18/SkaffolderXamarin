@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HomePage : ContentPage
 	{
 		public HomePage ()
@@ -17,7 +12,12 @@ namespace SkaffolderTemplate.Views
 			InitializeComponent ();
 		}
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        /// <summary>
+        /// Set the Detail page for MasterDetailPage 
+        /// </summary>
+        /// <param name="sender">Label pressed</param>
+        /// <param name="e"></param>
+        private void ChangePage(object sender, EventArgs e)
         {
             var label = sender as Label;
             var masterPage = App.Current.MainPage as MasterDetailPage;

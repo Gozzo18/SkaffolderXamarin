@@ -3,41 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SkaffolderTemplate.Views.HomePage"
              Title="Home">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="stackLayout" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="label" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="boxview" TargetType="BoxView">
+                <Setter Property="WidthRequest" Value="200"/>
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="Color" Value="Gray"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
-            <StackLayout HorizontalOptions="Center">
-                <Label Text="Actor" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+            <StackLayout Style="{StaticResource stackLayout}">
+                <Label Text="Actor" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+                <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            <StackLayout HorizontalOptions="Center">
-                <Label Text="Film" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+            
+            <StackLayout Style="{StaticResource stackLayout}">
+                <Label Text="Film" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+                <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            <StackLayout HorizontalOptions="Center">
-                <Label Text="FilmMaker" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+            
+            <StackLayout Style="{StaticResource stackLayout}">
+                <Label Text="FilmMaker" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+                <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
 
             <!-- DEBUG -->
-            <StackLayout HorizontalOptions="Center">
-                <Label Text="Home" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center">
+            <StackLayout Style="{StaticResource stackLayout}">
+                <Label Text="Home" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <BoxView WidthRequest="200" HeightRequest="1" Color="Gray"/>
+                <BoxView Style="{StaticResource boxview}"/>
             </StackLayout> 
             
         </StackLayout>

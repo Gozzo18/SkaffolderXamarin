@@ -24,19 +24,19 @@
                             Factor=0.1}">
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Label Text="Username:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                    <Label Text="{Binding Username}" TextColor="#7970F5"/>
+                    <Label Text="{Binding User.Username}" TextColor="#7970F5"/>
                     <StackLayout HorizontalOptions="Fill" Orientation="Horizontal" Spacing="30">
-                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="-15">
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="-10">
                             <Label Text="Name:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                            <Entry Text="{Binding Name, Mode=TwoWay}" TextColor="#7970F5" HorizontalOptions="FillAndExpand"/>
+                            <Entry Text="{Binding Name, Mode=TwoWay}" IsSpellCheckEnabled="False" TextColor="#7970F5" HorizontalOptions="FillAndExpand"/>
                         </StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="-15">
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="-10">
                             <Label Text="Last Name:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                            <Entry Text="{Binding LastName, Mode=TwoWay}" TextColor="#7970F5"/>
+                            <Entry Text="{Binding Surname, Mode=TwoWay}" IsSpellCheckEnabled="False" TextColor="#7970F5"/>
                         </StackLayout>
                     </StackLayout>
                     <Label Text="Email:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                    <Entry Text="{Binding Email}" TextColor="#7970F5" Margin="0,-15,0,0"/>
+                    <Entry Text="{Binding Mail}" IsSpellCheckEnabled="False" Keyboard="Email" TextColor="#7970F5" Margin="0,-15,0,0"/>
                 </StackLayout>
             </Frame>
             <StackLayout x:Name="Buttons" HorizontalOptions="FillAndExpand"
@@ -58,10 +58,10 @@
                             Property=Height,
                             Factor=0.1}">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                    <Button Text="&lt; Back" BackgroundColor="Transparent" TextColor="DarkBlue" FontAttributes="Bold"/>
-                    <Button Text="Save" HorizontalOptions="EndAndExpand" TextColor="White" BackgroundColor="DarkBlue" FontAttributes="Bold" BorderRadius="30"/>
+                    <Button Text="&lt; Back" BackgroundColor="Transparent" TextColor="DarkBlue" FontAttributes="Bold" Command="{Binding Back}"/>
+                    <Button Text="Save" HorizontalOptions="EndAndExpand" TextColor="White" BackgroundColor="DarkBlue" FontAttributes="Bold" BorderRadius="30" Command="{Binding SaveData}"/>
                 </StackLayout>
-                <Button Text="Change Password" HorizontalOptions="Start" TextColor="#7970F5" BackgroundColor="Transparent"/>
+                <Button Text="Change Password" HorizontalOptions="Start" TextColor="#7970F5" BackgroundColor="Transparent" Command="{Binding ChangePassword}" CommandParameter="{Binding Password}"/>
             </StackLayout>
             <StackLayout BackgroundColor="#7970F5"
                          RelativeLayout.WidthConstraint="{ConstraintExpression

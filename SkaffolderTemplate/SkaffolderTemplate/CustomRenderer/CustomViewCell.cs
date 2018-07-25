@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
+/// <summary>
+/// This custom ViewCell is created in order to hide the highlight effect of ViewCells
+/// </summary>
 namespace SkaffolderTemplate.CustomRenderer
 {
     public class CustomViewCell : ViewCell
@@ -13,8 +13,14 @@ namespace SkaffolderTemplate.CustomRenderer
 
         public ICommand TappedCommand
         {
-            get { return (ICommand)GetValue(TappedCommandProperty); }
-            set { SetValue(TappedCommandProperty, value); }
+            get
+            {
+                return (ICommand)GetValue(TappedCommandProperty);
+            }
+            set
+            {
+                SetValue(TappedCommandProperty, value);
+            }
         }
 
         protected override void OnAppearing()

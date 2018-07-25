@@ -1,6 +1,6 @@
 ﻿using SkaffolderTemplate.ViewModels;
 
-namespace SkaffolderTemplate.Models
+namespace SkaffolderTemplate.Models.Base
 {
     public class FilmMakerBase : BaseViewModel
     {
