@@ -1,5 +1,4 @@
 ﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -227,7 +226,7 @@ namespace SkaffolderTemplate.ViewModels
             FilmMakersAvailable = await App.filmMakerService.GETList();
             ActorsCastInserted = new ObservableCollection<Actor>();
             
-            SetData();
+            await SetData();
         }
 
         private async Task SetData()

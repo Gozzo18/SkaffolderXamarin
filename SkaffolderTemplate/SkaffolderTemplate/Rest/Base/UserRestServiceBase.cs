@@ -77,13 +77,11 @@ namespace SkaffolderTemplate.Rest.Base
         {
             var app = Application.Current as App;
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthenticationToken);
-            Debug.WriteLine("autorizzazzioni : " + client.DefaultRequestHeaders.Authorization);
             try
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(App.USER_URL + item.Id, content);
-                Debug.WriteLine("succes : " + response.IsSuccessStatusCode);
             }
             catch (Exception e)
             {
@@ -132,7 +130,7 @@ namespace SkaffolderTemplate.Rest.Base
                 user = JsonConvert.DeserializeObject<User>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
-                }
+            }
             return user;
         }
     }

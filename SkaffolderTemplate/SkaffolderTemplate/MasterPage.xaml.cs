@@ -65,6 +65,7 @@ namespace SkaffolderTemplate
 
                     case "Profile":
                             loadUserData();
+                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
                     case "Manage User":
@@ -88,7 +89,7 @@ namespace SkaffolderTemplate
 
         private void loadUserData()
         {
-          // ViewModel.GetUserById.Execute(null);
+          ViewModel.GetUserById.Execute(null);
         }
 
         protected override void OnDisappearing()

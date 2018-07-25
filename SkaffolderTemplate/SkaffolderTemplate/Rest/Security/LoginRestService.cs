@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using Newtonsoft.Json;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 
@@ -95,7 +93,6 @@ namespace SkaffolderTemplate.Rest.Security
             {
                 sb.Append(hashBytes[i].ToString("X2").ToLower());
             }
-            Debug.WriteLine("password criptatat " + sb.ToString());
             return sb.ToString();
         }
     }
