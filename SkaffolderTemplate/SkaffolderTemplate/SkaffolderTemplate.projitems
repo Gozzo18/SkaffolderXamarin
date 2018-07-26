@@ -21,12 +21,13 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Profile.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\FakePopUp.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomStackLayout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomViewCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Base\UserBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordPopUpViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
@@ -90,8 +92,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\FakePopUp.xaml.cs">
-      <DependentUpon>FakePopUp.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml.cs">
+      <DependentUpon>ChangePasswordPopUp.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

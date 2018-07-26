@@ -18,10 +18,10 @@
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <ScrollView HorizontalOptions="Center"  VerticalOptions="Start" Padding="0,20,0,0">
                     <StackLayout>
-                        <Button Text="Home" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="Actor" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="Film" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="FilmMaker" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="H o m e" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="A c t o r" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="F i l m" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="F i l m M a k e r" Style="{StaticResource button}" Clicked="Button_Clicked"/>
                         <!-- Attivano la Scrollview    
                         <Button Text="Home1" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
                         <Button Text="Actor1" FontSize="Medium" FontAttributes="Bold" TextColor="White" BackgroundColor="Transparent" Clicked="Button_Clicked"/>
@@ -36,9 +36,9 @@
                 </ScrollView>
                 <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">
                     <StackLayout Spacing="20" HorizontalOptions="Center">
-                        <Button Text="Profile" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="Manage User" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Image="logout.png"  Text="Logout" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="P r o f i l e" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="M a n a g e  U s e r" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Image="logout.png"  Text="L o g o u t" Style="{StaticResource button}" Clicked="Button_Clicked"/>
                     </StackLayout>
                 </Frame>
             </StackLayout>

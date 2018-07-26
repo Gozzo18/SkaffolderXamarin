@@ -21,6 +21,7 @@ namespace SkaffolderTemplate
         public const string USER_URL = "http://192.168.140.73:3000/api/Users/";
         public const string LOGIN_URL = "http://192.168.140.73:3000/api/login";
         public const string VERIFY_TOKEN_URL = "http://192.168.140.73:3000/api/verifyToken";
+        public const string CHANGE_PASSWORD_URL = "http://192.168.140.73:3000/api/changePassword";
 
         public static FilmRestService filmService { get; private set; }
         public static ActorRestService actorService { get; private set; }
@@ -30,6 +31,7 @@ namespace SkaffolderTemplate
 
         private const string AUTHENTICATION_TOKEN = "AuthenticationToken";
         private const string USER_ID = "UserId";
+        private const string PASSWORD = "Password";
 
         public App ()
 		{
@@ -86,5 +88,19 @@ namespace SkaffolderTemplate
                 Current.Properties[USER_ID] = value;
             }
         }
-	}
+
+        public string Password
+        {
+            get
+            {
+                if (Current.Properties.ContainsKey(PASSWORD))
+                    return (string)Current.Properties[PASSWORD];
+                return "";
+            }
+            set
+            {
+                Current.Properties[PASSWORD] = value;
+            }
+        }
+    }
 }

@@ -37,37 +37,37 @@ namespace SkaffolderTemplate
             MessagingCenter.Subscribe<MasterPageViewModel, string>(this, Events.DetailPageChanged, (arg1, arg2) => {
                 switch (arg2)
                 {   
-                    case "Actor":
+                    case "A c t o r":
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
                 
-                    case "Film":
+                    case "F i l m":
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmPage());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
-                    case "FilmMaker":
+                    case "F i l m M a k e r":
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
-                    case "Home":
+                    case "H o m e":
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
-                    case "Profile":
+                    case "P r o f i l e":
                             loadUserData();
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
-                    case "Manage User":
+                    case "M a n a g e   U s e r":
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUser());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
-                    case "Logout":
+                    case "L o g o u t":
                             #region Delete all reference to UserLogged
                             app.AuthenticationToken = "";
                             app.UserId = "";

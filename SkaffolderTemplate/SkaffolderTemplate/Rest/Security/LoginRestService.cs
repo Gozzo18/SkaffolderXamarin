@@ -41,10 +41,11 @@ namespace SkaffolderTemplate.Rest.Security
                     //Set the authorization type of client
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                    //Save the token and the id permanently
+                    //Save the token, the id and password permanently
                     var app = App.Current as App;
                     app.AuthenticationToken = token;
                     app.UserId = id;
+                    app.Password = password;
                     await app.SavePropertiesAsync();
                 }
             }catch (Exception e){
@@ -76,6 +77,25 @@ namespace SkaffolderTemplate.Rest.Security
                 }
             }
             return tokenPresent;
+        }
+
+        //CHANGE PASSWORD
+        public async Task<bool> ChangePassword(string oldPassword, string newPassowrd)
+        {
+            String oldPass = encryptPassword(oldPassword);
+            String newPass = encryptPassword(newPassowrd);
+            bool correctChange = false;
+            try
+            {
+                var json = $"{{\"passwordNew\":\"{newPass}\",\"passwordOld\":\"{oldPass}\"}}";
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(App.CHANGE_PASSWORD_URL, content);
+                Debug.WriteLine("Success : " + response.IsSuccessStatusCode);
+                correctChange = true;
+            }catch(Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+            return correctChange;
         }
 
         private String encryptPassword(string password)

@@ -226,7 +226,8 @@ namespace SkaffolderTemplate.ViewModels
             FilmMakersAvailable = await App.filmMakerService.GETList();
             ActorsCastInserted = new ObservableCollection<Actor>();
             
-            await SetData();
+            //Do not await
+            SetData();
         }
 
         private async Task SetData()

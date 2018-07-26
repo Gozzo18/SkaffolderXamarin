@@ -1,4 +1,6 @@
-﻿using SkaffolderTemplate.Models;
+﻿using Rg.Plugins.Popup.Services;
+using SkaffolderTemplate.Extensions;
+using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -28,9 +30,7 @@ namespace SkaffolderTemplate.Views
 
         private void Button_Clicked(object sender, System.EventArgs e)
         {
-       //     MainElement.IsVisible = false;
-        //    PopUp.IsVisible = true;
-        //    ViewModel.ChangePassword.Execute(null);
+            PopupNavigation.Instance.PushAsync(new ChangePasswordPopUp());
         }
     }
 }

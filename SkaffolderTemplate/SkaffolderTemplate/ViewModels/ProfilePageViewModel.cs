@@ -64,7 +64,6 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand ChangePassword { get; private set; }
         public ICommand SaveData { get; private set; }
         public ICommand Back { get; private set; }
         #endregion
@@ -84,7 +83,6 @@ namespace SkaffolderTemplate.ViewModels
             Mail = userLogged.Mail;
 
             SaveData = new Command(async vm => await SaveInfo());
-            ChangePassword = new Command(async vm => await ModifyPassword());
             Back = new Command(GoBack);
         }
 
@@ -107,11 +105,6 @@ namespace SkaffolderTemplate.ViewModels
                 var masterPage = App.Current.MainPage as MasterDetailPage;
                 masterPage.Detail = new NavigationPage(new HomePage());
             }
-        }
-
-        private Task ModifyPassword()
-        {
-            throw new NotImplementedException();
         }
     }
 }
