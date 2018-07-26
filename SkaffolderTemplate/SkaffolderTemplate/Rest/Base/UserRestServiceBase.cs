@@ -11,16 +11,9 @@ using Xamarin.Forms;
 
 namespace SkaffolderTemplate.Rest.Base
 {
-    public class UserRestServiceBase
+    public class UserRestServiceBase : RestClient
     {
-        HttpClient client;
         ObservableCollection<User> _users { get; set; }
-
-        public UserRestServiceBase()
-        {
-            client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
-        }
 
         //DELETE
         /// <summary>
@@ -31,7 +24,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task DELETE(string id)
         {
             var app = Application.Current as App;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthenticationToken);
 
             try
             {
@@ -52,7 +44,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task POST(User item)
         {
             var app = Application.Current as App;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthenticationToken);
 
             try
             {
@@ -75,7 +66,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task PUT(User item)
         {
             var app = Application.Current as App;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthenticationToken);
             try
             {
                 var json = JsonConvert.SerializeObject(item);
@@ -97,7 +87,6 @@ namespace SkaffolderTemplate.Rest.Base
             _users = new ObservableCollection<User>();
             var uri = new Uri(String.Format(App.USER_URL, string.Empty));
             var app = Application.Current as App;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthenticationToken);
 
             try
             {
@@ -120,7 +109,6 @@ namespace SkaffolderTemplate.Rest.Base
         {
             User user = new User();
             var app = Application.Current as App;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", app.AuthenticationToken);
 
             try
             {

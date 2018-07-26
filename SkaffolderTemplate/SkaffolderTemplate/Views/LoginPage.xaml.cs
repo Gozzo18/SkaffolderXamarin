@@ -34,11 +34,6 @@ namespace SkaffolderTemplate.Views
             base.OnAppearing();
         }
 
-        private void Entry_Completed(object sender, FocusEventArgs e)
-        {
-            Password.Focus();
-        }
-
         private void Login_Clicked(object sender, EventArgs e)
         {
             ViewModel.LoginClicked.Execute(null);
@@ -48,6 +43,11 @@ namespace SkaffolderTemplate.Views
         {
             App.Current.MainPage = new MasterPage();
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+        }
+
+        private void Entry_Completed(object sender, EventArgs e)
+        {
+            Password.Focus();
         }
     }
 }

@@ -10,14 +10,8 @@ using System.Net.Http.Headers;
 
 namespace SkaffolderTemplate.Rest.Security
 {
-    public class LoginRestService
+    public class LoginRestService : RestClient
     {
-        HttpClient client;
-
-        public LoginRestService()
-        {
-            client = new HttpClient();
-        }
 
         //LOGIN
         public async Task<bool> LoginAsync(string username, string password)
@@ -73,7 +67,10 @@ namespace SkaffolderTemplate.Rest.Security
 
                     HttpResponseMessage response = await client.PostAsync(App.VERIFY_TOKEN_URL, content);
                     if (response.IsSuccessStatusCode)
+                    {
                         tokenPresent = true;
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    }
                 }catch (Exception e){
                     Debug.WriteLine(@"				ERROR{0}", e);
                 }

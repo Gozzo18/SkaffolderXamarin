@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:SkaffolderTemplate.Extensions"
              x:Class="SkaffolderTemplate.Views.Profile"
              Title="My Profile">
     <ContentPage.Content>
@@ -61,8 +62,17 @@
                     <Button Text="&lt; Back" BackgroundColor="Transparent" TextColor="DarkBlue" FontAttributes="Bold" Command="{Binding Back}"/>
                     <Button Text="Save" HorizontalOptions="EndAndExpand" TextColor="White" BackgroundColor="DarkBlue" FontAttributes="Bold" BorderRadius="30" Command="{Binding SaveData}"/>
                 </StackLayout>
-                <Button Text="Change Password" HorizontalOptions="Start" TextColor="#7970F5" BackgroundColor="Transparent" Command="{Binding ChangePassword}" CommandParameter="{Binding Password}"/>
             </StackLayout>
+            <Button Text="Change Password" HorizontalOptions="Start" TextColor="#7970F5" BackgroundColor="Transparent" Clicked="Button_Clicked"
+                          RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=MainElement,
+                            Property=Height,
+                            Factor=1.6}"/>
             <StackLayout BackgroundColor="#7970F5"
                          RelativeLayout.WidthConstraint="{ConstraintExpression
                             Type=RelativeToParent,
@@ -76,6 +86,20 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.88}"/>
+     <!--       <extensions:FakePopUp x:Name="PopUp" IsVisible="False" IsEnabled="False"  RelativeLayout.XConstraint="{ConstraintExpression
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Factor=0.1}"
+                                  RelativeLayout.YConstraint="{ConstraintExpression
+                                    Type=RelativeToParent,
+                                    Property=Height,
+                                    Factor=0.1}"
+                                  RelativeLayout.WidthConstraint="{ConstraintExpression
+                                    Type=RelativeToParent,
+                                    Property=Width,
+                                    Factor=0.8}">
+
+            </extensions:FakePopUp> -->
         </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

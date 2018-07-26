@@ -25,5 +25,12 @@ namespace SkaffolderTemplate.Views
             BindingContext = new ProfilePageViewModel(user);
 			InitializeComponent ();
 		}
-	}
+
+        private void Button_Clicked(object sender, System.EventArgs e)
+        {
+       //     MainElement.IsVisible = false;
+        //    PopUp.IsVisible = true;
+        //    ViewModel.ChangePassword.Execute(null);
+        }
+    }
 }

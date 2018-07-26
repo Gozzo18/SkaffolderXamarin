@@ -9,16 +9,9 @@ using System.Threading.Tasks;
 
 namespace SkaffolderTemplate.Rest.Base
 {
-    public class FilmMakerRestServiceBase
+    public class FilmMakerRestServiceBase : RestClient
     {
-        HttpClient client;
         ObservableCollection<FilmMaker> _filmMakers { get; set; }
-
-        public FilmMakerRestServiceBase()
-        {
-            client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
-        }
 
         //DELETE
         /// <summary>

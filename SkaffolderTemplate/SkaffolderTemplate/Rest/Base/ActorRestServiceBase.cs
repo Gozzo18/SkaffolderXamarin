@@ -9,16 +9,9 @@ using System.Threading.Tasks;
 
 namespace SkaffolderTemplate.Rest.Base
 {
-    public class ActorRestServiceBase
+    public class ActorRestServiceBase : RestClient
     {
-        HttpClient client;
         ObservableCollection<Actor> _actors { get; set; }
-
-        public ActorRestServiceBase()
-        {
-            client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
-        }
 
         //DELETE
         /// <summary>
@@ -81,7 +74,6 @@ namespace SkaffolderTemplate.Rest.Base
         {
             _actors = new ObservableCollection<Actor>();
             var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
-
             try
             {
                 var content = await client.GetStringAsync(uri);
