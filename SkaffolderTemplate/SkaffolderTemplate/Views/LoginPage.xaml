@@ -42,11 +42,7 @@
                         Property=Height,
                         Factor=0.15}">
                 <StackLayout x:Name="MainLayout" Spacing="20">
-                    <Label Text="Login" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                    <Label Text="Login" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
                     <StackLayout>
                         <Label Text="Username" Style="{StaticResource label}"/>
                         <StackLayout Style="{StaticResource stackLayout}">
@@ -62,7 +58,9 @@
 
                         <Label VerticalOptions="Start" IsVisible="{Binding ErrorData}" HorizontalOptions="Center" Text="{Binding ErrorMessage}" TextColor="Red"/>
                     </StackLayout>
-                    <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" VerticalOptions="End" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" VerticalOptions="End" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </RelativeLayout>

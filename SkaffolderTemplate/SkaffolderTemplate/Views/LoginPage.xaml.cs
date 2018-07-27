@@ -1,5 +1,7 @@
 ﻿using SkaffolderTemplate.ViewModels;
+using SkaffolderTemplate.ViewsForm;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -39,15 +41,10 @@ namespace SkaffolderTemplate.Views
             ViewModel.LoginClicked.Execute(null);
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            App.Current.MainPage = new MasterPage();
-            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-        }
-
         private void Entry_Completed(object sender, EventArgs e)
         {
             Password.Focus();
         }
+
     }
 }

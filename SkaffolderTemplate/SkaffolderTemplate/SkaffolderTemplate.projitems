@@ -14,9 +14,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\ActorEdit.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\RegisterNewUser.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageUser.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Profile.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
@@ -60,8 +61,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterNewUserViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\RegisterNewUser.xaml.cs">
+      <DependentUpon>RegisterNewUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -86,8 +92,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml.cs">
       <DependentUpon>FilmMakerEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ManageUser.xaml.cs">
-      <DependentUpon>ManageUser.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml.cs">
+      <DependentUpon>ManageUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>

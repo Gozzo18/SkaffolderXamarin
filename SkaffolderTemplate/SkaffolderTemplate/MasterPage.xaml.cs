@@ -62,8 +62,8 @@ namespace SkaffolderTemplate
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 
-                    case "M a n a g e   U s e r":
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUser());
+                    case "M a n a g e  U s e r s":
+                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             break;
 

@@ -37,7 +37,7 @@
                 <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">
                     <StackLayout Spacing="20" HorizontalOptions="Center">
                         <Button Text="P r o f i l e" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="M a n a g e  U s e r" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="M a n a g e  U s e r s" Style="{StaticResource button}" Clicked="Button_Clicked"/>
                         <Button Image="logout.png"  Text="L o g o u t" Style="{StaticResource button}" Clicked="Button_Clicked"/>
                     </StackLayout>
                 </Frame>

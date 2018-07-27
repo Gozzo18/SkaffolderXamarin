@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
@@ -23,7 +24,6 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>void</returns>
         public async Task DELETE(string id)
         {
-            var app = Application.Current as App;
 
             try
             {
@@ -43,7 +43,12 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>void</returns>
         public async Task POST(User item)
         {
-            var app = Application.Current as App;
+            //Encrypts password
+            item.Password = App.loginService.encryptPassword(item.Password);
+
+            //Check if another User has the same email
+            List<User> listOfUsers = new List<User>(); 
+
 
             try
             {
@@ -65,7 +70,6 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns></returns>
         public async Task PUT(User item)
         {
-            var app = Application.Current as App;
             try
             {
                 var json = JsonConvert.SerializeObject(item);
@@ -86,7 +90,6 @@ namespace SkaffolderTemplate.Rest.Base
         {
             _users = new ObservableCollection<User>();
             var uri = new Uri(String.Format(App.USER_URL, string.Empty));
-            var app = Application.Current as App;
 
             try
             {
@@ -108,7 +111,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<User> GETId(string userId)
         {
             User user = new User();
-            var app = Application.Current as App;
 
             try
             {

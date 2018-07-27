@@ -1,4 +1,5 @@
 ﻿using SkaffolderTemplate.Views;
+using SkaffolderTemplate.ViewsForm;
 using System;
 using System.Collections.Generic;
 using System.Text;

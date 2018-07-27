@@ -98,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Security
             return correctChange;
         }
 
-        private String encryptPassword(string password)
+        public String encryptPassword(string password)
         {
             MD5 md5 = MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
