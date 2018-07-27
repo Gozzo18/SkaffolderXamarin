@@ -41,14 +41,18 @@ namespace SkaffolderTemplate.Rest.Base
         /// </summary>
         /// <param name="item">User to Add</param>
         /// <returns>void</returns>
-        public async Task POST(User item)
+        public async Task<bool> POST(User item)
         {
             //Encrypts password
             item.Password = App.loginService.encryptPassword(item.Password);
 
             //Check if another User has the same email
-            List<User> listOfUsers = new List<User>(); 
-
+            ObservableCollection<User> listOfUsers = await App.userService.GETList();
+            foreach(User a in listOfUsers)
+            {
+                if (a.Mail.Equals(item.Mail))
+                    return false;
+            }
 
             try
             {
@@ -60,6 +64,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
+            return true;
         }
 
         //PUT

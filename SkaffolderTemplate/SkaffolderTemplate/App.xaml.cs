@@ -32,6 +32,7 @@ namespace SkaffolderTemplate
         private const string AUTHENTICATION_TOKEN = "AuthenticationToken";
         private const string USER_ID = "UserId";
         private const string PASSWORD = "Password";
+        private const string CURRENT_USER_ROLE = "CurrentUserRole";
 
         public App ()
 		{
@@ -100,6 +101,20 @@ namespace SkaffolderTemplate
             set
             {
                 Current.Properties[PASSWORD] = value;
+            }
+        }
+
+        public string CurrentUserRole
+        {
+            get
+            {
+                if (Current.Properties.ContainsKey(CURRENT_USER_ROLE))
+                    return (string)Current.Properties[CURRENT_USER_ROLE];
+                return "";
+            }
+            set
+            {
+                Current.Properties[CURRENT_USER_ROLE] = value;
             }
         }
     }

@@ -109,8 +109,11 @@ namespace SkaffolderTemplate.ViewModels
                     var user = (e as User);
                     if (!user.Id.Equals(Application.Current.Properties["UserId"]))
                     {
-                        await App.userService.DELETE(user.Id);
-                        await RefreshList();
+                        if (!user.Roles[0].Equals("ADMIN"))
+                        {
+                            await App.userService.DELETE(user.Id);
+                            await RefreshList();
+                        }
                     }
                     else
                     {

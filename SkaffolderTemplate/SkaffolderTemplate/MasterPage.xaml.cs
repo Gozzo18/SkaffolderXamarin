@@ -63,14 +63,24 @@ namespace SkaffolderTemplate
                             break;
 
                     case "M a n a g e  U s e r s":
+                            if (!Application.Current.Properties["CurrentUserRole"].Equals("ADMIN"))
+                            {
+                            //SHOW POPUP
+                            return ;
+                            }
+                        else
+                        {
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
                             ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        }
+
                             break;
 
                     case "L o g o u t":
                             #region Delete all reference to UserLogged
                             app.AuthenticationToken = "";
                             app.UserId = "";
+                            app.CurrentUserRole = "";
                             app.SavePropertiesAsync();
                             #endregion
                             ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());

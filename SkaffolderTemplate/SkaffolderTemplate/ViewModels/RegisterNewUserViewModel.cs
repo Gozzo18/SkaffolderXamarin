@@ -166,10 +166,16 @@ namespace SkaffolderTemplate.ViewModels
                 user.Password = Password;
                 string[] roleToAdd = new string []{ Role};
                 user.Roles = roleToAdd;
-                await App.userService.POST(user);
-
-                var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PopAsync();
+                if (await App.userService.POST(user))
+                {
+                    var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                    await masterDetailPage.Detail.Navigation.PopAsync();
+                }
+                else
+                {
+                    ErrorData = true;
+                    ErrorMessage = "There is already an User with that email";
+                }
             }
                 
                 

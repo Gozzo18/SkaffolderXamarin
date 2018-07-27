@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
+using SkaffolderTemplate.Models;
 
 namespace SkaffolderTemplate.Rest.Security
 {
@@ -34,18 +35,17 @@ namespace SkaffolderTemplate.Rest.Security
                     isPresent = true;
 
                     //Extract the token and the id from response body
-                    var data = (JObject)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
-                    var token = data.SelectToken("token").ToString();
-                    var id = data.SelectToken("_id").ToString();
+                    var user = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
 
                     //Set the authorization type of client
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", user.Token);
 
-                    //Save the token, the id and password permanently
+                    //Save token, id, password and current user permanently
                     var app = App.Current as App;
-                    app.AuthenticationToken = token;
-                    app.UserId = id;
+                    app.AuthenticationToken = user.Token;
+                    app.UserId = user.Id;
                     app.Password = password;
+                    app.CurrentUserRole = user.Roles[0];
                     await app.SavePropertiesAsync();
                 }
             }catch (Exception e){

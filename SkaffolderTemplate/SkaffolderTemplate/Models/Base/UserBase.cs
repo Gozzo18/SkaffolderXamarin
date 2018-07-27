@@ -102,5 +102,19 @@ namespace SkaffolderTemplate.Models.Base
                 SetValue(ref mail, value);
             }
         }
+
+        private string token;
+        [JsonProperty(PropertyName = "token")]
+        public string Token
+        {
+            get
+            {
+                return token;
+            }
+            set
+            {
+                SetValue(ref token, value);
+            }
+        }
     }
 }

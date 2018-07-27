@@ -24,8 +24,18 @@ namespace SkaffolderTemplate.ViewModels
         private async Task GetIdRequest()
         {
             User user = await App.userService.GETId((string)Application.Current.Properties["UserId"]);
-            var masterPage = App.Current.MainPage as MasterDetailPage;
-            masterPage.Detail = new NavigationPage(new Profile(user));
+            //If the Current User is not the Admin, he is not allowed to change his profile
+            if (!Application.Current.Properties["CurrentUserRole"].Equals("ADMIN"))
+            {
+                //DISPLAY POPOUP
+                return;
+            }
+                
+            else
+            {
+                var masterPage = App.Current.MainPage as MasterDetailPage;
+                masterPage.Detail = new NavigationPage(new Profile(user));
+            }
         }
 
         private void UpdateDetailPage(Button button)

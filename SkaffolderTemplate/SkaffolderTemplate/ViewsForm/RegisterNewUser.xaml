@@ -104,6 +104,7 @@
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:String}">
                                         <x:String>ADMIN</x:String>
+                                        <x:String>USER</x:String>
                                     </x:Array>
                                 </Picker.ItemsSource>
                             </Picker>
