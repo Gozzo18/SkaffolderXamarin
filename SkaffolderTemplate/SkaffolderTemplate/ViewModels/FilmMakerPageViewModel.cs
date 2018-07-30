@@ -5,6 +5,9 @@ using Xamarin.Forms;
 using SkaffolderTemplate.ViewsForm;
 using System.Threading.Tasks;
 using System.Linq;
+using Rg.Plugins.Popup.Services;
+using SkaffolderTemplate.Extensions;
+using SkaffolderTemplate.Support;
 
 namespace SkaffolderTemplate.ViewModels
 {
@@ -117,9 +120,16 @@ namespace SkaffolderTemplate.ViewModels
             {
                 return new Command(async (e) =>
                 {
-                    var filmMaker = (e as FilmMaker);
-                    await App.filmMakerService.DELETE(filmMaker._id);
-                    await RefreshList();
+                    await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
+                    MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2) =>
+                    {
+                        if (arg2)
+                        {
+                            var filmMaker = (e as FilmMaker);
+                            await App.filmMakerService.DELETE(filmMaker._id);
+                            await RefreshList();
+                        }
+                    });
                 });
 
             }

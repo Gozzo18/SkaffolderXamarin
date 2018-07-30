@@ -85,20 +85,6 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.88}"/>
-     <!--       <extensions:FakePopUp x:Name="PopUp" IsVisible="False" IsEnabled="False"  RelativeLayout.XConstraint="{ConstraintExpression
-                                    Type=RelativeToParent,
-                                    Property=Width,
-                                    Factor=0.1}"
-                                  RelativeLayout.YConstraint="{ConstraintExpression
-                                    Type=RelativeToParent,
-                                    Property=Height,
-                                    Factor=0.1}"
-                                  RelativeLayout.WidthConstraint="{ConstraintExpression
-                                    Type=RelativeToParent,
-                                    Property=Width,
-                                    Factor=0.8}">
-
-            </extensions:FakePopUp> -->
         </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

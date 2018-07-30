@@ -28,7 +28,7 @@ namespace SkaffolderTemplate.Extensions
 
         private void BackButton(object sender, System.EventArgs e)
         {
-            PopupNavigation.PopAsync();
+            PopupNavigation.Instance.PopAsync();
         }
 
         private void SaveButton(object sender, System.EventArgs e)

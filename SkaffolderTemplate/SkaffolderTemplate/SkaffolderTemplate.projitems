@@ -23,7 +23,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\NotAllowedPopUp.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -102,8 +102,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml.cs">
       <DependentUpon>ChangePasswordPopUp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\NotAllowedPopUp.xaml.cs">
-      <DependentUpon>NotAllowedPopUp.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml.cs">
+      <DependentUpon>ConfirmDeletePopUp.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

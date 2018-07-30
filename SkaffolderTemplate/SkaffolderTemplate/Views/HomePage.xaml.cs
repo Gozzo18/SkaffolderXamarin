@@ -27,10 +27,6 @@ namespace SkaffolderTemplate.Views
                 masterPage.Detail = new NavigationPage(new FilmPage());
             else if (label.Text.Equals("FilmMaker"))
                 masterPage.Detail = new NavigationPage(new FilmMakerPage());
-
-            //DEBUG
-            else if (label.Text.Equals("Home"))
-                masterPage.Detail = new NavigationPage(new LoginPage());
         }
     }
 }

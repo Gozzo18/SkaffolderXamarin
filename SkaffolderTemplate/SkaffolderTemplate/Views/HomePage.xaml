@@ -39,7 +39,7 @@
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            
+
             <StackLayout Style="{StaticResource stackLayout}">
                 <Label Text="FilmMaker" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
@@ -49,16 +49,6 @@
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
 
-            <!-- DEBUG -->
-            <StackLayout Style="{StaticResource stackLayout}">
-                <Label Text="Home" Style="{StaticResource label}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ChangePage"/>
-                    </Label.GestureRecognizers>
-                </Label>
-                <BoxView Style="{StaticResource boxview}"/>
-            </StackLayout> 
-            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

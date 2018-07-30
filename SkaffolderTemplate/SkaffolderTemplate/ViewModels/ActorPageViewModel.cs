@@ -1,5 +1,9 @@
-﻿using SkaffolderTemplate.Models;
+﻿using Rg.Plugins.Popup.Services;
+using SkaffolderTemplate.Extensions;
+using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewsForm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -116,11 +120,17 @@ namespace SkaffolderTemplate.ViewModels
             {
                 return new Command(async (e) =>
                 {
-                    var actor = (e as Actor);
-                    await App.actorService.DELETE(actor._id);
-                    await RefreshList();
+                    await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
+                    MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2)  =>
+                    {
+                        if (arg2)
+                        {
+                            var actor = (e as Actor);
+                            await App.actorService.DELETE(actor._id);
+                            await RefreshList();
+                        }
+                    });
                 });
-
             }
         }
         #endregion

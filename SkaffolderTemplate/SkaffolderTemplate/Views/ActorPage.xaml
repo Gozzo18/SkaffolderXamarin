@@ -38,7 +38,7 @@
                                             <Label Text="Name:"/>
                                             <Label Text="{Binding Name}" TextColor="White"/>
                                             <Label Text="Date of Birth:"/>
-                                            <Label Text="{Binding BirthDate,StringFormat='{0: MM/dd/yyyy}'}" TextColor="White"/>
+                                            <Label Text="{Binding BirthDate,StringFormat='{0:MM/dd/yyyy}'}" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">

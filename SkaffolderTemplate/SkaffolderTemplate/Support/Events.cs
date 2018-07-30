@@ -7,5 +7,7 @@ namespace SkaffolderTemplate.Support
     public static class Events
     { 
         public static string DetailPageChanged = "Detail";
+
+        public static string ConfirmDelete = "Confirm";
     }
 }
