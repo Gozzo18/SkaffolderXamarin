@@ -1,4 +1,6 @@
-﻿using SkaffolderTemplate.Support;
+﻿using Rg.Plugins.Popup.Services;
+using SkaffolderTemplate.Extensions;
+using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
 using System;
@@ -38,62 +40,48 @@ namespace SkaffolderTemplate
                 switch (arg2)
                 {   
                     case "A c t o r":
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                            break;
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
                 
                     case "F i l m":
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmPage());
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                            break;
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmPage());
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
 
                     case "F i l m M a k e r":
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                            break;
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
 
                     case "H o m e":
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                            break;
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
 
                     case "P r o f i l e":
-                            loadUserData();
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                            break;
+                                ViewModel.GetUserById.Execute(null);
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
 
                     case "M a n a g e  U s e r s":
-                            if (!Application.Current.Properties["CurrentUserRole"].Equals("ADMIN"))
-                            {
-                            //SHOW POPUP
-                            return ;
-                            }
-                        else
-                        {
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        }
-
-                            break;
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
 
                     case "L o g o u t":
-                            #region Delete all reference to UserLogged
-                            app.AuthenticationToken = "";
-                            app.UserId = "";
-                            app.CurrentUserRole = "";
-                            app.SavePropertiesAsync();
-                            #endregion
-                            ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
-                            ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                            break;
+                                #region Delete all reference to UserLogged
+                                app.AuthenticationToken = "";
+                                app.UserId = "";
+                                app.CurrentUserRole = "";
+                                app.SavePropertiesAsync();
+                                #endregion
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
+                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                                break;
                 }
             });
             base.OnAppearing();
-        }
-
-        private void loadUserData()
-        {
-          ViewModel.GetUserById.Execute(null);
         }
 
         protected override void OnDisappearing()
