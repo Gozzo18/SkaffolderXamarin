@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace SkaffolderTemplate.Rest.Base
 {

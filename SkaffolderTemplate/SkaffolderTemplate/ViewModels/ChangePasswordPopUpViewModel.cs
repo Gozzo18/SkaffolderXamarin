@@ -1,9 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using SkaffolderTemplate.Rest.Security;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 

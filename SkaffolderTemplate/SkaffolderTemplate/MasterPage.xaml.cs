@@ -1,6 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using SkaffolderTemplate.Extensions;
-using SkaffolderTemplate.Support;
+﻿using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
 using System;

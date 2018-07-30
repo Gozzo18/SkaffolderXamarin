@@ -29,7 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomStackLayout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomViewCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Base\UserBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />

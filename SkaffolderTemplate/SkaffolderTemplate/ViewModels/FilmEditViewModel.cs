@@ -225,9 +225,9 @@ namespace SkaffolderTemplate.ViewModels
             ActorsCastAvailable = await App.actorService.GETList();
             FilmMakersAvailable = await App.filmMakerService.GETList();
             ActorsCastInserted = new ObservableCollection<Actor>();
-            
-            //Do not await
-            SetData();
+
+            //Method SetData must not be awaited, so we use this syntax to remove the warning
+            var _ = Task.Run(() => SetData());
         }
 
         private async Task SetData()
