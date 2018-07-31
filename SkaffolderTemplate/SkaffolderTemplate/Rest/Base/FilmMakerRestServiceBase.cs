@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Support;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace SkaffolderTemplate.Rest.Base
 {
@@ -81,6 +83,7 @@ namespace SkaffolderTemplate.Rest.Base
                 _filmMakers = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
+                MessagingCenter.Send<FilmMakerRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
             return _filmMakers;
         }

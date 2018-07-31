@@ -24,6 +24,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\TokenExpiredPopUp.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -103,6 +104,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml.cs">
       <DependentUpon>ConfirmDeletePopUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TokenExpiredPopUp.xaml.cs">
+      <DependentUpon>TokenExpiredPopUp.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

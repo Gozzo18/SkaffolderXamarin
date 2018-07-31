@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Support;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace SkaffolderTemplate.Rest.Base
 {
@@ -73,14 +75,13 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<ObservableCollection<Film>> GETList()
         {
             _listaDiFilm = new ObservableCollection<Film>();
-            var uri = new Uri(String.Format(App.FILM_URL, string.Empty));
-
             try
             {
-                var content = await client.GetStringAsync(uri);
+                var content = await client.GetStringAsync(App.FILM_URL);
                 _listaDiFilm = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
+                MessagingCenter.Send<FilmRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
             return _listaDiFilm;
         }

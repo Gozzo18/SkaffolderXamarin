@@ -9,5 +9,7 @@ namespace SkaffolderTemplate.Support
         public static string DetailPageChanged = "Detail";
 
         public static string ConfirmDelete = "Confirm";
+
+        public static string TokenExpired = "TokenExpired";
     }
 }

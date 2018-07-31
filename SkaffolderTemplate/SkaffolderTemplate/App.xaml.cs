@@ -3,8 +3,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SkaffolderTemplate.Views;
 using SkaffolderTemplate.Rest.Security;
-using System;
-using System.Diagnostics;
+using SkaffolderTemplate.Support;
+using SkaffolderTemplate.Rest.Base;
+using Rg.Plugins.Popup.Services;
+using SkaffolderTemplate.Extensions;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace SkaffolderTemplate
@@ -49,8 +51,31 @@ namespace SkaffolderTemplate
 
         protected override void OnStart ()
 		{
-			// Handle when your app starts
-		}
+            // Handle when your app starts
+            MessagingCenter.Subscribe<ActorRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
+            {
+                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
+                MainPage = new NavigationPage(new LoginPage());
+            });
+
+            MessagingCenter.Subscribe<FilmRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
+            {
+                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
+                MainPage = new NavigationPage(new LoginPage());
+            });
+
+            MessagingCenter.Subscribe<FilmMakerRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
+            {
+                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
+                MainPage = new NavigationPage(new LoginPage());
+            });
+
+            MessagingCenter.Subscribe<UserRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
+            {
+                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
+                MainPage = new NavigationPage(new LoginPage());
+            });
+        }
 
 		protected override void OnSleep ()
 		{
