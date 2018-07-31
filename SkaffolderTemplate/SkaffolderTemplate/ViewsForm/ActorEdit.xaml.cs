@@ -8,6 +8,7 @@ namespace SkaffolderTemplate.ViewsForm
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActorEdit : ContentPage
 	{
+        //Set ViewModel for BindingContext
         private ActorEditViewModel ViewModel
         {
             get
@@ -22,29 +23,24 @@ namespace SkaffolderTemplate.ViewsForm
 
 		public ActorEdit(Actor actor)
 		{
+            //Setting BindingContext
             ViewModel = new ActorEditViewModel(actor);
 			InitializeComponent ();
 		}
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            ViewModel.SetPreviewsValue.Execute(null);           
-        }
-
         private void ActorNameEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            ViewModel.NameCompleted.Execute(sender as Entry);
+            ViewModel.NameCompletedCommand.Execute(sender as Entry);
         }
 
         private void ActorSurnameEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            ViewModel.SurnameCompleted.Execute(sender as Entry);
+            ViewModel.SurnameCompletedCommand.Execute(sender as Entry);
         }
 
         private void BirthDate_Selected(object sender, DateChangedEventArgs e)
         {
-            ViewModel.BirthDateCompleted.Execute(e.NewDate);
+            ViewModel.BirthDateCompletedCommand.Execute(e.NewDate);
         }
     }
 }

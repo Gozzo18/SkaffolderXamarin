@@ -188,10 +188,10 @@ namespace SkaffolderTemplate.ViewModels
                     bool found = false;
                     while (i < ActorsCastInserted.Count && !found)
                     {
-                        if (item._id.Equals(ActorsCastInserted[i]._id))
+                        if (item.Id.Equals(ActorsCastInserted[i].Id))
                         {
                             ActorsCastAvailable.Add(ActorsCastInserted[i]);
-                            ActorCastId.Remove(item._id);
+                            ActorCastId.Remove(item.Id);
                             ActorsCastInserted.RemoveAt(ActorsCastInserted.IndexOf(ActorsCastInserted[i]));
                             found = true;
                         }
@@ -261,7 +261,7 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     for(int h = 0; h<ActorCastId.Count; h++)
                     {
-                        if (ActorCastId[h].Equals(ActorsCastAvailable[k]._id))
+                        if (ActorCastId[h].Equals(ActorsCastAvailable[k].Id))
                         {
                             ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
                             k = 0;
@@ -294,12 +294,12 @@ namespace SkaffolderTemplate.ViewModels
             if (Actor != null)
             {
                 ActorsCastInserted.Add(Actor);
-                ActorCastId.Add(Actor._id);
+                ActorCastId.Add(Actor.Id);
                 bool found = false;
                 int iterator = 0;
                 while(iterator < ActorsCastAvailable.Count && !found)
                 {
-                    if (Actor._id.Equals(ActorsCastAvailable[iterator]._id))
+                    if (Actor.Id.Equals(ActorsCastAvailable[iterator].Id))
                     {
                         found = true;
                     }

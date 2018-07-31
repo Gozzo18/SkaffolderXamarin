@@ -41,7 +41,7 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<bool> POST(User item)
         {
             //Encrypts password
-            item.Password = App.loginService.encryptPassword(item.Password);
+            item.Password = App.loginService.EncryptPassword(item.Password);
 
             //Check if another User has the same email
             ObservableCollection<User> listOfUsers = await App.userService.GETList();
@@ -91,11 +91,9 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<ObservableCollection<User>> GETList()
         {
             _users = new ObservableCollection<User>();
-            var uri = new Uri(String.Format(App.USER_URL, string.Empty));
-
             try
             {
-                var content = await client.GetStringAsync(uri);
+                var content = await client.GetStringAsync(App.USER_URL);
                 _users = JsonConvert.DeserializeObject<ObservableCollection<User>>(content);
             }
             catch (Exception e)
@@ -113,7 +111,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<User> GETId(string userId)
         {
             User user = new User();
-
             try
             {
                 var content = await client.GetStringAsync(App.USER_URL + userId);

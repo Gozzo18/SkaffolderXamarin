@@ -15,6 +15,7 @@ namespace SkaffolderTemplate.ViewModels
     {
         #region Attributes and Properties
         private ObservableCollection<Actor> _actorList;
+        //This collection main purpose is to store data from API request 
         public ObservableCollection<Actor> ActorsList
         {
             get
@@ -28,6 +29,7 @@ namespace SkaffolderTemplate.ViewModels
         }
 
         private ObservableCollection<Actor> _supportList;
+        //This one instead is the ItemSource of the ListView. This allows to modify without any exceptions, the elements of the ListView.
         public ObservableCollection<Actor> SupportList
         {
             get
@@ -94,12 +96,12 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Add { get; private set; }
-        public ICommand Refresh { get; private set; }
-        public ICommand LoadData { get; private set; }
+        public ICommand AddCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
+        public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
-        public ICommand EditActor
+        public ICommand EditActorCommand
         {
             get
             {
@@ -113,19 +115,21 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
-        public ICommand DeleteActor
+        public ICommand DeleteActorCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
+                    //Pop Up allert appear
                     await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
                     MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2)  =>
                     {
+                        //If Save button is tapped
                         if (arg2)
                         {
                             var actor = (e as Actor);
-                            await App.actorService.DELETE(actor._id);
+                            await App.actorService.DELETE(actor.Id);
                             await RefreshList();
                         }
                     });
@@ -136,15 +140,17 @@ namespace SkaffolderTemplate.ViewModels
 
         public ActorPageViewModel()
         {
-            Add = new Command(async vm => await AddNewActor());
-            Refresh = new Command(async vm => await RefreshList());
-            LoadData = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
+            AddCommand = new Command(async vm => await AddNewActor());
+            RefreshCommand = new Command(async vm => await RefreshList());
+            LoadDataCommand = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
 
         private async Task RefreshList()
         {
+            //When refreshing the ListView, we set to "" the field of the SearchBar
             SearchedWord = "";
+
             Refreshing = true;
             ActorsList = await App.actorService.GETList();
             SupportList = new ObservableCollection<Actor>(ActorsList);
@@ -173,13 +179,16 @@ namespace SkaffolderTemplate.ViewModels
 
         private void SearchWord()
         {
+            //Capitalize first letter of SearcheWord 
             if (SearchedWord.Length >= 1)
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
+
             if (string.IsNullOrWhiteSpace(SearchedWord))
                 SupportList = new ObservableCollection<Actor>(ActorsList);
             else
             {
-                var tempRecords = ActorsList.Where(c => c.name.Contains(SearchedWord));
+                //The filtering of elements is based on their names. In case you wish to change, just overwrite c.Name with c.YourField
+                var tempRecords = ActorsList.Where(c => c.Name.Contains(SearchedWord));
                 SupportList = new ObservableCollection<Actor>(tempRecords);
             }
         }

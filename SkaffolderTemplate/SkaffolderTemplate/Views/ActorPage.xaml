@@ -23,7 +23,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfActors" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfActors_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfActors" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOfActors_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>
@@ -38,16 +38,16 @@
                                             <Label Text="Name:"/>
                                             <Label Text="{Binding Name}" TextColor="White"/>
                                             <Label Text="Date of Birth:"/>
-                                            <Label Text="{Binding BirthDate,StringFormat='{0:MM/dd/yyyy}'}" TextColor="White"/>
+                                            <Label Text="{Binding BirthDate,StringFormat='{}{0:dd/MM/yyyy}'}" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActorCommand}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                             <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActor}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
+                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActorCommand}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
@@ -88,7 +88,7 @@
                             Factor=0.98}">
                 <Image Source="add2.png" Margin="10,-39,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Add}"/>
+                        <TapGestureRecognizer Command="{Binding AddCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>

@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SkaffolderTemplate.Views;
 using SkaffolderTemplate.Rest.Security;
+using System;
+using System.Diagnostics;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace SkaffolderTemplate
@@ -38,10 +40,14 @@ namespace SkaffolderTemplate
             userService = new UserRestService();
             loginService = new LoginRestService();
 
-            MainPage = new NavigationPage(new LoginPage());
-		}
+            //Set the main page of Application
+            if (string.IsNullOrEmpty(this.Properties["AuthenticationToken"].ToString()))
+                MainPage = new NavigationPage(new LoginPage());
+            else
+                MainPage = new MasterPage();
+        }
 
-		protected override void OnStart ()
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}
@@ -51,10 +57,11 @@ namespace SkaffolderTemplate
 			// Handle when your app sleeps
 		}
 
-		protected override void OnResume ()
+		protected override async void OnResume ()
 		{
-			// Handle when your app resumes
-		}
+            if (!await loginService.VerifyToken(this.Properties["AuthenticationToken"].ToString()))
+                MainPage = new NavigationPage(new LoginPage());
+        }
 
         public string AuthenticationToken
         {

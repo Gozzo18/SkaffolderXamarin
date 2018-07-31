@@ -62,25 +62,11 @@ namespace SkaffolderTemplate.ViewModels
 
         #region Commands
         public ICommand LoginClicked { get; private set; }
-        public ICommand CheckToken { get; private set; }
         #endregion
 
         public LoginPageViewModel()
         {
             LoginClicked = new Command(async vm => await VerifyData());
-            CheckToken = new Command(async vm => await StepOverLogin());
-        }
-
-        private async Task StepOverLogin()
-        {
-            var app = App.Current as App;
-
-            if(await App.loginService.VerifyToken(app.AuthenticationToken))
-            {
-                App.Current.MainPage = new MasterPage();
-                var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            }
-
         }
 
         private async Task VerifyData()

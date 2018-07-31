@@ -1,11 +1,13 @@
-﻿using SkaffolderTemplate.ViewModels;
+﻿using Newtonsoft.Json;
+using SkaffolderTemplate.ViewModels;
 using System;
 
 namespace SkaffolderTemplate.Models.Base
 {
     public class ActorBase : BaseViewModel
     {
-        public string _id;
+        private string _id;
+        [JsonProperty(PropertyName = "_id")]
         public string Id
         {
             get
@@ -18,12 +20,14 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public DateTime birthDate;
+        private DateTime birthDate;
+        [JsonProperty(PropertyName = "birthDate")]
         public DateTime BirthDate
         {
             get
             {
-                return birthDate;
+                //If not specified, birthDate would be set as UTC time
+                return birthDate.ToLocalTime();
             }
             set
             {
@@ -31,7 +35,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public string name;
+        private string name;
+        [JsonProperty(PropertyName = "name")]
         public string Name
         {
             get
@@ -44,7 +49,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public string surname;
+        private string surname;
+        [JsonProperty(PropertyName = "surname")]
         public string Surname
         {
             get

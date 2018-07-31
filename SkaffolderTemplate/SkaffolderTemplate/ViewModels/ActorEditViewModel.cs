@@ -61,20 +61,8 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
-        private Actor _actor;
-        public Actor Actor
-        {
-            get
-            {
-                return _actor;
-            }
-            set
-            {
-                SetValue(ref _actor, value);
-            }
-        }
-
         private bool _isPresent;
+        //True = editing Actor, False = creating new Actor
         public bool IsPresent
         {
             get
@@ -89,35 +77,30 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Save { get; private set; }
-        public ICommand Back { get; private set; }
-        public ICommand SetPreviewsValue { get; private set; }
-        public ICommand NameCompleted { get; private set; }
-        public ICommand SurnameCompleted { get; private set; }
-        public ICommand BirthDateCompleted { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand BackCommand { get; private set; }
+        public ICommand NameCompletedCommand { get; private set; }
+        public ICommand SurnameCompletedCommand { get; private set; }
+        public ICommand BirthDateCompletedCommand { get; private set; }
         #endregion
 
         public ActorEditViewModel(Actor alreadyPresentActor)
         {
-            Actor = alreadyPresentActor;
-            Save = new Command(async vm => await SaveActorData());
-            Back = new Command(async vm => await GoBack());
-            SetPreviewsValue = new Command(SetData);
-            NameCompleted = new Command<Entry>(vm => NameEntryCompleted(vm));
-            SurnameCompleted = new Command<Entry>(vm => SurnameEntryCompleted(vm));
-            BirthDateCompleted = new Command<DateTime>(vm => BirthDatePickerSelected(vm));
-        }
-
-        private void SetData()
-        {
-            if(Actor != null)
+            //If it's the editing case
+            if (alreadyPresentActor != null)
             {
-                Id = Actor._id; 
-                Name = Actor.name;
-                Surname = Actor.surname;
-                BirthDate = Actor.BirthDate;
+                Id = alreadyPresentActor.Id;
+                Name = alreadyPresentActor.Name;
+                Surname = alreadyPresentActor.Surname;
+                BirthDate = alreadyPresentActor.BirthDate;
                 IsPresent = true;
             }
+            
+            SaveCommand = new Command(async vm => await SaveActorData());
+            BackCommand = new Command(async vm => await GoBack());
+            NameCompletedCommand = new Command<Entry>(vm => NameEntryCompleted(vm));
+            SurnameCompletedCommand = new Command<Entry>(vm => SurnameEntryCompleted(vm));
+            BirthDateCompletedCommand = new Command<DateTime>(vm => BirthDatePickerSelected(vm));
         }
 
         private void NameEntryCompleted(Entry ActorName)
@@ -130,9 +113,9 @@ namespace SkaffolderTemplate.ViewModels
             Surname = ActorSurname.Text;
         }
 
-        private void BirthDatePickerSelected(DateTime birthDate)
+        private void BirthDatePickerSelected(DateTime ActorBirthDate)
         {
-            BirthDate = birthDate;
+            BirthDate = ActorBirthDate;
         }
 
         private async Task GoBack()
@@ -144,13 +127,13 @@ namespace SkaffolderTemplate.ViewModels
         private async Task SaveActorData()
         {
             Actor actor = new Actor();
-            actor.name = Name;
-            actor.surname = Surname;
-            actor.birthDate = BirthDate;
+            actor.Name = Name;
+            actor.Surname = Surname;
+            actor.BirthDate = BirthDate;
 
             if (IsPresent)
             {
-                actor._id = Actor._id;
+                actor.Id = Id;
                 await App.actorService.PUT(actor);
             }
             else

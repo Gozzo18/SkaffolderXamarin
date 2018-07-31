@@ -73,10 +73,9 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<ObservableCollection<Actor>> GETList()
         {
             _actors = new ObservableCollection<Actor>();
-            var uri = new Uri(String.Format(App.ACTOR_URL, string.Empty));
             try
             {
-                var content = await client.GetStringAsync(uri);
+                var content = await client.GetStringAsync(App.ACTOR_URL);
                 _actors = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
@@ -92,7 +91,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<Actor> GETId(string actorId)
         {
             Actor actor = new Actor();
-
             try
             {
                 var content = await client.GetStringAsync(App.ACTOR_URL + actorId);

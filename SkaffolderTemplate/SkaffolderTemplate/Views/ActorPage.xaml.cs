@@ -31,8 +31,7 @@ namespace SkaffolderTemplate.Views
         {
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadData.Execute(null);
-            
+            ViewModel.LoadDataCommand.Execute(null);           
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)

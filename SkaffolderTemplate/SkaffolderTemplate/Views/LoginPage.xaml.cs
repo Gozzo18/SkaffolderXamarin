@@ -8,6 +8,7 @@ namespace SkaffolderTemplate.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LoginPage : ContentPage
 	{
+        //Set ViewModel for BindingContext
         private LoginPageViewModel ViewModel
         {
             get
@@ -22,17 +23,10 @@ namespace SkaffolderTemplate.Views
 
 		public LoginPage ()
 		{
+            //Setting BindingContext
             ViewModel = new LoginPageViewModel();
 			InitializeComponent ();
 		}
-
-        protected override void OnAppearing()
-        {
-            //Check if token is present
-            ViewModel.CheckToken.Execute(null);
-
-            base.OnAppearing();
-        }
 
         private void Login_Clicked(object sender, EventArgs e)
         {
@@ -43,6 +37,5 @@ namespace SkaffolderTemplate.Views
         {
             Password.Focus();
         }
-
     }
 }

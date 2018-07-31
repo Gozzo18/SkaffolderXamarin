@@ -4,6 +4,19 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="SkaffolderTemplate.ViewsForm.ActorEdit"
              Title="Actor">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="label" TargetType="Label">
+                <Setter Property="Margin" Value="0,-3,0,0"/>
+            </Style>
+            <Style x:Key="entry" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="White"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="Keyboard" Value="Text"/>
+                <Setter Property="Margin" Value="0,-6,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout>
             <Label x:Name="Subtitle" Text="Edit Actor" FontSize="Large" TextColor="#7970F5"
@@ -31,11 +44,11 @@
                         Property=Width,
                         Factor=0.8}">
                 <StackLayout Spacing="5">
-                    <Label Text="Name" Margin="3,0,0,0"/>
-                    <Entry Placeholder="Name*" PlaceholderColor="White" Text="{Binding Name, Mode=TwoWay}" TextColor="White" Unfocused="ActorNameEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
-                    <Label Text="Surname" Margin="3,0,0,0"/>
-                    <Entry Placeholder="Surname" PlaceholderColor="White" Text="{Binding Surname, Mode=TwoWay}" TextColor="White" Unfocused="ActorSurnameEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
-                    <Label Text="BirthDate" Margin="3,0,0,0"/>
+                    <Label Text="Name" Style="{StaticResource label}"/>
+                    <Entry Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="ActorNameEntry_Unfocused" Style="{StaticResource entry}"/>
+                    <Label Text="Surname" Style="{StaticResource label}"/>
+                    <Entry Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="ActorSurnameEntry_Unfocused" Style="{StaticResource entry}"/>
+                    <Label Text="BirthDate" Style="{StaticResource label}"/>
                     <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
                 </StackLayout>
             </Frame>
@@ -52,8 +65,8 @@
                         Type=RelativeToParent,
                         Property=Width,
                         Factor=1}">
-                <Button Text="Back To List" VerticalOptions="Start" BackgroundColor="Transparent" TextColor="White" Command="{Binding Back}"/>
-                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding Save}"/>
+                <Button Text="Back To List" VerticalOptions="Start" BackgroundColor="Transparent" TextColor="White" Command="{Binding BackCommand}"/>
+                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding SaveCommand}"/>
             </StackLayout>
         </RelativeLayout>
     </ContentPage.Content>

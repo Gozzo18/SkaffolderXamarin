@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 using SkaffolderTemplate.Models;
 
@@ -13,8 +12,13 @@ namespace SkaffolderTemplate.Rest.Security
 {
     public class LoginRestService : RestClient
     {
-
         //LOGIN
+        /// <summary>
+        /// Login procedure
+        /// </summary>
+        /// <param name="username">Username inserted by user</param>
+        /// <param name="password">Password inserted by user</param>
+        /// <returns>TRUE if HttpResonse is successful (code 200), FALSE otherwise</returns>
         public async Task<bool> LoginAsync(string username, string password)
         {
             bool isPresent = false;
@@ -22,7 +26,7 @@ namespace SkaffolderTemplate.Rest.Security
             try
             {
                 //Password encrypted
-                String sb = encryptPassword(password);
+                String sb = EncryptPassword(password);
 
                 var json = $"{{\"username\":\"{username}\",\"password\":\"{sb}\"}}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -55,11 +59,16 @@ namespace SkaffolderTemplate.Rest.Security
         }
 
         //VERIFY TOKEN
+        /// <summary>
+        /// Check if token is still valid or present.
+        /// </summary>
+        /// <param name="token">Token to check</param>
+        /// <returns>TRUE if token is valid, FALSE otherwise</returns>
         public async Task<bool> VerifyToken(string token)
         {
             bool tokenPresent = false;
 
-            if (token != "")
+            if (!string.IsNullOrEmpty(token))
             {
                 try
                 {
@@ -80,10 +89,16 @@ namespace SkaffolderTemplate.Rest.Security
         }
 
         //CHANGE PASSWORD
+        /// <summary>
+        /// Change password procedure
+        /// </summary>
+        /// <param name="oldPassword">Password to change</param>
+        /// <param name="newPassowrd">New Password to set</param>
+        /// <returns>TRUE if password is correctly changed, FALSE otherwise</returns>
         public async Task<bool> ChangePassword(string oldPassword, string newPassowrd)
         {
-            String oldPass = encryptPassword(oldPassword);
-            String newPass = encryptPassword(newPassowrd);
+            String oldPass = EncryptPassword(oldPassword);
+            String newPass = EncryptPassword(newPassowrd);
             bool correctChange = false;
             try
             {
@@ -98,7 +113,12 @@ namespace SkaffolderTemplate.Rest.Security
             return correctChange;
         }
 
-        public String encryptPassword(string password)
+        /// <summary>
+        /// Encrypting method using MD5 algorithm
+        /// </summary>
+        /// <param name="password">Password to encrypt</param>
+        /// <returns>Encrypted password</returns>
+        public String EncryptPassword(string password)
         {
             MD5 md5 = MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
