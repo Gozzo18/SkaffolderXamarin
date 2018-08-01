@@ -8,7 +8,8 @@ namespace SkaffolderTemplate.ViewsForm
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FilmEdit : ContentPage
-    { 
+    {
+        //Set ViewModel for BindingContext
         private FilmEditViewModel ViewModel
         {
             get
@@ -23,6 +24,7 @@ namespace SkaffolderTemplate.ViewsForm
 
         public FilmEdit (Film film)
 		{
+            //Setting BindingContext
             ViewModel = new FilmEditViewModel(film);
 			InitializeComponent ();
         }
@@ -30,37 +32,46 @@ namespace SkaffolderTemplate.ViewsForm
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.SetPickersItemSource.Execute(null);
+            //Set the ItemSource for all the Pickers
+            ViewModel.SetPickersItemSourceCommand.Execute(null);
         }
 
         private void FilmTitleEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            ViewModel.TitleCompleted.Execute(sender as Entry);
+            ViewModel.TitleCompletedCommand.Execute(sender as Entry);
         }
 
         private void FilmYearEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            ViewModel.YearCompleted.Execute(sender as Entry);
+            ViewModel.YearCompletedCommand.Execute(sender as Entry);
         }
 
         private void PickerGenre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ViewModel.SelectedGenre.Execute(sender as Picker);
+            ViewModel.SelectedGenreCommand.Execute(sender as Picker);
         }
 
         private void PickerFilmMaker_SelectedIndexChanged(object sender, EventArgs e)
         {
-             ViewModel.SelectedFilmMaker.Execute(sender as Picker); 
+             ViewModel.SelectedFilmMakerCommand.Execute(sender as Picker); 
         }
 
         private void PickerActor_SelectedIndexChanged(object sender, EventArgs e)
         {
-                ViewModel.SelectedActor.Execute(sender as Picker);
+                ViewModel.SelectedActorCommand.Execute(sender as Picker);
         }
 
         private void showActorPicker(object sender, EventArgs e)
         {
             actorPicker.Focus();
+        }
+
+        //Hide graphic effect on ListView
+        private void castInserted_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

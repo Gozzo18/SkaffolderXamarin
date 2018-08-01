@@ -35,20 +35,5 @@ namespace SkaffolderTemplate.Extensions
         {
             ViewModel.Save.Execute(null);
         }
-
-        private void OldPasswordCompleted(object sender, System.EventArgs e)
-        {
-            newpasswordEntry.Focus();
-        }
-
-        private void NewPasswordCompleted(object sender, System.EventArgs e)
-        {
-            confirmedpassowrdEntry.Focus();
-        }
-
-        private void ConfirmedPasswordCompleted(object sender, System.EventArgs e)
-        {
-            SaveButton(null, null);
-        }
     }
 }

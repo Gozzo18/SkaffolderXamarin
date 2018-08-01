@@ -81,6 +81,7 @@ namespace SkaffolderTemplate.Rest.Base
                 _listaDiFilm = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
+                //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<FilmRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
             return _listaDiFilm;
@@ -94,7 +95,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<Film> GETId(string filmId)
         {
             Film film = new Film();
-
             try
             {
                 var content = await client.GetStringAsync(App.FILM_URL + filmId);

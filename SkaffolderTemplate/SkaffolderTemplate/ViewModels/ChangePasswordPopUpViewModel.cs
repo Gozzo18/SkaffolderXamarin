@@ -71,16 +71,26 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task SavePassword()
         {
+            //Check if any field is empty
             if (string.IsNullOrWhiteSpace(OldPassword) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmedPassword))
                 ErrorField = "One or more fields are empty";
+
+            //Check if OldPassword is equals to UserPassword
             else if (!OldPassword.Equals(Application.Current.Properties["Password"]))
                 ErrorField = "Old password is not correct";
+
+            //Check if NewPassword and ConfirmedPassword are equals
             else if (!NewPassword.Equals(ConfirmedPassword))
                 ErrorField = "Old and new password do not match";
+
+            //If everything is correct
             else if (NewPassword.Equals(ConfirmedPassword))
             {
+                //Try to save
                 if (await App.loginService.ChangePassword(OldPassword, NewPassword))
                     ErrorField = "Password successfully changed";
+                else
+                    ErrorField = "An error has occured, please try again";
             }
            
         }

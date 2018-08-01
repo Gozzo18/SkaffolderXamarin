@@ -8,8 +8,8 @@
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Label Text="Are you sure you want to delete this item?" TextColor="#7970F5" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                 <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                    <Button Text="&lt; Back" BackgroundColor="Transparent" TextColor="DarkBlue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="End" Clicked="Back"/>
-                    <Button Text="Yes" TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" Clicked="Confirm"/>
+                    <Button Style="{StaticResource backButton}" Clicked="Back"/>
+                    <Button Style="{StaticResource saveButton}" Clicked="Confirm"/>
                 </StackLayout>
             </StackLayout>
         </Frame>

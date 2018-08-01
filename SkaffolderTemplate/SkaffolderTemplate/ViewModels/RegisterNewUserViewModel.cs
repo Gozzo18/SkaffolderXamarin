@@ -127,16 +127,16 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Back { get; private set; }
-        public ICommand Save { get; private set; }
-        public ICommand SelectedRole { get; private set; }
+        public ICommand BackCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand SelectedRoleCommand { get; private set; }
         #endregion
 
         public RegisterNewUserViewModel()
         {
-            Save = new Command(async vm => await VerifyData());
-            Back = new Command(async vm => await GoBack());
-            SelectedRole = new Command<Picker>(vm => RoleCompleted(vm));
+            SaveCommand = new Command(async vm => await VerifyData());
+            BackCommand = new Command(async vm => await GoBack());
+            SelectedRoleCommand = new Command<Picker>(vm => RoleCompleted(vm));
         }
 
         private void RoleCompleted(Picker picker)
@@ -146,6 +146,7 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task VerifyData()
         {
+            //Checkif any field is emtpy
             if(string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Surname) ||
                 string.IsNullOrWhiteSpace(Mail) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Role)){
                 ErrorData = true;
@@ -153,11 +154,14 @@ namespace SkaffolderTemplate.ViewModels
                 return;
             }
 
+            //Check if Password and ConfirmPassword are equals
             if (!Password.Equals(ConfirmPassword))
             {
                 ErrorData = true;
-                ErrorMessage = "Password inserted do not matches";
-            }else{
+                ErrorMessage = "Passwords inserted do not match";
+            }
+            else
+            {
                 User user = new User();
                 user.Name = Name;
                 user.Surname = Surname;
@@ -171,6 +175,8 @@ namespace SkaffolderTemplate.ViewModels
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                     await masterDetailPage.Detail.Navigation.PopAsync();
                 }
+                //If the update goes wrong, it can be either cause by internet connection or another user has the same password.
+                //To change the latter criteria, check userService.POST()
                 else
                 {
                     ErrorData = true;

@@ -12,6 +12,14 @@ namespace SkaffolderTemplate.Views
 			InitializeComponent ();
 		}
 
+        protected override void OnAppearing()
+        {
+            //Force garbace collector to run
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            base.OnAppearing();
+        }
+
         /// <summary>
         /// Set the Detail page for MasterDetailPage 
         /// </summary>

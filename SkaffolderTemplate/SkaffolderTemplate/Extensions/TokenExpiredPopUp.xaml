@@ -3,12 +3,20 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  x:Class="SkaffolderTemplate.Extensions.TokenExpiredPopUp">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="label" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
     <AbsoluteLayout>
         <Frame  AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.4" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White" CornerRadius="10" HorizontalOptions="Fill" BorderColor="Black">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <Label Text="Looks like your token has expired" TextColor="#7970F5" FontAttributes="Bold" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                <Label Text="Please login again" TextColor="Black"  FontAttributes="Bold" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                <Button Text="Ok" TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" Clicked="Ok" HorizontalOptions="Center"/>
+                <Label Style="{StaticResource label}" Text="Looks like your token has expired" TextColor="#7970F5" FontSize="Small" VerticalOptions="Center"/>
+                <Label Style="{StaticResource label}" Text="Please login again" TextColor="Black" FontSize="Medium" VerticalOptions="CenterAndExpand"/>
+                <Button Style="{StaticResource saveButton}" Text="Ok" HorizontalOptions="Center" Clicked="Ok"/>
             </StackLayout>
         </Frame>
     </AbsoluteLayout>

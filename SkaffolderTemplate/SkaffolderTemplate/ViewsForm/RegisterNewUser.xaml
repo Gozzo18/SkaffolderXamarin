@@ -93,7 +93,7 @@
 
                         <StackLayout Style="{StaticResource stackLayout}">
                             <Label Text="Confirm password" Style="{StaticResource label}"/>
-                            <Entry Text="{Binding ConfirmPassword}" Style="{StaticResource entry}" IsPassword="True" Keyboard="Default" Unfocused="Entry_Unfocused"/>
+                            <Entry Text="{Binding ConfirmPassword}" Style="{StaticResource entry}" IsPassword="True" Keyboard="Default"/>
                         </StackLayout>
 
                         <BoxView Style="{StaticResource boxview}"/>
@@ -128,8 +128,8 @@
                         Type=RelativeToParent,
                         Property=Width,
                         Factor=1}">
-                <Button Text="Back To List" VerticalOptions="Start" Command="{Binding Back}" BackgroundColor="Transparent" TextColor="White" BorderWidth="1" />
-                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" Command="{Binding Save}" BackgroundColor="Transparent" TextColor="White" BorderWidth="1" Margin="10,0,0,0" />
+                <Button Style="{StaticResource editPageButton}" Text="Back To List" Command="{Binding Back}"/>
+                <Button Style="{StaticResource editPageButton}" Text="Save" HorizontalOptions="EndAndExpand" Command="{Binding Save}"/>
             </StackLayout>
         </RelativeLayout>
         </ContentPage.Content>

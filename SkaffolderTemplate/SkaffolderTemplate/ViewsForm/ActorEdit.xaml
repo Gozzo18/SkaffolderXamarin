@@ -65,8 +65,8 @@
                         Type=RelativeToParent,
                         Property=Width,
                         Factor=1}">
-                <Button Text="Back To List" VerticalOptions="Start" BackgroundColor="Transparent" TextColor="White" Command="{Binding BackCommand}"/>
-                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding SaveCommand}"/>
+                <Button Style="{StaticResource editPageButton}" Text="Back To List" Command="{Binding BackCommand}"/>
+                <Button Style="{StaticResource editPageButton}" Text="Save" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}"/>
             </StackLayout>
         </RelativeLayout>
     </ContentPage.Content>

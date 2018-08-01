@@ -1,4 +1,7 @@
-﻿using SkaffolderTemplate.Models;
+﻿using Rg.Plugins.Popup.Services;
+using SkaffolderTemplate.Extensions;
+using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewsForm;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +13,6 @@ namespace SkaffolderTemplate.ViewModels
 {
     public class ManageUsersViewModel : BaseViewModel
     {
-
         #region Attributes and Properties
         private ObservableCollection<User> _userList;
         public ObservableCollection<User> UsersList
@@ -92,48 +94,52 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Add { get; private set; }
-        public ICommand Refresh { get; private set; }
-        public ICommand LoadData { get; private set; }
+        public ICommand AddCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
+        public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
-
-        public ICommand DeleteUser
+        public ICommand DeleteUserCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
                     var user = (e as User);
+                    //Check if the user to delete is the CurrentUser
                     if (!user.Id.Equals(Application.Current.Properties["UserId"]))
                     {
+                        //Check if the user to delete is an Admin
                         if (!user.Roles[0].Equals("ADMIN"))
                         {
-                            await App.userService.DELETE(user.Id);
-                            await RefreshList();
+                            //Pop Up allert appear
+                            await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
+                            MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2) =>
+                            {
+                                //If Save button is tapped
+                                if (arg2)
+                                {
+                                    await App.userService.DELETE(user.Id);
+                                    await RefreshList();
+                                }
+                            });
                         }
-                    }
-                    else
-                    {
-                        //Aggiungere pop up di allerta
-                        return;
-                    }
-                        
+                    }                   
                 });
-
             }
         }
         #endregion
 
         public ManageUsersViewModel()
         {
-            Add = new Command(async vm => await AddNewUser());
-            Refresh = new Command(async vm => await RefreshList());
-            LoadData = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
+            AddCommand = new Command(async vm => await AddNewUser());
+            RefreshCommand = new Command(async vm => await RefreshList());
+            LoadDataCommand = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
 
         private async Task RefreshList()
         {
+            //When refreshing the ListView, we set to "" the field of the SearchBar
             SearchedWord = "";
             Refreshing = true;
             UsersList = await App.userService.GETList();
@@ -163,12 +169,14 @@ namespace SkaffolderTemplate.ViewModels
 
         private void SearchWord()
         {
+            //Capitalize first letter of SearcheWord
             if (SearchedWord.Length >= 1)
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
             if (string.IsNullOrWhiteSpace(SearchedWord))
                 SupportList = new ObservableCollection<User>(UsersList);
             else
             {
+                //The filtering of elements is based on their surnames. In case you wish to change, just overwrite c.Surname with c.YourField
                 var tempRecords = UsersList.Where(c => c.Surname.Contains(SearchedWord));
                 SupportList = new ObservableCollection<User>(tempRecords);
             }

@@ -105,7 +105,6 @@ namespace SkaffolderTemplate.Rest.Security
                 var json = $"{{\"passwordNew\":\"{newPass}\",\"passwordOld\":\"{oldPass}\"}}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(App.CHANGE_PASSWORD_URL, content);
-                Debug.WriteLine("Success : " + response.IsSuccessStatusCode);
                 correctChange = true;
             }catch(Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);

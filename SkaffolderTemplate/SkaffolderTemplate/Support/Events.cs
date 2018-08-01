@@ -1,5 +1,4 @@
-﻿
-/// <summary>
+﻿/// <summary>
 /// This class is used to contain all the events (messages) that have to be tracked by the Messaging Center
 /// </summary>
 namespace SkaffolderTemplate.Support

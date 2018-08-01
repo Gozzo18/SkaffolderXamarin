@@ -15,6 +15,7 @@ namespace SkaffolderTemplate.ViewModels
     {
         #region Attributes and Properties
         private ObservableCollection<Film> _filmsList;
+        //This collection main purpose is to store data from API request 
         public ObservableCollection<Film> FilmsList
         {
             get
@@ -28,6 +29,7 @@ namespace SkaffolderTemplate.ViewModels
         }
 
         private ObservableCollection<Film> _supportList;
+        //This one instead is the ItemSource of the ListView. This allows to modify without any exceptions, the elements of the ListView.
         public ObservableCollection<Film> SupportList
         {
             get
@@ -94,12 +96,12 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Add { get; private set; }
-        public ICommand Refresh { get; private set; }
-        public ICommand LoadData { get; private set; }
+        public ICommand AddCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
+        public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
-        public ICommand EditFilm
+        public ICommand EditFilmCommand
         {
             get
             {
@@ -113,19 +115,21 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
-        public ICommand DeleteFilm
+        public ICommand DeleteFilmCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
+                    //Pop Up allert appear
                     await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
                     MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2) =>
                     {
+                        //If Save button is tapped
                         if (arg2)
                         {
                             var film = (e as Film);
-                            await App.filmService.DELETE(film._id);
+                            await App.filmService.DELETE(film.Id);
                             await RefreshList();
                         }
                     });
@@ -136,24 +140,10 @@ namespace SkaffolderTemplate.ViewModels
 
         public FilmPageViewModel()
         {
-            Add = new Command(async vm => await AddNewFilm());
-            Refresh = new Command(async vm => await RefreshList());
-            LoadData = new Command<ObservableCollection<Film>>(async vm => await GetRequest());
+            AddCommand = new Command(async vm => await AddNewFilm());
+            RefreshCommand = new Command(async vm => await RefreshList());
+            LoadDataCommand = new Command<ObservableCollection<Film>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
-        }
-
-        private async Task GetRequest()
-        {
-            //Set ActivityIndicator visible, hide the ListView
-            IsBusy = true;
-            IsLoaded = false;
-
-            FilmsList = await App.filmService.GETList();
-            SupportList = new ObservableCollection<Film>(FilmsList);
-
-            //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
-            IsBusy = false;
-            IsLoaded = true;
         }
 
         private async Task RefreshList()
@@ -170,15 +160,32 @@ namespace SkaffolderTemplate.ViewModels
             await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null), false);
         }
 
+        private async Task GetRequest()
+        {
+            //Set ActivityIndicator visible, hide the ListView
+            IsBusy = true;
+            IsLoaded = false;
+
+            FilmsList = await App.filmService.GETList();
+            SupportList = new ObservableCollection<Film>(FilmsList);
+
+            //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
+            IsBusy = false;
+            IsLoaded = true;
+        }
+
         private void SearchWord()
         {
+            //Capitalize first letter of SearcheWord
             if (SearchedWord.Length >= 1)
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
+
             if (string.IsNullOrWhiteSpace(SearchedWord))
                 SupportList = new ObservableCollection<Film>(FilmsList);
             else
             {
-                var tempRecords = FilmsList.Where(c => c.title.Contains(SearchedWord));
+                //The filtering of elements is based on their titles. In case you wish to change, just overwrite c.Title with c.YourField
+                var tempRecords = FilmsList.Where(c => c.Title.Contains(SearchedWord));
                 SupportList = new ObservableCollection<Film>(tempRecords);
             }
         }

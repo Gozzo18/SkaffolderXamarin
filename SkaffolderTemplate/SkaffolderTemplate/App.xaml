@@ -7,6 +7,26 @@
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="#7970F5"/>
             </Style>
+            <Style x:Key="backButton" TargetType="Button">
+                <Setter Property="Text" Value="&lt; Back"/>
+                <Setter Property="TextColor" Value="DarkBlue"/>
+                <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="saveButton" TargetType="Button">
+                <Setter Property="Text" Value="Save"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="DarkBlue"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BorderRadius" Value="30"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+            </Style>
+            <Style x:Key="editPageButton" TargetType="Button">
+                <Setter Property="VerticalOptions" Value="Start"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

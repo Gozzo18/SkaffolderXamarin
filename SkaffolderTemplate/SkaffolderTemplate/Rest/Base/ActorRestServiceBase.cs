@@ -81,6 +81,7 @@ namespace SkaffolderTemplate.Rest.Base
                 _actors = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
+                //Send a notification of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<ActorRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
             return _actors;
@@ -90,7 +91,7 @@ namespace SkaffolderTemplate.Rest.Base
         /// <summary>
         /// Get an Actor  
         /// </summary>
-        /// <returns>Actor</returns>
+        /// <returns>Actor with that Id</returns>
         public async Task<Actor> GETId(string actorId)
         {
             Actor actor = new Actor();

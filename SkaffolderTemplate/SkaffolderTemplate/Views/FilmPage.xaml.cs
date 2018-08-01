@@ -1,4 +1,5 @@
 ﻿using SkaffolderTemplate.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,9 +30,13 @@ namespace SkaffolderTemplate.Views
 
         protected override void OnAppearing()
         {
+            //Force garbace collector to run
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadData.Execute(null);
+            ViewModel.LoadDataCommand.Execute(null);
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)

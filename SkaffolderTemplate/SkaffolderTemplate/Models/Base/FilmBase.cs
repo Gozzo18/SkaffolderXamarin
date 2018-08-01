@@ -1,10 +1,12 @@
-﻿using SkaffolderTemplate.ViewModels;
+﻿using Newtonsoft.Json;
+using SkaffolderTemplate.ViewModels;
 
 namespace SkaffolderTemplate.Models.Base
 {
      public class FilmBase : BaseViewModel
     {
-        public string _id;
+        private string _id;
+        [JsonProperty(PropertyName = "_id")]
         public string Id
         {
             get
@@ -17,7 +19,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public string genre;
+        private string genre;
+        [JsonProperty(PropertyName = "genre")]
         public string Genre
         {
             get
@@ -30,7 +33,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public string title;
+        private string title;
+        [JsonProperty(PropertyName = "title")]
         public string Title
         {
             get
@@ -43,7 +47,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public int year;
+        private int year;
+        [JsonProperty(PropertyName = "year")]
         public int Year
         {
             get
@@ -56,7 +61,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public string filmMaker;
+        private string filmMaker;
+        [JsonProperty(PropertyName = "filmMaker")]
         public string FilmMaker
         {
             get
@@ -69,7 +75,8 @@ namespace SkaffolderTemplate.Models.Base
             }
         }
 
-        public string[] cast;
+        private string[] cast;
+        [JsonProperty(PropertyName = "cast")]
         public string[] Cast
         {
             get

@@ -13,7 +13,7 @@ namespace SkaffolderTemplate.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //We set here the handling of change in an attributes
+        //We set here the handling of a change in an attributes
         protected void SetValue<T>(ref T oldValue, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(oldValue, newValue))

@@ -22,6 +22,7 @@ namespace SkaffolderTemplate.Extensions
 
         private void Confirm(object sender, EventArgs e)
         {
+            //Send a message of confirmation, to whoever is subscribed to this PopUpPage
             MessagingCenter.Send<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, true);
             PopupNavigation.Instance.PopAsync();
         }

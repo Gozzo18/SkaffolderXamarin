@@ -23,7 +23,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfUsers" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding Refresh}" ItemSelected="MainListOfUsers_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfUsers" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOfUsers_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>
@@ -53,7 +53,7 @@
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfUsers}, Path=BindingContext}" Command="{Binding DeleteUser}" CommandParameter="{Binding Source={x:Reference UserItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfUsers}, Path=BindingContext}" Command="{Binding DeleteUserCommand}" CommandParameter="{Binding Source={x:Reference UserItem}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                         </StackLayout>
@@ -96,7 +96,7 @@
                             Factor=0.98}">
                 <Image Source="add2.png" Margin="10,-39,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Add}"/>
+                        <TapGestureRecognizer Command="{Binding AddCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
             </StackLayout>

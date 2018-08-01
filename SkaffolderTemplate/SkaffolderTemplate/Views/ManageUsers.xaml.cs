@@ -7,6 +7,7 @@ namespace SkaffolderTemplate.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ManageUsers : ContentPage
 	{
+        //Set ViewModel for BindingContext
         private ManageUsersViewModel ViewModel
         {
             get
@@ -21,6 +22,7 @@ namespace SkaffolderTemplate.Views
 
 		public ManageUsers ()
 		{
+            //Setting BindingContext
             BindingContext = new ManageUsersViewModel();
 			InitializeComponent ();
 		}
@@ -29,7 +31,7 @@ namespace SkaffolderTemplate.Views
         {
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadData.Execute(null);
+            ViewModel.LoadDataCommand.Execute(null);
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)

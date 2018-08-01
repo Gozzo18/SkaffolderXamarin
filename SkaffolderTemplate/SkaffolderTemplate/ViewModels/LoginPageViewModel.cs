@@ -71,6 +71,7 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task VerifyData()
         {
+            //Check if any field is empty
             if(string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
                 ErrorMessage = "Empty Username or Password";
@@ -78,6 +79,7 @@ namespace SkaffolderTemplate.ViewModels
                 return;
             }
 
+            //Try to execut login request
             if(await App.loginService.LoginAsync(Username, Password))
             {
                 App.Current.MainPage = new MasterPage();
