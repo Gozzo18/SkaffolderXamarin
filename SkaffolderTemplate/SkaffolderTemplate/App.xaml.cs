@@ -14,13 +14,13 @@ namespace SkaffolderTemplate
 	public partial class App : Application
 	{
 
-        public const string FILM_URL = "http://192.168.1.198:3000/api/films/";
-        public const string ACTOR_URL = "http://192.168.1.198:3000/api/actors/";
-        public const string FILMMAKER_URL = "http://192.168.1.198:3000/api/filmmakers/";
-        public const string USER_URL = "http://192.168.1.198:3000/api/Users/";
-        public const string LOGIN_URL = "http://192.168.1.198:3000/api/login";
-        public const string VERIFY_TOKEN_URL = "http://192.168.1.198:3000/api/verifyToken";
-        public const string CHANGE_PASSWORD_URL = "http://192.168.1.198:3000/api/changePassword";
+        public const string FILM_URL = "http://192.168.1.199:3000/api/films/";
+        public const string ACTOR_URL = "http://192.168.1.199:3000/api/actors/";
+        public const string FILMMAKER_URL = "http://192.168.1.199:3000/api/filmmakers/";
+        public const string USER_URL = "http://192.168.1.199:3000/api/Users/";
+        public const string LOGIN_URL = "http://192.168.1.199:3000/api/login";
+        public const string VERIFY_TOKEN_URL = "http://192.168.1.199:3000/api/verifyToken";
+        public const string CHANGE_PASSWORD_URL = "http://192.168.1.199:3000/api/changePassword";
 
         /*
                 public const string FILM_URL = "http://192.168.140.73:3000/api/films/";

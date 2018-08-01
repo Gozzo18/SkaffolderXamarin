@@ -3,7 +3,7 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.ViewsForm
+namespace SkaffolderTemplate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RegisterNewUser : ContentPage
@@ -30,7 +30,7 @@ namespace SkaffolderTemplate.ViewsForm
 
         private void RoleSelected(object sender, EventArgs e)
         {
-            ViewModel.SelectedRole.Execute(sender as Picker);
+            ViewModel.SelectedRoleCommand.Execute(sender as Picker);
         }
     }
 }

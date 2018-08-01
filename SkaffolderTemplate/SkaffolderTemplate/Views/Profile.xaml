@@ -24,15 +24,15 @@
                             Factor=0.1}">
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Label Text="Username:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                    <Label Text="{Binding User.Username}" TextColor="#7970F5"/>
+                    <Label Text="{Binding Username}" TextColor="#7970F5"/>
                     <StackLayout HorizontalOptions="Fill" Orientation="Horizontal" Spacing="30">
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="-10">
                             <Label Text="Name:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                            <Entry Text="{Binding Name, Mode=TwoWay}" IsSpellCheckEnabled="False" TextColor="#7970F5" HorizontalOptions="FillAndExpand"/>
+                            <Entry Text="{Binding Name, Mode=TwoWay}" Keyboard="Text" IsSpellCheckEnabled="False" TextColor="#7970F5" HorizontalOptions="FillAndExpand"/>
                         </StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="-10">
                             <Label Text="Last Name:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
-                            <Entry Text="{Binding Surname, Mode=TwoWay}" IsSpellCheckEnabled="False" TextColor="#7970F5"/>
+                            <Entry Text="{Binding Surname, Mode=TwoWay}" Keyboard="Text" IsSpellCheckEnabled="False" TextColor="#7970F5"/>
                         </StackLayout>
                     </StackLayout>
                     <Label Text="Email:" FontSize="Medium" FontAttributes="Bold" TextColor="DarkBlue"/>
@@ -58,8 +58,8 @@
                             Property=Height,
                             Factor=0.1}">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                    <Button Text="&lt; Back" BackgroundColor="Transparent" TextColor="DarkBlue" FontAttributes="Bold" Command="{Binding Back}"/>
-                    <Button Text="Save" HorizontalOptions="EndAndExpand" TextColor="White" BackgroundColor="DarkBlue" FontAttributes="Bold" BorderRadius="30" Command="{Binding SaveData}"/>
+                    <Button Style="{StaticResource backButton}" Command="{Binding BackCommand}"/>
+                    <Button Style="{StaticResource saveButton}" HorizontalOptions="EndAndExpand" Command="{Binding SaveDataCommand}"/>
                 </StackLayout>
             </StackLayout>
             <Button Text="Change Password" HorizontalOptions="Start" TextColor="#7970F5" BackgroundColor="Transparent" Clicked="Button_Clicked"

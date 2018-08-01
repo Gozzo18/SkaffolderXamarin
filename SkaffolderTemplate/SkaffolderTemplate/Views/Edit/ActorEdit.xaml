@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             x:Class="SkaffolderTemplate.ViewsForm.ActorEdit"
+             x:Class="SkaffolderTemplate.Views.Edit.ActorEdit"
              Title="Actor">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -45,9 +45,9 @@
                         Factor=0.8}">
                 <StackLayout Spacing="5">
                     <Label Text="Name" Style="{StaticResource label}"/>
-                    <Entry Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="ActorNameEntry_Unfocused" Style="{StaticResource entry}"/>
+                    <Entry Style="{StaticResource entry}" Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="ActorNameEntry_Unfocused"/>
                     <Label Text="Surname" Style="{StaticResource label}"/>
-                    <Entry Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="ActorSurnameEntry_Unfocused" Style="{StaticResource entry}"/>
+                    <Entry Style="{StaticResource entry}" Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="ActorSurnameEntry_Unfocused"/>
                     <Label Text="BirthDate" Style="{StaticResource label}"/>
                     <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
                 </StackLayout>

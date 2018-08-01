@@ -3,7 +3,7 @@ using SkaffolderTemplate.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.ViewsForm
+namespace SkaffolderTemplate.Views.Edit
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActorEdit : ContentPage

@@ -84,15 +84,15 @@ namespace SkaffolderTemplate.ViewModels
         public ICommand BirthDateCompletedCommand { get; private set; }
         #endregion
 
-        public ActorEditViewModel(Actor alreadyPresentActor)
+        public ActorEditViewModel(Actor actorToEdit)
         {
             //If it's the editing case
-            if (alreadyPresentActor != null)
+            if (actorToEdit != null)
             {
-                Id = alreadyPresentActor.Id;
-                Name = alreadyPresentActor.Name;
-                Surname = alreadyPresentActor.Surname;
-                BirthDate = alreadyPresentActor.BirthDate;
+                Id = actorToEdit.Id;
+                Name = actorToEdit.Name;
+                Surname = actorToEdit.Surname;
+                BirthDate = actorToEdit.BirthDate;
                 IsPresent = true;
             }
             

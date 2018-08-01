@@ -47,20 +47,8 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
-        private FilmMaker _filmMaker;
-        public FilmMaker FilmMaker
-        {
-            get
-            {
-                return _filmMaker;
-            }
-            set
-            {
-                SetValue(ref _filmMaker, value);
-            }
-        }
-
         private bool _isPresent;
+        //True = editing FilmMaker, False = creating new FilmMaker
         public bool IsPresent
         {
             get
@@ -75,32 +63,27 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Save { get; private set; }
-        public ICommand Back { get; private set; }
-        public ICommand SetPreviewsValue { get; private set; }
-        public ICommand NameCompleted { get; private set; }
-        public ICommand SurnameCompleted { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand BackCommand { get; private set; }
+        public ICommand NameCompletedCommand { get; private set; }
+        public ICommand SurnameCompletedCommand { get; private set; }
         #endregion
 
-        public FilmMakerEditViewModel(FilmMaker alreadyPresentFilmMaker)
+        public FilmMakerEditViewModel(FilmMaker filmMakerToEdit)
         {
-            FilmMaker = alreadyPresentFilmMaker;
-            Save = new Command(async vm => await SaveActorData());
-            Back = new Command(async vm => await GoBack());
-            SetPreviewsValue = new Command(SetData);
-            NameCompleted = new Command<Entry>(vm => NameEntryCompleted(vm));
-            SurnameCompleted = new Command<Entry>(vm => SurnameEntryCompleted(vm));
-        }
-
-        private void SetData()
-        {
-            if (FilmMaker != null)
+            //If it's the editing case
+            if (filmMakerToEdit != null)
             {
-                Id = FilmMaker._id;
-                Name = FilmMaker.name;
-                Surname = FilmMaker.surname;
+                Name = filmMakerToEdit.Name;
+                Surname = filmMakerToEdit.Surname;
+                Id = filmMakerToEdit.Id;
                 IsPresent = true;
             }
+
+            SaveCommand = new Command(async vm => await SaveActorData());
+            BackCommand = new Command(async vm => await GoBack());
+            NameCompletedCommand = new Command<Entry>(vm => NameEntryCompleted(vm));
+            SurnameCompletedCommand = new Command<Entry>(vm => SurnameEntryCompleted(vm));
         }
 
         private void NameEntryCompleted(Entry FilmMakerName)
@@ -121,17 +104,17 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task SaveActorData()
         {
-            FilmMaker fm = new FilmMaker();
-            fm.name = Name;
-            fm.surname = Surname;
+            FilmMaker filmMaker = new FilmMaker();
+            filmMaker.Name = Name;
+            filmMaker.Surname = Surname;
             
             if (IsPresent)
             {
-                fm._id = FilmMaker._id;
-                await App.filmMakerService.PUT(fm);
+                filmMaker.Id = Id;
+                await App.filmMakerService.PUT(filmMaker);
             }
             else
-                await App.filmMakerService.POST(fm);
+                await App.filmMakerService.POST(filmMaker);
 
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             await masterDetailPage.Detail.Navigation.PopAsync();

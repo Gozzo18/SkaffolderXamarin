@@ -3,17 +3,17 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ActorPage : ContentPage
+	public partial class FilmList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private ActorPageViewModel ViewModel
+        private FilmListViewModel ViewModel
         {
             get
             {
-                return BindingContext as ActorPageViewModel;
+                return BindingContext as FilmListViewModel;
             }
             set
             {
@@ -21,11 +21,11 @@ namespace SkaffolderTemplate.Views
             }
         }
 
-		public ActorPage ()
+		public FilmList ()
 		{
             //Setting BindingContext
-            ViewModel = new ActorPageViewModel();
-            InitializeComponent ();            
+            ViewModel = new FilmListViewModel();
+			InitializeComponent ();
 		}
 
         protected override void OnAppearing()
@@ -36,7 +36,7 @@ namespace SkaffolderTemplate.Views
 
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadDataCommand.Execute(null);           
+            ViewModel.LoadDataCommand.Execute(null);
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -44,8 +44,8 @@ namespace SkaffolderTemplate.Views
             ViewModel.SearchCommand.Execute(null);
         }
 
-        //Hide graphic effect on ListView
-        private void MainListOfActors_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //Remove graphic effect on ListView
+        private void MainListOfFilms_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

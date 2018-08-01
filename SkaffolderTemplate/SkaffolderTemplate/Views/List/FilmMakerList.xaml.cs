@@ -3,17 +3,17 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmMakerPage : ContentPage
+	public partial class FilmMakerList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private FilmMakerPageViewModel ViewModel
+        private FilmMakerListViewModel ViewModel
         {
             get
             {
-                return BindingContext as FilmMakerPageViewModel;
+                return BindingContext as FilmMakerListViewModel;
             }
             set
             {
@@ -21,10 +21,10 @@ namespace SkaffolderTemplate.Views
             }
         }
         
-		public FilmMakerPage ()
+		public FilmMakerList ()
 		{
             //Setting BindingContext
-            ViewModel = new FilmMakerPageViewModel();
+            ViewModel = new FilmMakerListViewModel();
             InitializeComponent ();
 		}
 
@@ -36,7 +36,7 @@ namespace SkaffolderTemplate.Views
 
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadData.Execute(null);           
+            ViewModel.LoadDataCommand.Execute(null);           
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)

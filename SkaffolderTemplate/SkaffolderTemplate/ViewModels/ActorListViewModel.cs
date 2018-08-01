@@ -2,7 +2,7 @@
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
-using SkaffolderTemplate.ViewsForm;
+using SkaffolderTemplate.Views.Edit;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace SkaffolderTemplate.ViewModels
 {
-    public class ActorPageViewModel : BaseViewModel
+    public class ActorListViewModel : BaseViewModel
     {
         #region Attributes and Properties
         private ObservableCollection<Actor> _actorList;
@@ -138,7 +138,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public ActorPageViewModel()
+        public ActorListViewModel()
         {
             AddCommand = new Command(async vm => await AddNewActor());
             RefreshCommand = new Command(async vm => await RefreshList());

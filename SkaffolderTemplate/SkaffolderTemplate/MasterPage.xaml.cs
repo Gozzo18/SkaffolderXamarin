@@ -1,6 +1,7 @@
 ﻿using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
+using SkaffolderTemplate.Views.List;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -38,17 +39,17 @@ namespace SkaffolderTemplate
                 switch (arg2)
                 {   
                     case "A c t o r":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorPage());
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorList());
                                 ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                                 break;
                 
                     case "F i l m":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmPage());
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmList());
                                 ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                                 break;
 
                     case "F i l m M a k e r":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerPage());
+                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerList());
                                 ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                                 break;
 

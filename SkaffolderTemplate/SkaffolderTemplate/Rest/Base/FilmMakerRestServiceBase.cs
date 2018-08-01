@@ -76,7 +76,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<ObservableCollection<FilmMaker>> GETList()
         {
             _filmMakers = new ObservableCollection<FilmMaker>();
-
             try
             {
                 var content = await client.GetStringAsync(App.FILMMAKER_URL);
@@ -96,7 +95,6 @@ namespace SkaffolderTemplate.Rest.Base
         public async Task<FilmMaker> GETId(string filmMakerId)
         {
             FilmMaker filmMaker = new FilmMaker();
-
             try
             {
                 var content = await client.GetStringAsync(App.FILMMAKER_URL + filmMakerId);

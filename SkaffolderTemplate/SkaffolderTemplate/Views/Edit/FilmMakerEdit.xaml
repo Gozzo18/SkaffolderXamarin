@@ -1,8 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SkaffolderTemplate.ViewsForm.FilmMakerEdit"
+             x:Class="SkaffolderTemplate.Views.Edit.FilmMakerEdit"
              Title="FilmMaker">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="entry" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="White"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="Keyboard" Value="Text"/>
+                <Setter Property="Margin" Value="0,-6,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout>
             <Label x:Name="Subtitle" Text="Edit Film Maker" FontSize="Large" TextColor="#7970F5"
@@ -31,9 +41,9 @@
                         Factor=0.8}">
                 <StackLayout Spacing="5">
                     <Label Text="Name" Margin="3,0,0,0"/>
-                    <Entry Placeholder="Name*" PlaceholderColor="White" Text="{Binding Name, Mode=TwoWay}" TextColor="White" Unfocused="FilmMakerNameEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                    <Entry Style="{StaticResource entry}" Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="FilmMakerNameEntry_Unfocused" Keyboard="Text"/>
                     <Label Text="Surname" Margin="3,0,0,0"/>
-                    <Entry Placeholder="Surname" PlaceholderColor="White" Text="{Binding Surname, Mode=TwoWay}" TextColor="White" Unfocused="FilmMakerSurnameEntry_Unfocused" Keyboard="Text" Margin="0,-6,0,0"/>
+                    <Entry Style="{StaticResource entry}" Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="FilmMakerSurnameEntry_Unfocused" Keyboard="Text"/>
                 </StackLayout>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
@@ -49,8 +59,8 @@
                         Type=RelativeToParent,
                         Property=Width,
                         Factor=1}">
-                <Button Text="Back To List" VerticalOptions="Start" BackgroundColor="Transparent" TextColor="White" Command="{Binding Back}"/>
-                <Button Text="Save" VerticalOptions="Start" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" TextColor="White" Margin="10,0,0,0" Command="{Binding Save}"/>
+                <Button Style="{StaticResource editPageButton}" Text="Back To List" Command="{Binding BackCommand}"/>
+                <Button Style="{StaticResource editPageButton}" Text="Save" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}"/>
             </StackLayout>
         </RelativeLayout>
     </ContentPage.Content>

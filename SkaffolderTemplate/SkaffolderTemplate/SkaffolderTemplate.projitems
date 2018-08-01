@@ -11,17 +11,17 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\ActorEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewsForm\RegisterNewUser.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\ActorEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\FilmEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\FilmMakerEdit.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Profile.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\ActorList.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmMakerList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\TokenExpiredPopUp.xaml" />
@@ -54,19 +54,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmRestServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Security\LoginRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordPopUpViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterNewUserViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\RegisterNewUser.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml.cs">
       <DependentUpon>RegisterNewUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
@@ -75,22 +75,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmPage.xaml.cs">
-      <DependentUpon>FilmPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmList.xaml.cs">
+      <DependentUpon>FilmList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ActorPage.xaml.cs">
-      <DependentUpon>ActorPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\ActorList.xaml.cs">
+      <DependentUpon>ActorList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmMakerPage.xaml.cs">
-      <DependentUpon>FilmMakerPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmMakerList.xaml.cs">
+      <DependentUpon>FilmMakerList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\ActorEdit.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\ActorEdit.xaml.cs">
       <DependentUpon>ActorEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\FilmEdit.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\FilmEdit.xaml.cs">
       <DependentUpon>FilmEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsForm\FilmMakerEdit.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\FilmMakerEdit.xaml.cs">
       <DependentUpon>FilmMakerEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml.cs">
@@ -108,5 +108,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TokenExpiredPopUp.xaml.cs">
       <DependentUpon>TokenExpiredPopUp.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Views\List\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Edit\" />
   </ItemGroup>
 </Project>

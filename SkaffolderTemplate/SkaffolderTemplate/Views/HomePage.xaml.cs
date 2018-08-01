@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkaffolderTemplate.Views.List;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,11 +31,11 @@ namespace SkaffolderTemplate.Views
             var label = sender as Label;
             var masterPage = App.Current.MainPage as MasterDetailPage;
             if (label.Text.Equals("Actor"))
-                masterPage.Detail = new NavigationPage(new ActorPage());
+                masterPage.Detail = new NavigationPage(new ActorList());
             else if (label.Text.Equals("Film"))
-                masterPage.Detail = new NavigationPage(new FilmPage());
+                masterPage.Detail = new NavigationPage(new FilmList());
             else if (label.Text.Equals("FilmMaker"))
-                masterPage.Detail = new NavigationPage(new FilmMakerPage());
+                masterPage.Detail = new NavigationPage(new FilmMakerList());
         }
     }
 }

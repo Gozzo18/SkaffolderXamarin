@@ -79,7 +79,6 @@ namespace SkaffolderTemplate.Rest.Base
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(App.USER_URL + item.Id, content);
-                var responseString = await response.Content.ReadAsStringAsync();
             }catch(Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }

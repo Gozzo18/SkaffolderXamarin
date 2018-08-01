@@ -192,9 +192,9 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public FilmEditViewModel(Film alreadyPresentFilm)
+        public FilmEditViewModel(Film filmToEdit)
         {
-            Film = alreadyPresentFilm;
+            Film = filmToEdit;
             SetPickersItemSourceCommand = new Command(async vm => await PopulatePickers());
             SaveCommand = new Command(async vm => await SaveFilmData());
             BackCommand = new Command(async vm => await GoBack());
@@ -228,7 +228,7 @@ namespace SkaffolderTemplate.ViewModels
                 //Overwrite FilmMaker entry
                 for (int i = 0; i < FilmMakersAvailable.Count; i++)
                 {
-                    if (FilmMakersAvailable[i]._id.Equals(Film.FilmMaker))
+                    if (FilmMakersAvailable[i].Id.Equals(Film.FilmMaker))
                     {
                         FilmMaker = FilmMakersAvailable[i];
                     }

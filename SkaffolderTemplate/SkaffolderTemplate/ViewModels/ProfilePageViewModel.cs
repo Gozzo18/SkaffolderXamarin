@@ -9,6 +9,19 @@ namespace SkaffolderTemplate.ViewModels
     public class ProfilePageViewModel : BaseViewModel
     {
         #region Attributes and Properties
+        private string _username;
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                SetValue(ref _username, value);
+            }
+        }
+
         private string _name;
         public string Name
         {
@@ -63,26 +76,21 @@ namespace SkaffolderTemplate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand SaveData { get; private set; }
-        public ICommand Back { get; private set; }
+        public ICommand SaveDataCommand { get; private set; }
+        public ICommand BackCommand { get; private set; }
         #endregion
 
         public ProfilePageViewModel(User userLogged)
         {
-            var app = Application.Current as App;
-            User = new User();
+            User = userLogged;
 
-            User.Username = userLogged.Username;
-            User.Password = userLogged.Password;
-            User.Id = userLogged.Id;
-            User.Roles = userLogged.Roles;
-
+            Username = userLogged.Username;
             Name = userLogged.Name;
             Surname = userLogged.Surname;
             Mail = userLogged.Mail;
 
-            SaveData = new Command(async vm => await SaveInfo());
-            Back = new Command(GoBack);
+            SaveDataCommand = new Command(async vm => await SaveInfo());
+            BackCommand = new Command(GoBack);
         }
 
         private void GoBack()
@@ -93,6 +101,7 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task SaveInfo()
         {
+            //Check if any field is left empty
             if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Mail))
             {
                 User.Name = char.ToUpper(Name[0]) + Name.Substring(1);
