@@ -10,7 +10,7 @@ namespace SkaffolderTemplate
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterPage : MasterDetailPage
-	{
+    {
         private MasterPageViewModel ViewModel
         {
             get
@@ -23,61 +23,62 @@ namespace SkaffolderTemplate
             }
         }
 
-		public MasterPage()
-		{
+        public MasterPage()
+        {
             ViewModel = new MasterPageViewModel();
-			InitializeComponent();
+            InitializeComponent();
             Title = "MasterPage";
             Detail = new NavigationPage(new HomePage());
             IsPresented = false;
-		}
+        }
 
         protected override void OnAppearing()
         {
             var app = App.Current as App;
-            MessagingCenter.Subscribe<MasterPageViewModel, string>(this, Events.DetailPageChanged, (arg1, arg2) => {
+            MessagingCenter.Subscribe<MasterPageViewModel, string>(this, Events.DetailPageChanged, (arg1, arg2) =>
+            {
                 switch (arg2)
-                {   
+                {
                     case "A c t o r":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorList());
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
-                
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorList());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
+
                     case "F i l m":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmList());
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmList());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
 
                     case "F i l m M a k e r":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerList());
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerList());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
 
                     case "H o m e":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
 
                     case "P r o f i l e":
-                                ViewModel.GetUserById.Execute(null);
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
+                        ViewModel.GetUserById.Execute(null);
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
 
                     case "M a n a g e  U s e r s":
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
 
                     case "L o g o u t":
-                                #region Delete all reference to UserLogged
-                                app.AuthenticationToken = "";
-                                app.UserId = "";
-                                app.CurrentUserRole = "";
-                                app.SavePropertiesAsync();
-                                #endregion
-                                ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
-                                ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                                break;
+                        #region Delete all reference to UserLogged
+                        Settings.AuthenticationToken = "";
+                        Settings.CurrentUserRole = "";
+                        Settings.UserId = "";
+                        Settings.Password = "";
+                        #endregion
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
                 }
             });
             base.OnAppearing();

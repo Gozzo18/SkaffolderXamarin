@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Support\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>

@@ -13,6 +13,7 @@ namespace SkaffolderTemplate.Rest.Base
 {
     public class ActorRestServiceBase : RestClient
     {
+        private const string ActorApi ="actors/";
         ObservableCollection<Actor> _actors { get; set; }
 
         //DELETE
@@ -25,7 +26,7 @@ namespace SkaffolderTemplate.Rest.Base
         {
             try
             {
-                var response = await client.DeleteAsync(App.ACTOR_URL + id);
+                var response = await client.DeleteAsync(ActorApi + id);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -43,7 +44,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL, content);
+                HttpResponseMessage response = await client.PostAsync(ActorApi, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -61,7 +62,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.ACTOR_URL + item.Id, content);
+                HttpResponseMessage response = await client.PostAsync(ActorApi + item.Id, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -77,7 +78,7 @@ namespace SkaffolderTemplate.Rest.Base
             _actors = new ObservableCollection<Actor>();
             try
             {
-                var content = await client.GetStringAsync(App.ACTOR_URL);
+                var content = await client.GetStringAsync(ActorApi);
                 _actors = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
@@ -97,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Base
             Actor actor = new Actor();
             try
             {
-                var content = await client.GetStringAsync(App.ACTOR_URL + actorId);
+                var content = await client.GetStringAsync(ActorApi + actorId);
                 actor = JsonConvert.DeserializeObject<Actor>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

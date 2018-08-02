@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 
 namespace SkaffolderTemplate.Rest
 {
@@ -8,6 +9,7 @@ namespace SkaffolderTemplate.Rest
 
         public RestClient()
         {
+            client.BaseAddress = new Uri("http://192.168.140.73:3000/api/");
             client.MaxResponseContentBufferSize = 256000;
         }
     }

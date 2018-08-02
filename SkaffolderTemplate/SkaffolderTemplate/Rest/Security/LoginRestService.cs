@@ -12,6 +12,10 @@ namespace SkaffolderTemplate.Rest.Security
 {
     public class LoginRestService : RestClient
     {
+        private const string LoginApi = "login";
+        private const string VerifyTokenApi = "verifyToken";
+        private const string ChangePasswordApi = "changePassword";
+
         //LOGIN
         /// <summary>
         /// Login procedure
@@ -31,7 +35,7 @@ namespace SkaffolderTemplate.Rest.Security
                 var json = $"{{\"username\":\"{username}\",\"password\":\"{sb}\"}}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(App.LOGIN_URL, content);
+                HttpResponseMessage response = await client.PostAsync(LoginApi, content);
            
                 //If data are correct...
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -44,13 +48,11 @@ namespace SkaffolderTemplate.Rest.Security
                     //Set the authorization type of client
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", user.Token);
 
-                    //Save token, id, password and current user permanently
-                    var app = App.Current as App;
-                    app.AuthenticationToken = user.Token;
-                    app.UserId = user.Id;
-                    app.Password = password;
-                    app.CurrentUserRole = user.Roles[0];
-                    await app.SavePropertiesAsync();
+                    //Save token, id, password and current user role permanently
+                    Settings.AuthenticationToken = user.Token;
+                    Settings.UserId = user.Id;
+                    Settings.Password = password;
+                    Settings.CurrentUserRole = user.Roles[0];
                 }
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
@@ -75,7 +77,7 @@ namespace SkaffolderTemplate.Rest.Security
                     var json = $"{{\"token\":\"{token}\"}}";
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync(App.VERIFY_TOKEN_URL, content);
+                    HttpResponseMessage response = await client.PostAsync(VerifyTokenApi, content);
                     if (response.IsSuccessStatusCode)
                     {
                         tokenPresent = true;
@@ -104,7 +106,7 @@ namespace SkaffolderTemplate.Rest.Security
             {
                 var json = $"{{\"passwordNew\":\"{newPass}\",\"passwordOld\":\"{oldPass}\"}}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.CHANGE_PASSWORD_URL, content);
+                HttpResponseMessage response = await client.PostAsync(ChangePasswordApi, content);
                 correctChange = true;
             }catch(Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);

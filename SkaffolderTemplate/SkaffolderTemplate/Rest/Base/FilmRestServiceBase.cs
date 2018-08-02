@@ -13,6 +13,7 @@ namespace SkaffolderTemplate.Rest.Base
 {
     public class FilmRestServiceBase : RestClient
     {
+        private const string FilmApi ="films/";
         public ObservableCollection<Film> _listaDiFilm { get; private set; }
 
         //DELETE
@@ -25,7 +26,7 @@ namespace SkaffolderTemplate.Rest.Base
         {
             try
             {
-                var response = await client.DeleteAsync(App.FILM_URL + id);
+                var response = await client.DeleteAsync(FilmApi + id);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -43,7 +44,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.FILM_URL, content);
+                HttpResponseMessage response = await client.PostAsync(FilmApi, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -61,7 +62,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.FILM_URL + item.Id, content);
+                HttpResponseMessage response = await client.PostAsync(FilmApi + item.Id, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -77,7 +78,7 @@ namespace SkaffolderTemplate.Rest.Base
             _listaDiFilm = new ObservableCollection<Film>();
             try
             {
-                var content = await client.GetStringAsync(App.FILM_URL);
+                var content = await client.GetStringAsync(FilmApi);
                 _listaDiFilm = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
@@ -97,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Base
             Film film = new Film();
             try
             {
-                var content = await client.GetStringAsync(App.FILM_URL + filmId);
+                var content = await client.GetStringAsync(FilmApi + filmId);
                 film = JsonConvert.DeserializeObject<Film>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

@@ -13,6 +13,7 @@ namespace SkaffolderTemplate.Rest.Base
 {
     public class UserRestServiceBase : RestClient
     {
+        private const string UserApi ="Users/";
         ObservableCollection<User> _users { get; set; }
 
         //DELETE
@@ -26,7 +27,7 @@ namespace SkaffolderTemplate.Rest.Base
 
             try
             {
-                var response = await client.DeleteAsync(App.USER_URL + id);
+                var response = await client.DeleteAsync(UserApi + id);
             }
             catch (Exception e)
             {
@@ -57,7 +58,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.USER_URL, content);
+                HttpResponseMessage response = await client.PostAsync(UserApi, content);
             }
             catch (Exception e)
             {
@@ -78,7 +79,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.USER_URL + item.Id, content);
+                HttpResponseMessage response = await client.PostAsync(UserApi + item.Id, content);
             }catch(Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -94,7 +95,7 @@ namespace SkaffolderTemplate.Rest.Base
             _users = new ObservableCollection<User>();
             try
             {
-                var content = await client.GetStringAsync(App.USER_URL);
+                var content = await client.GetStringAsync(UserApi);
                 _users = JsonConvert.DeserializeObject<ObservableCollection<User>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
@@ -113,7 +114,7 @@ namespace SkaffolderTemplate.Rest.Base
             User user = new User();
             try
             {
-                var content = await client.GetStringAsync(App.USER_URL + userId);
+                var content = await client.GetStringAsync(UserApi + userId);
                 user = JsonConvert.DeserializeObject<User>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

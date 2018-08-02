@@ -8,28 +8,11 @@ using SkaffolderTemplate.Rest.Base;
 using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.Extensions;
 
-[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SkaffolderTemplate
 {
-	public partial class App : Application
-	{
-
-        public const string FILM_URL = "http://192.168.1.199:3000/api/films/";
-        public const string ACTOR_URL = "http://192.168.1.199:3000/api/actors/";
-        public const string FILMMAKER_URL = "http://192.168.1.199:3000/api/filmmakers/";
-        public const string USER_URL = "http://192.168.1.199:3000/api/Users/";
-        public const string LOGIN_URL = "http://192.168.1.199:3000/api/login";
-        public const string VERIFY_TOKEN_URL = "http://192.168.1.199:3000/api/verifyToken";
-        public const string CHANGE_PASSWORD_URL = "http://192.168.1.199:3000/api/changePassword";
-
-        /*
-                public const string FILM_URL = "http://192.168.140.73:3000/api/films/";
-                public const string ACTOR_URL = "http://192.168.140.73:3000/api/actors/";
-                public const string FILMMAKER_URL = "http://192.168.140.73:3000/api/filmmakers/";
-                public const string USER_URL = "http://192.168.140.73:3000/api/Users/";
-                public const string LOGIN_URL = "http://192.168.140.73:3000/api/login";
-                public const string VERIFY_TOKEN_URL = "http://192.168.140.73:3000/api/verifyToken";
-                public const string CHANGE_PASSWORD_URL = "http://192.168.140.73:3000/api/changePassword";*/
+    public partial class App : Application
+    {
 
         public static FilmRestService filmService { get; private set; }
         public static ActorRestService actorService { get; private set; }
@@ -37,13 +20,8 @@ namespace SkaffolderTemplate
         public static UserRestService userService { get; private set; }
         public static LoginRestService loginService { get; private set; }
 
-        private const string AUTHENTICATION_TOKEN = "AuthenticationToken";
-        private const string USER_ID = "UserId";
-        private const string PASSWORD = "Password";
-        private const string CURRENT_USER_ROLE = "CurrentUserRole";
-
-        public App ()
-		{
+        public App()
+        {
             InitializeComponent();
 
             filmService = new FilmRestService();
@@ -53,15 +31,15 @@ namespace SkaffolderTemplate
             loginService = new LoginRestService();
 
             //Set the main page of Application
-            if (string.IsNullOrEmpty(this.Properties["AuthenticationToken"].ToString()))
+            if (string.IsNullOrEmpty(Settings.AuthenticationToken))
                 MainPage = new NavigationPage(new LoginPage());
             else
                 MainPage = new MasterPage();
         }
 
-        protected override void OnStart ()
-		{
-            // Handle when your app starts
+        protected override void OnStart()
+        {
+            //When the app starts, it subscribe to all the rest service in order to know if the token expired
             MessagingCenter.Subscribe<ActorRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
             {
                 await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
@@ -87,71 +65,15 @@ namespace SkaffolderTemplate
             });
         }
 
-		protected override void OnSleep ()
-		{
-			// Handle when your app sleeps
-		}
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
 
-		protected override async void OnResume ()
-		{
-            if (!await loginService.VerifyToken(this.Properties["AuthenticationToken"].ToString()))
+        protected override async void OnResume()
+        {
+            if (!await loginService.VerifyToken(Settings.AuthenticationToken))
                 MainPage = new NavigationPage(new LoginPage());
-        }
-
-        public string AuthenticationToken
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(AUTHENTICATION_TOKEN))
-                    return (string)Current.Properties[AUTHENTICATION_TOKEN];
-                return "";
-            }
-            set
-            {
-                Current.Properties[AUTHENTICATION_TOKEN] = value;
-            }
-        }
-
-        public string UserId
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(USER_ID))
-                    return (string)Current.Properties[USER_ID];
-                return "";
-            }
-            set
-            {
-                Current.Properties[USER_ID] = value;
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(PASSWORD))
-                    return (string)Current.Properties[PASSWORD];
-                return "";
-            }
-            set
-            {
-                Current.Properties[PASSWORD] = value;
-            }
-        }
-
-        public string CurrentUserRole
-        {
-            get
-            {
-                if (Current.Properties.ContainsKey(CURRENT_USER_ROLE))
-                    return (string)Current.Properties[CURRENT_USER_ROLE];
-                return "";
-            }
-            set
-            {
-                Current.Properties[CURRENT_USER_ROLE] = value;
-            }
         }
     }
 }

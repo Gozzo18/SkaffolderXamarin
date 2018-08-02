@@ -13,6 +13,7 @@ namespace SkaffolderTemplate.Rest.Base
 {
     public class FilmMakerRestServiceBase : RestClient
     {
+        private const string FilmMakerApi ="filmmakers/";
         ObservableCollection<FilmMaker> _filmMakers { get; set; }
 
         //DELETE
@@ -25,7 +26,7 @@ namespace SkaffolderTemplate.Rest.Base
         {
             try
             {
-                var response = await client.DeleteAsync(App.FILMMAKER_URL + id);
+                var response = await client.DeleteAsync(FilmMakerApi + id);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -44,7 +45,7 @@ namespace SkaffolderTemplate.Rest.Base
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL, content);
+                HttpResponseMessage response = await client.PostAsync(FilmMakerApi, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -62,7 +63,7 @@ namespace SkaffolderTemplate.Rest.Base
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(App.FILMMAKER_URL + item.Id, content);
+                HttpResponseMessage response = await client.PostAsync(FilmMakerApi + item.Id, content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
             }
@@ -78,7 +79,7 @@ namespace SkaffolderTemplate.Rest.Base
             _filmMakers = new ObservableCollection<FilmMaker>();
             try
             {
-                var content = await client.GetStringAsync(App.FILMMAKER_URL);
+                var content = await client.GetStringAsync(FilmMakerApi);
                 _filmMakers = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
@@ -97,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Base
             FilmMaker filmMaker = new FilmMaker();
             try
             {
-                var content = await client.GetStringAsync(App.FILMMAKER_URL + filmMakerId);
+                var content = await client.GetStringAsync(FilmMakerApi + filmMakerId);
                 filmMaker = JsonConvert.DeserializeObject<FilmMaker>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
