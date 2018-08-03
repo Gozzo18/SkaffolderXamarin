@@ -20,6 +20,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Profile.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoadingView.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\ActorList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmMakerList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
@@ -40,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Support\CustomDelegatingHandlerTokenRefresher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Support\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
@@ -67,6 +69,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterNewUserViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LoadingView.xaml.cs">
+      <DependentUpon>LoadingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml.cs">
       <DependentUpon>RegisterNewUser.xaml</DependentUpon>
     </Compile>

@@ -80,7 +80,7 @@
                         </ListView.ItemTemplate>
                         <ListView.Footer>
                             <StackLayout>
-                                <Label Text="FilmMaker" Margin="8,0,0,0"/>
+                                <Label Text="FilmMaker" Margin="12,0,0,0"/>
                                 <Picker Title="FilmMaker" TextColor="White" FontSize="Small" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Surname}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
                                 <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>
                             </StackLayout>

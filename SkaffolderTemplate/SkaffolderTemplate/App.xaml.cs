@@ -13,7 +13,6 @@ namespace SkaffolderTemplate
 {
     public partial class App : Application
     {
-
         public static FilmRestService filmService { get; private set; }
         public static ActorRestService actorService { get; private set; }
         public static FilmMakerRestService filmMakerService { get; private set; }
@@ -30,11 +29,7 @@ namespace SkaffolderTemplate
             userService = new UserRestService();
             loginService = new LoginRestService();
 
-            //Set the main page of Application
-            if (string.IsNullOrEmpty(Settings.AuthenticationToken))
-                MainPage = new NavigationPage(new LoginPage());
-            else
-                MainPage = new MasterPage();
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()
@@ -74,6 +69,8 @@ namespace SkaffolderTemplate
         {
             if (!await loginService.VerifyToken(Settings.AuthenticationToken))
                 MainPage = new NavigationPage(new LoginPage());
+            else
+                MainPage = new MasterPage();
         }
     }
 }

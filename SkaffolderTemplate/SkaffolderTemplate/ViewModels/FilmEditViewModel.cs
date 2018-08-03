@@ -192,9 +192,12 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public FilmEditViewModel(Film filmToEdit)
+        public FilmEditViewModel(Film filmToEdit, ObservableCollection<Actor> actors)
         {
             Film = filmToEdit;
+
+            ActorsCastInserted = actors;
+
             SetPickersItemSourceCommand = new Command(async vm => await PopulatePickers());
             SaveCommand = new Command(async vm => await SaveFilmData());
             BackCommand = new Command(async vm => await GoBack());
@@ -209,13 +212,11 @@ namespace SkaffolderTemplate.ViewModels
         {
             ActorsCastAvailable = await App.actorService.GETList();
             FilmMakersAvailable = await App.filmMakerService.GETList();
-            ActorsCastInserted = new ObservableCollection<Actor>();
 
-            //Method SetData must not be awaited, so we use this syntax to remove the warning
-            var _ = Task.Run(() => SetData());
+            SetData();
         }
 
-        private async Task SetData()
+        private void SetData()
         {
             if (Film != null)
             {
@@ -234,22 +235,19 @@ namespace SkaffolderTemplate.ViewModels
                     }
                 }
 
-                //Add Actor from Film.cast to ActorCastInserted
-                for (int j = 0; j < Film.Cast.Length; j++)
-                {
-                    ActorsCastInserted.Add(await App.actorService.GETId(Film.Cast[j]));
-                }
-
                 //Remove from ActorCastAvailable all the Actors which are already inserted
                 for (int k = 0; k < ActorsCastAvailable.Count; k++)
                 {
                     for (int h = 0; h < ActorsCastInserted.Count; h++)
                     {
-                        if (ActorsCastInserted[h].Id.Equals(ActorsCastAvailable[k].Id))
+                        if(ActorsCastAvailable.Count != 0)
                         {
-                            ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
-                            k = 0;
-                            h = 0;
+                            if (ActorsCastInserted[h].Id.Equals(ActorsCastAvailable[k].Id))
+                            {
+                                ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
+                                k = 0;
+                                h = 0;
+                            }
                         }
                     }
                 }
@@ -308,6 +306,7 @@ namespace SkaffolderTemplate.ViewModels
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             await masterDetailPage.Detail.Navigation.PopAsync();
+           
         }
 
         private async Task SaveFilmData()

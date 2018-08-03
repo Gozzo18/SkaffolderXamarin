@@ -1,6 +1,7 @@
 ﻿using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
 using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,15 +23,18 @@ namespace SkaffolderTemplate.Views.Edit
             }
         }
 
-        public FilmEdit (Film film)
+        public FilmEdit (Film film, ObservableCollection<Actor> actors)
 		{
             //Setting BindingContext
-            ViewModel = new FilmEditViewModel(film);
+            ViewModel = new FilmEditViewModel(film, actors);
 			InitializeComponent ();
         }
 
         protected override void OnAppearing()
         {
+            //Remove from navigation stack the LoadingView
+            this.Navigation.RemovePage(this.Navigation.NavigationStack[this.Navigation.NavigationStack.Count - 2 ]);
+
             base.OnAppearing();
             //Set the ItemSource for all the Pickers
             ViewModel.SetPickersItemSourceCommand.Execute(null);

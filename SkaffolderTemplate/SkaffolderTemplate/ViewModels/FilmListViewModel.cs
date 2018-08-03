@@ -2,6 +2,7 @@
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
+using SkaffolderTemplate.Views;
 using SkaffolderTemplate.Views.Edit;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -109,7 +110,7 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     var film = (e as Film);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(film), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new LoadingView(film), false);
                 });
 
             }
@@ -157,7 +158,7 @@ namespace SkaffolderTemplate.ViewModels
         private async Task AddNewFilm()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null), false);
+            await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null,null), false);
         }
 
         private async Task GetRequest()

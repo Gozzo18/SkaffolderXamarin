@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SkaffolderTemplate.Support;
+using System;
 using System.Net.Http;
 
 namespace SkaffolderTemplate.Rest
 {
     public abstract class RestClient
     {
-        public static HttpClient client { get; set; } = new HttpClient();
+        public static HttpClient client { get; set; } = new HttpClient(/*new CustomDelegatingHandlerTokenRefresher()*/);
 
         public RestClient()
         {
