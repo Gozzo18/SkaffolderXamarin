@@ -41,7 +41,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Support\CustomDelegatingHandlerTokenRefresher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Support\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
@@ -56,6 +55,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmMakerRestServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmRestServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Security\LoginRestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Support\TokenExpiredHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />

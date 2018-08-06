@@ -22,12 +22,22 @@ namespace SkaffolderTemplate.Views
         //Load data that will be used by FilmEdit
         protected override async void OnAppearing()
         {
+            if (film != null)
+            {
                 foreach (string actorId in film.Cast)
                 {
                     actors.Add(await App.actorService.GETId(actorId));
                 }
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(film, actors), false);
+            }
+            else
+            {
+                var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null, null), false);
+            }
+            this.OnDisappearing();
+        
         }
     }
 }

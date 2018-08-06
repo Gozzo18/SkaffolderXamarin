@@ -1,4 +1,5 @@
 ﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Views.List;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -254,7 +255,11 @@ namespace SkaffolderTemplate.ViewModels
                 IsPresent = true;
             }
             else
+            {
                 Film = new Film();
+                ActorsCastInserted = new ObservableCollection<Actor>();
+            }
+                
         }
 
         private void TitleEntryCompleted(Entry FilmTitle)
@@ -305,8 +310,8 @@ namespace SkaffolderTemplate.ViewModels
         private async Task GoBack()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PopAsync();
-           
+            await masterDetailPage.Detail.Navigation.PopAsync();    
+            
         }
 
         private async Task SaveFilmData()

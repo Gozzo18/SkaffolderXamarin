@@ -34,26 +34,8 @@ namespace SkaffolderTemplate
 
         protected override void OnStart()
         {
-            //When the app starts, it subscribe to all the rest service in order to know if the token expired
-            MessagingCenter.Subscribe<ActorRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
-            {
-                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
-                MainPage = new NavigationPage(new LoginPage());
-            });
-
-            MessagingCenter.Subscribe<FilmRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
-            {
-                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
-                MainPage = new NavigationPage(new LoginPage());
-            });
-
-            MessagingCenter.Subscribe<FilmMakerRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
-            {
-                await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
-                MainPage = new NavigationPage(new LoginPage());
-            });
-
-            MessagingCenter.Subscribe<UserRestServiceBase, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
+            //When the app starts, it subscribe to the client handler that check the presence of token
+            MessagingCenter.Subscribe<TokenExpiredHandler, bool>(this, Events.TokenExpired, async (arg1, arg2) =>
             {
                 await PopupNavigation.Instance.PushAsync(new TokenExpiredPopUp());
                 MainPage = new NavigationPage(new LoginPage());
