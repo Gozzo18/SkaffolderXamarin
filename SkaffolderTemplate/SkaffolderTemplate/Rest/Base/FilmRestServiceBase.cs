@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using System;
@@ -14,7 +14,7 @@ namespace SkaffolderTemplate.Rest.Base
     public class FilmRestServiceBase : RestClient
     {
         private const string FilmApi ="films/";
-        public ObservableCollection<Film> _listaDiFilm { get; private set; }
+        public ObservableCollection<Film> _filmlist { get; private set; }
 
         //DELETE
         /// <summary>
@@ -75,17 +75,17 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>Film List</returns>
         public async Task<ObservableCollection<Film>> GETList()
         {
-            _listaDiFilm = new ObservableCollection<Film>();
+            _film = new ObservableCollection<Film>();
             try
             {
                 var content = await client.GetStringAsync(FilmApi);
-                _listaDiFilm = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
+                _film = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
                 //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<FilmRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _listaDiFilm;
+            return _film;
         }
 
         //GET ID

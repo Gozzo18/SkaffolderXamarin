@@ -1,4 +1,4 @@
-﻿using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.ViewModels;
 using Xamarin.Forms.Xaml;

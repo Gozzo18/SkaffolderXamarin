@@ -1,0 +1,116 @@
+**** PROPERTIES SKAFFOLDER ****
+{
+    "forEachObj": "resource",
+    "overwrite": true,
+    "_partials": []
+}
+**** END PROPERTIES SKAFFOLDER ****
+using Newtonsoft.Json;
+using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Support;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace SkaffolderTemplate.Rest.Base
+{
+    public class {{capitalize resource.name}}RestServiceBase : RestClient
+    {
+        private const string {{capitalize resource.name}}Api ="{{lowercase resource.name}}s/";
+        public ObservableCollection<{{capitalize resource.name}}> _{{lowercase resource.name}}list { get; private set; }
+
+        //DELETE
+        /// <summary>
+        /// Delete a {{capitalize resource.name}}
+        /// </summary>
+        /// <param name="id">Id of the {{capitalize resource.name}} to Delete</param>
+        /// <returns>void</returns>
+        public async Task DELETE(string id)
+        {
+            try
+            {
+                var response = await client.DeleteAsync({{capitalize resource.name}}Api + id);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+        }
+
+        //POST
+        /// <summary>
+        /// Add a new {{capitalize resource.name}}
+        /// </summary>
+        /// <param name="item">{{capitalize resource.name}} to Add</param>
+        /// <returns>void</returns>
+        public async Task POST({{capitalize resource.name}} item)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync({{capitalize resource.name}}Api, content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+        }
+
+        //PUT
+        /// <summary>
+        /// Update info of a {{capitalize resource.name}}
+        /// </summary>
+        /// <param name="item">{{capitalize resource.name}} to Update</param>
+        /// <returns></returns>
+        public async Task PUT({{capitalize resource.name}} item)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync({{capitalize resource.name}}Api + item.Id, content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR{0}", e);
+            }
+        }
+
+        //GET
+        /// <summary>
+        /// Get the complete list of {{capitalize resource.name}}s
+        /// </summary>
+        /// <returns>{{capitalize resource.name}} List</returns>
+        public async Task<ObservableCollection<{{capitalize resource.name}}>> GETList()
+        {
+            _{{lowercase resource.name}} = new ObservableCollection<{{capitalize resource.name}}>();
+            try
+            {
+                var content = await client.GetStringAsync({{capitalize resource.name}}Api);
+                _{{lowercase resource.name}} = JsonConvert.DeserializeObject<ObservableCollection<{{capitalize resource.name}}>>(content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR {0}", e);
+                //Send a notify of token expiration, to whoever is subscribed to this RestService
+                MessagingCenter.Send<{{capitalize resource.name}}RestServiceBase, bool>(this, Events.TokenExpired, true);
+            }
+            return _{{lowercase resource.name}};
+        }
+
+        //GET ID
+        /// <summary>
+        /// Get a {{capitalize resource.name}}
+        /// </summary>
+        /// <returns>{{capitalize resource.name}}</returns>
+        public async Task<{{capitalize resource.name}}> GETId(string {{lowercase resource.name}}Id)
+        {
+            {{capitalize resource.name}} {{lowercase resource.name}} = new {{capitalize resource.name}}();
+            try
+            {
+                var content = await client.GetStringAsync({{capitalize resource.name}}Api + filmId);
+                {{lowercase resource.name}} = JsonConvert.DeserializeObject<{{capitalize resource.name}}>(content);
+            }catch (Exception e){
+                Debug.WriteLine(@"				ERROR {0}", e);
+            }
+            return {{lowercase resource.name}};
+        }
+    }
+}

@@ -2,7 +2,20 @@
 {
     "forEachObj": "oneTime",
     "overwrite": false,
-    "_partials": []
+    "_partials": [
+    {
+        "name": "Services declare",
+        "tagFrom": "// Start declare services",
+        "tagTo": "// End declare services",
+        "template": "{{#each resources.0._resources}}\t\tpublic static {{capitalize name}}RestService {{lowercase name}}Service { get; private set; }\n{{/each}}"
+    },
+    {
+        "name": "Services create",
+        "tagFrom": "// Start create services",
+        "tagTo": "// End create services",
+        "template": "{{#each resources.0._resources}}\t\t\t{{lowercase name}}Service = new {{capitalize name}}RestService();\n{{/each}}"
+    }
+    ]
 }
 **** END PROPERTIES SKAFFOLDER ****
 using SkaffolderTemplate.Rest;
@@ -20,20 +33,17 @@ namespace SkaffolderTemplate
 {
     public partial class App : Application
     {
-        public static FilmRestService filmService { get; private set; }
-        public static ActorRestService actorService { get; private set; }
-        public static FilmMakerRestService filmMakerService { get; private set; }
-        public static UserRestService userService { get; private set; }
+        // Start declare services
+
+        // End declare services        
         public static LoginRestService loginService { get; private set; }
 
         public App()
         {
             InitializeComponent();
+            // Start create services
 
-            filmService = new FilmRestService();
-            actorService = new ActorRestService();
-            filmMakerService = new FilmMakerRestService();
-            userService = new UserRestService();
+            // End create services
             loginService = new LoginRestService();
 
             MainPage = new NavigationPage(new LoginPage());

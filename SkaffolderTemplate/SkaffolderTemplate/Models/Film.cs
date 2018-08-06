@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.Models.Base;
+using SkaffolderTemplate.Models.Base;
 
 namespace SkaffolderTemplate.Models
 {

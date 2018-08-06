@@ -1,11 +1,11 @@
 **** PROPERTIES SKAFFOLDER ****
 {
     "forEachObj": "oneTime",
-    "overwrite": false,
+    "overwrite": true,
     "_partials": []
 }
 **** END PROPERTIES SKAFFOLDER ****
-﻿using System;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +39,7 @@ namespace SkaffolderTemplate.Rest.Security
                 //Password encrypted
                 String sb = EncryptPassword(password);
 
-                var json = $"{{\"username\":\"{username}\",\"password\":\"{sb}\"}}";
+                var json = $"\{{\"username\":\"{username}\",\"password\":\"{sb}\"}}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync(LoginApi, content);
@@ -59,7 +59,7 @@ namespace SkaffolderTemplate.Rest.Security
                     Settings.AuthenticationToken = user.Token;
                     Settings.UserId = user.Id;
                     Settings.Password = password;
-                    Settings.CurrentUserRole = user.Roles[0];
+                    Settings.CurrentUserRole = user.Roles;
                 }
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);
@@ -81,7 +81,7 @@ namespace SkaffolderTemplate.Rest.Security
             {
                 try
                 {
-                    var json = $"{{\"token\":\"{token}\"}}";
+                    var json = $"\{{\"token\":\"{token}\"}}";
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await client.PostAsync(VerifyTokenApi, content);
@@ -111,7 +111,7 @@ namespace SkaffolderTemplate.Rest.Security
             bool correctChange = false;
             try
             {
-                var json = $"{{\"passwordNew\":\"{newPass}\",\"passwordOld\":\"{oldPass}\"}}";
+                var json = $"\{{\"passwordNew\":\"{newPass}\",\"passwordOld\":\"{oldPass}\"}}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(ChangePasswordApi, content);
                 correctChange = true;

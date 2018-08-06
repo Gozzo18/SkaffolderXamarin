@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using System;
@@ -14,11 +14,11 @@ namespace SkaffolderTemplate.Rest.Base
     public class ActorRestServiceBase : RestClient
     {
         private const string ActorApi ="actors/";
-        ObservableCollection<Actor> _actors { get; set; }
+        public ObservableCollection<Actor> _actorlist { get; private set; }
 
         //DELETE
         /// <summary>
-        /// Delete an Actor
+        /// Delete a Actor
         /// </summary>
         /// <param name="id">Id of the Actor to Delete</param>
         /// <returns>void</returns>
@@ -52,9 +52,9 @@ namespace SkaffolderTemplate.Rest.Base
 
         //PUT
         /// <summary>
-        /// Update info of an Actor
+        /// Update info of a Actor
         /// </summary>
-        /// <param name="item">Actor to update</param>
+        /// <param name="item">Actor to Update</param>
         /// <returns></returns>
         public async Task PUT(Actor item)
         {
@@ -72,33 +72,33 @@ namespace SkaffolderTemplate.Rest.Base
         /// <summary>
         /// Get the complete list of Actors
         /// </summary>
-        /// <returns>Actor list</returns>
+        /// <returns>Actor List</returns>
         public async Task<ObservableCollection<Actor>> GETList()
         {
-            _actors = new ObservableCollection<Actor>();
+            _actor = new ObservableCollection<Actor>();
             try
             {
                 var content = await client.GetStringAsync(ActorApi);
-                _actors = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
+                _actor = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
-                //Send a notification of token expiration, to whoever is subscribed to this RestService
+                //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<ActorRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _actors;
+            return _actor;
         }
 
         //GET ID
         /// <summary>
-        /// Get an Actor  
+        /// Get a Actor
         /// </summary>
-        /// <returns>Actor with that Id</returns>
+        /// <returns>Actor</returns>
         public async Task<Actor> GETId(string actorId)
         {
             Actor actor = new Actor();
             try
             {
-                var content = await client.GetStringAsync(ActorApi + actorId);
+                var content = await client.GetStringAsync(ActorApi + filmId);
                 actor = JsonConvert.DeserializeObject<Actor>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

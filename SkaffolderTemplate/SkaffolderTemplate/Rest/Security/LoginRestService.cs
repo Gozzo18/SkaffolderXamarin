@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ namespace SkaffolderTemplate.Rest.Security
                     Settings.AuthenticationToken = user.Token;
                     Settings.UserId = user.Id;
                     Settings.Password = password;
-                    Settings.CurrentUserRole = user.Roles[0];
+                    Settings.CurrentUserRole = user.Roles;
                 }
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);

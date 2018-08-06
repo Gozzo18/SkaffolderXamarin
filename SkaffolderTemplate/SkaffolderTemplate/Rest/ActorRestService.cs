@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.Rest.Base;
+using SkaffolderTemplate.Rest.Base;
 
 namespace SkaffolderTemplate.Rest
 {
