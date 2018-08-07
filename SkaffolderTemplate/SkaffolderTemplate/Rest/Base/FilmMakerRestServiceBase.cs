@@ -75,17 +75,17 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>FilmMaker List</returns>
         public async Task<ObservableCollection<FilmMaker>> GETList()
         {
-            _filmmaker = new ObservableCollection<FilmMaker>();
+            _filmmakerlist = new ObservableCollection<FilmMaker>();
             try
             {
                 var content = await client.GetStringAsync(FilmMakerApi);
-                _filmmaker = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
+                _filmmakerlist = JsonConvert.DeserializeObject<ObservableCollection<FilmMaker>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
                 //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<FilmMakerRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _filmmaker;
+            return _filmmakerlist;
         }
 
         //GET ID
@@ -98,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Base
             FilmMaker filmmaker = new FilmMaker();
             try
             {
-                var content = await client.GetStringAsync(FilmMakerApi + filmId);
+                var content = await client.GetStringAsync(FilmMakerApi + filmmakerId);
                 filmmaker = JsonConvert.DeserializeObject<FilmMaker>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

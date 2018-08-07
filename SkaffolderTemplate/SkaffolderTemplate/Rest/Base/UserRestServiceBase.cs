@@ -75,17 +75,17 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>User List</returns>
         public async Task<ObservableCollection<User>> GETList()
         {
-            _user = new ObservableCollection<User>();
+            _userlist = new ObservableCollection<User>();
             try
             {
                 var content = await client.GetStringAsync(UserApi);
-                _user = JsonConvert.DeserializeObject<ObservableCollection<User>>(content);
+                _userlist = JsonConvert.DeserializeObject<ObservableCollection<User>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
                 //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<UserRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _user;
+            return _userlist;
         }
 
         //GET ID
@@ -98,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Base
             User user = new User();
             try
             {
-                var content = await client.GetStringAsync(UserApi + filmId);
+                var content = await client.GetStringAsync(UserApi + userId);
                 user = JsonConvert.DeserializeObject<User>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

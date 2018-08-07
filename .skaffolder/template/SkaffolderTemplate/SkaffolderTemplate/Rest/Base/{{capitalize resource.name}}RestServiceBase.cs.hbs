@@ -82,17 +82,17 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>{{capitalize resource.name}} List</returns>
         public async Task<ObservableCollection<{{capitalize resource.name}}>> GETList()
         {
-            _{{lowercase resource.name}} = new ObservableCollection<{{capitalize resource.name}}>();
+            _{{lowercase resource.name}}list = new ObservableCollection<{{capitalize resource.name}}>();
             try
             {
                 var content = await client.GetStringAsync({{capitalize resource.name}}Api);
-                _{{lowercase resource.name}} = JsonConvert.DeserializeObject<ObservableCollection<{{capitalize resource.name}}>>(content);
+                _{{lowercase resource.name}}list = JsonConvert.DeserializeObject<ObservableCollection<{{capitalize resource.name}}>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
                 //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<{{capitalize resource.name}}RestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _{{lowercase resource.name}};
+            return _{{lowercase resource.name}}list;
         }
 
         //GET ID
@@ -105,7 +105,7 @@ namespace SkaffolderTemplate.Rest.Base
             {{capitalize resource.name}} {{lowercase resource.name}} = new {{capitalize resource.name}}();
             try
             {
-                var content = await client.GetStringAsync({{capitalize resource.name}}Api + filmId);
+                var content = await client.GetStringAsync({{capitalize resource.name}}Api + {{lowercase resource.name}}Id);
                 {{lowercase resource.name}} = JsonConvert.DeserializeObject<{{capitalize resource.name}}>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);

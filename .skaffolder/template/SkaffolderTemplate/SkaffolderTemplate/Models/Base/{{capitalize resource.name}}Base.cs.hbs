@@ -12,68 +12,65 @@ using SkaffolderTemplate.ViewModels;
 namespace SkaffolderTemplate.Models.Base
 {
     public class {{capitalize resource.name}}Base : BaseViewModel
-{
-    private string _id;
-    [JsonProperty(PropertyName = "_id")]
-    public string Id
     {
-        get
+        private string _id;
+        [JsonProperty(PropertyName = "_id")]
+        public string Id
         {
-            return _id;
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                SetValue(ref _id, value);
+            }
         }
-        set
-        {
-            SetValue(ref _id, value);
-        }
-    }
 
-    {{#each resource._entity._attrs}}
-    private {{toCType type}} {{name}};
-    [JsonProperty(PropertyName = "{{name}}")]
-    public {{toCType type}} {{capitalize name}}
-    {
-        get
+        {{#each resource._entity._attrs}}
+        private {{toCType type}} {{name}};
+        [JsonProperty(PropertyName = "{{name}}")]
+        public {{toCType type}} {{capitalize name}}
         {
-            return {{name}}{{#equal type "Date"}}.ToLocalTime(){{/equal}};
+            get
+            {
+                return {{name}}{{#equal type "Date"}}.ToLocalTime(){{/equal}};
+            }
+            set
+            {
+                SetValue(ref {{name}}, value);
+            }
         }
-        set
+        {{/each}}
+        {{#each resource._entity._relations}}{{#equal ./../resource._entity._id _ent1._id}}
+        private string{{#equal type "m:m"}}[]{{/equal}} {{name}};
+        [JsonProperty(PropertyName = "{{name}}")]
+        public string{{#equal type "m:m"}}[]{{/equal}} {{capitalize name}}
         {
-            SetValue(ref {{name}}, value);
+            get
+            {
+                return {{name}};
+            }
+            set
+            {
+                SetValue(ref {{name}}, value);
+            }
         }
+        {{/equal}}{{/each}}
+        {{#equal resource.name "User"}}
+        private string token;
+        [JsonProperty(PropertyName = "token")]
+        public string Token
+        {
+            get
+            {
+                return token;
+            }
+            set
+            {
+                SetValue(ref token, value);
+            }
+        }
+        {{/equal}}
     }
-
-    {{/each}}
-
-    {{#each resource._entity._relations}}{{#equal ./../resource._entity._id _ent1._id}}
-    private string{{#equal type "m:m"}}[]{{/equal}} {{name}};
-    [JsonProperty(PropertyName = "{{name}}")]
-    public string{{#equal type "m:m"}}[]{{/equal}} {{capitalize name}}
-    {
-        get
-        {
-            return {{name}};
-        }
-        set
-        {
-            SetValue(ref {{name}}, value);
-        }
-    }
-    {{/equal}}{{/each}}
-
-    {{#equal resource.name "User"}}
-    private string token;
-    [JsonProperty(PropertyName = "token")]
-    public string Token
-    {
-        get
-        {
-            return token;
-        }
-        set
-        {
-            SetValue(ref token, value);
-        }
-    {{/equal}}
-    }
-}
 }

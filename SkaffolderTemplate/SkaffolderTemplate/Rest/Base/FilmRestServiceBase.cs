@@ -75,17 +75,17 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>Film List</returns>
         public async Task<ObservableCollection<Film>> GETList()
         {
-            _film = new ObservableCollection<Film>();
+            _filmlist = new ObservableCollection<Film>();
             try
             {
                 var content = await client.GetStringAsync(FilmApi);
-                _film = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
+                _filmlist = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
                 //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<FilmRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _film;
+            return _filmlist;
         }
 
         //GET ID

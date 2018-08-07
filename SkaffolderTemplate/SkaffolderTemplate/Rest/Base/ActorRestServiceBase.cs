@@ -75,17 +75,17 @@ namespace SkaffolderTemplate.Rest.Base
         /// <returns>Actor List</returns>
         public async Task<ObservableCollection<Actor>> GETList()
         {
-            _actor = new ObservableCollection<Actor>();
+            _actorlist = new ObservableCollection<Actor>();
             try
             {
                 var content = await client.GetStringAsync(ActorApi);
-                _actor = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
+                _actorlist = JsonConvert.DeserializeObject<ObservableCollection<Actor>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
                 //Send a notify of token expiration, to whoever is subscribed to this RestService
                 MessagingCenter.Send<ActorRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
-            return _actor;
+            return _actorlist;
         }
 
         //GET ID
@@ -98,7 +98,7 @@ namespace SkaffolderTemplate.Rest.Base
             Actor actor = new Actor();
             try
             {
-                var content = await client.GetStringAsync(ActorApi + filmId);
+                var content = await client.GetStringAsync(ActorApi + actorId);
                 actor = JsonConvert.DeserializeObject<Actor>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
