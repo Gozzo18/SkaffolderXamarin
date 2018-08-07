@@ -1,4 +1,11 @@
-﻿using SkaffolderTemplate.ViewModels;
+**** PROPERTIES SKAFFOLDER ****
+{
+    "forEachObj": "resource",
+    "overwrite": true,
+    "_partials": []
+}
+**** END PROPERTIES SKAFFOLDER ****
+using SkaffolderTemplate.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -6,34 +13,30 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ActorList : ContentPage
+	public partial class {{capitalize resource.name}}sList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private ActorListViewModel ViewModel
+        private {{capitalize resource.name}}ListViewModel ViewModel
         {
             get
             {
-                return BindingContext as ActorListViewModel;
+                return BindingContext as {{capitalize resource.name}}ListViewModel;
             }
             set
             {
                 BindingContext = value;
             }
         }
-
-		public ActorList ()
+        
+		public {{capitalize resource.name}}List ()
 		{
             //Setting BindingContext
-            ViewModel = new ActorListViewModel();
-            InitializeComponent ();            
+            ViewModel = new {{capitalize resource.name}}ListViewModel();
+            InitializeComponent ();
 		}
 
         protected override void OnAppearing()
         {
-            //Force garbace collector to run
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
             base.OnAppearing();
             //Loading data with API request
             ViewModel.LoadDataCommand.Execute(null);           
@@ -44,8 +47,8 @@ namespace SkaffolderTemplate.Views.List
             ViewModel.SearchCommand.Execute(null);
         }
 
-        //Hide graphic effect on ListView
-        private void MainListOfActors_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //Remove graphic effect on ListView
+        private void MainListOfFilmMakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

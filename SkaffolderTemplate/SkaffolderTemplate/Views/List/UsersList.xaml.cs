@@ -1,11 +1,4 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "oneTime",
-    "overwrite": false,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
-﻿using SkaffolderTemplate.ViewModels;
+using SkaffolderTemplate.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,14 +6,14 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmMakerList : ContentPage
+	public partial class UsersList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private FilmMakerListViewModel ViewModel
+        private UserListViewModel ViewModel
         {
             get
             {
-                return BindingContext as FilmMakerListViewModel;
+                return BindingContext as UserListViewModel;
             }
             set
             {
@@ -28,19 +21,15 @@ namespace SkaffolderTemplate.Views.List
             }
         }
         
-		public FilmMakerList ()
+		public UserList ()
 		{
             //Setting BindingContext
-            ViewModel = new FilmMakerListViewModel();
+            ViewModel = new UserListViewModel();
             InitializeComponent ();
 		}
 
         protected override void OnAppearing()
         {
-            //Force garbace collector to run
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
             base.OnAppearing();
             //Loading data with API request
             ViewModel.LoadDataCommand.Execute(null);           

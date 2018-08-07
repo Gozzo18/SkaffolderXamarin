@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.ViewModels;
+using SkaffolderTemplate.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

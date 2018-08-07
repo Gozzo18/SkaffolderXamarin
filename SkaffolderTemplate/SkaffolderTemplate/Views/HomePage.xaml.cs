@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.Views.List;
+using SkaffolderTemplate.Views.List;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,14 +13,6 @@ namespace SkaffolderTemplate.Views
 			InitializeComponent ();
 		}
 
-        protected override void OnAppearing()
-        {
-            //Force garbace collector to run
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            base.OnAppearing();
-        }
-
         /// <summary>
         /// Set the Detail page for MasterDetailPage 
         /// </summary>
@@ -30,12 +22,16 @@ namespace SkaffolderTemplate.Views
         {
             var label = sender as Label;
             var masterPage = App.Current.MainPage as MasterDetailPage;
+            
             if (label.Text.Equals("Actor"))
                 masterPage.Detail = new NavigationPage(new ActorList());
-            else if (label.Text.Equals("Film"))
+            
+            if (label.Text.Equals("Film"))
                 masterPage.Detail = new NavigationPage(new FilmList());
-            else if (label.Text.Equals("FilmMaker"))
+            
+            if (label.Text.Equals("FilmMaker"))
                 masterPage.Detail = new NavigationPage(new FilmMakerList());
+            
         }
     }
 }

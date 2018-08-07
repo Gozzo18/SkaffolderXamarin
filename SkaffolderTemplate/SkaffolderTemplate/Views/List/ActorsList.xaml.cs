@@ -1,11 +1,4 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "oneTime",
-    "overwrite": false,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
-﻿using SkaffolderTemplate.ViewModels;
+using SkaffolderTemplate.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +6,7 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ActorList : ContentPage
+	public partial class ActorsList : ContentPage
 	{
         //Set ViewModel for BindingContext
         private ActorListViewModel ViewModel
@@ -27,20 +20,16 @@ namespace SkaffolderTemplate.Views.List
                 BindingContext = value;
             }
         }
-
+        
 		public ActorList ()
 		{
             //Setting BindingContext
             ViewModel = new ActorListViewModel();
-            InitializeComponent ();            
+            InitializeComponent ();
 		}
 
         protected override void OnAppearing()
         {
-            //Force garbace collector to run
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
             base.OnAppearing();
             //Loading data with API request
             ViewModel.LoadDataCommand.Execute(null);           
@@ -51,8 +40,8 @@ namespace SkaffolderTemplate.Views.List
             ViewModel.SearchCommand.Execute(null);
         }
 
-        //Hide graphic effect on ListView
-        private void MainListOfActors_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //Remove graphic effect on ListView
+        private void MainListOfFilmMakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.ViewModels;
+using SkaffolderTemplate.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -6,37 +6,33 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.List
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmList : ContentPage
+	public partial class FilmMakersList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private FilmListViewModel ViewModel
+        private FilmMakerListViewModel ViewModel
         {
             get
             {
-                return BindingContext as FilmListViewModel;
+                return BindingContext as FilmMakerListViewModel;
             }
             set
             {
                 BindingContext = value;
             }
         }
-
-		public FilmList ()
+        
+		public FilmMakerList ()
 		{
             //Setting BindingContext
-            ViewModel = new FilmListViewModel();
-			InitializeComponent ();
+            ViewModel = new FilmMakerListViewModel();
+            InitializeComponent ();
 		}
 
         protected override void OnAppearing()
         {
-            //Force garbace collector to run
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadDataCommand.Execute(null);
+            ViewModel.LoadDataCommand.Execute(null);           
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -45,7 +41,7 @@ namespace SkaffolderTemplate.Views.List
         }
 
         //Remove graphic effect on ListView
-        private void MainListOfFilms_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MainListOfFilmMakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

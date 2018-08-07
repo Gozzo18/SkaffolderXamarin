@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
-             x:Class="SkaffolderTemplate.Views.List.ActorList"
-             Title="Actor">
+             x:Class="SkaffolderTemplate.Views.List.FilmMakersList"
+             Title="FilmMaker">
     <ContentPage.Content>
         <RelativeLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"
@@ -23,7 +23,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfActors" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOfActors_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfFilmMakers" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOfFilmMakers_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>
@@ -32,22 +32,20 @@
                             <customrenderer:CustomViewCell>
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
-                                        <StackLayout HorizontalOptions="Start" x:Name="ActorItem">
-                                            <Label Text="_id:"/>
-                                            <Label Text="{Binding Id}" TextColor="White"/>
-                                            <Label Text="Name:"/>
-                                            <Label Text="{Binding Name}" TextColor="White"/>
-                                            <Label Text="Date of Birth:"/>
-                                            <Label Text="{Binding BirthDate,StringFormat='{}{0:dd/MM/yyyy}'}" TextColor="White"/>
+                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">
+                                            <Label Text="name:"/>
+                                            <Label Text="{Binding Name }" TextColor="White"/>
+                                            <Label Text="surname:"/>
+                                            <Label Text="{Binding Surname }" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActorCommand}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                             <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActorCommand}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
+                                                        BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
