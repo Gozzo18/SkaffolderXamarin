@@ -22,34 +22,38 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
-            
             <StackLayout Style="{StaticResource stackLayout}">
-                <Label Text="Actor" Style="{StaticResource label}">
+                <Label Text="Actors" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            
             <StackLayout Style="{StaticResource stackLayout}">
-                <Label Text="Film" Style="{StaticResource label}">
+                <Label Text="Films" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            
             <StackLayout Style="{StaticResource stackLayout}">
-                <Label Text="FilmMaker" Style="{StaticResource label}">
+                <Label Text="FilmMakers" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            
+            <StackLayout Style="{StaticResource stackLayout}">
+                <Label Text="Users" Style="{StaticResource label}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChangePage"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView Style="{StaticResource boxview}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

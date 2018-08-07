@@ -22,16 +22,14 @@ namespace SkaffolderTemplate.Views
         {
             var label = sender as Label;
             var masterPage = App.Current.MainPage as MasterDetailPage;
-            
             if (label.Text.Equals("Actor"))
-                masterPage.Detail = new NavigationPage(new ActorList());
-            
+                masterPage.Detail = new NavigationPage(new ActorsList());
             if (label.Text.Equals("Film"))
-                masterPage.Detail = new NavigationPage(new FilmList());
-            
+                masterPage.Detail = new NavigationPage(new FilmsList());
             if (label.Text.Equals("FilmMaker"))
-                masterPage.Detail = new NavigationPage(new FilmMakerList());
-            
+                masterPage.Detail = new NavigationPage(new FilmMakersList());
+            if (label.Text.Equals("User"))
+                masterPage.Detail = new NavigationPage(new UsersList());
         }
     }
 }

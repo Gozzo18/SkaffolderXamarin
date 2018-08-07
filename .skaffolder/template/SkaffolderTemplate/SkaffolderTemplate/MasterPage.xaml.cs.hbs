@@ -1,13 +1,13 @@
 **** PROPERTIES SKAFFOLDER ****
 {
     "forEachObj": "oneTime",
-    "overwrite": false,
+    "overwrite": true,
     "_partials": [
     {
         "name": "NotResourcesDetailPage",
         "tagFrom": "// Start Detail Page Elements Independent",
         "tagTo": "// End Detail Page Elements Independent",
-        "template":"\t\t\t\t\tcase \"H o m e\":\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase \"P r o f i l e\":\n\t\t\t\t\t\tViewModel.GetUserById.Execute(null);\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase \"M a n a g e U s e r s\":\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase \"L o g o u t\":\n\t\t\t\t\t\t#region Delete all reference to UserLogged\n\t\t\t\t\t\tSettings.AuthenticationToken = \"\";\n\t\t\t\t\t\tSettings.CurrentUserRole = \"\";\n\t\t\t\t\t\tSettings.UserId = \"\";\n\t\t\t\t\t\tSettings.Password = \"\";\n\t\t\t\t\t\t#endregion\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t"
+        "template":"\t\t\t\t\tcase \"H o m e\":\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase \"P r o f i l e\":\n\t\t\t\t\t\tViewModel.GetUserById.Execute(null);\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase \"L o g o u t\":\n\t\t\t\t\t\t#region Delete all reference to UserLogged\n\t\t\t\t\t\tSettings.AuthenticationToken = \"\";\n\t\t\t\t\t\tSettings.CurrentUserRole = \"\";\n\t\t\t\t\t\tSettings.UserId = \"\";\n\t\t\t\t\t\tSettings.Password = \"\";\n\t\t\t\t\t\t#endregion\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());\n\t\t\t\t\t\t((MasterDetailPage)Application.Current.MainPage).IsPresented = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t"
     }
     ]
 }
@@ -53,12 +53,12 @@ namespace SkaffolderTemplate
             {
                 switch (arg2)
                 {
-                    {{#each resources.0._resources}}{{#notEqual name "User"}}
-                    case "{{capitalize name}}":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new {{capitalize name}}List());
+                    {{#each resources.0._resources}}
+                    case "{{capitalize name}}s":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new {{capitalize name}}sList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                        {{/notEqual}}{{/each}}
+                    {{/each}}
                     // Start Detail Page Elements Independent
 
                     // End Detail Page Elements Independent

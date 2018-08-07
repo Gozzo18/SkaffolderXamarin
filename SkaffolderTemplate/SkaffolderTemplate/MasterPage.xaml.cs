@@ -39,22 +39,22 @@ namespace SkaffolderTemplate
             {
                 switch (arg2)
                 {
-                    
-                    case "Actor":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorList());
+                    case "Actors":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorsList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                        
-                    case "Film":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmList());
+                    case "Films":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmsList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                        
-                    case "FilmMaker":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerList());
+                    case "FilmMakers":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakersList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                        
+                    case "Users":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersList());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
                     // Start Detail Page Elements Independent
 					case "H o m e":
 						((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
@@ -62,10 +62,6 @@ namespace SkaffolderTemplate
 						break;
 					case "P r o f i l e":
 						ViewModel.GetUserById.Execute(null);
-						((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-						break;
-					case "M a n a g e U s e r s":
-						((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
 						((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
 						break;
 					case "L o g o u t":

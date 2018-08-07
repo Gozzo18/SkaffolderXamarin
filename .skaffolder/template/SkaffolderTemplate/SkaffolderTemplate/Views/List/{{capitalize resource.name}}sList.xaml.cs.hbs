@@ -16,11 +16,11 @@ namespace SkaffolderTemplate.Views.List
 	public partial class {{capitalize resource.name}}sList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private {{capitalize resource.name}}ListViewModel ViewModel
+        private {{capitalize resource.name}}sListViewModel ViewModel
         {
             get
             {
-                return BindingContext as {{capitalize resource.name}}ListViewModel;
+                return BindingContext as {{capitalize resource.name}}sListViewModel;
             }
             set
             {
@@ -28,10 +28,10 @@ namespace SkaffolderTemplate.Views.List
             }
         }
         
-		public {{capitalize resource.name}}List ()
+		public {{capitalize resource.name}}sList ()
 		{
             //Setting BindingContext
-            ViewModel = new {{capitalize resource.name}}ListViewModel();
+            ViewModel = new {{capitalize resource.name}}sListViewModel();
             InitializeComponent ();
 		}
 
@@ -48,7 +48,7 @@ namespace SkaffolderTemplate.Views.List
         }
 
         //Remove graphic effect on ListView
-        private void MainListOfFilmMakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MainListOf{{capitalize resource.name}}s_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

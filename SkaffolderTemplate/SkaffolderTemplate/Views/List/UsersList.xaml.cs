@@ -41,7 +41,7 @@ namespace SkaffolderTemplate.Views.List
         }
 
         //Remove graphic effect on ListView
-        private void MainListOfFilmMakers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MainListOfUsers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
