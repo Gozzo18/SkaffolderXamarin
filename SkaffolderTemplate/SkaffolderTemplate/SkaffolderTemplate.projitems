@@ -17,12 +17,12 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmList.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\UsersList.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmsList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Profile.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\ActorList.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmMakerList.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\ActorsList.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmMakersList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\TokenExpiredPopUp.xaml" />
@@ -57,15 +57,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Security\LoginRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Support\TokenExpiredHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ActorsListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordPopUpViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakerListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmMakersListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilmsListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManageUsersViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UsersListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterNewUserViewModel.cs" />
@@ -81,14 +81,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmList.xaml.cs">
-      <DependentUpon>FilmList.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmsList.xaml.cs">
+      <DependentUpon>FilmsList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\ActorList.xaml.cs">
-      <DependentUpon>ActorList.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\ActorsList.xaml.cs">
+      <DependentUpon>ActorsList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmMakerList.xaml.cs">
-      <DependentUpon>FilmMakerList.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmMakersList.xaml.cs">
+      <DependentUpon>FilmMakersList.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\ActorEdit.xaml.cs">
       <DependentUpon>ActorEdit.xaml</DependentUpon>
@@ -99,8 +99,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\FilmMakerEdit.xaml.cs">
       <DependentUpon>FilmMakerEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ManageUsers.xaml.cs">
-      <DependentUpon>ManageUsers.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\List\UsersList.xaml.cs">
+      <DependentUpon>UsersList.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
@@ -118,5 +118,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\List\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Edit\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Loading\" />
   </ItemGroup>
 </Project>

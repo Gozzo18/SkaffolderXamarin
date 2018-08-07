@@ -11,7 +11,7 @@ using SkaffolderTemplate.Support;
 
 namespace SkaffolderTemplate.ViewModels
 {
-    public class FilmMakerListViewModel : BaseViewModel
+    public class FilmMakersListViewModel : BaseViewModel
     {
         #region Attributes and Properties
         private ObservableCollection<FilmMaker> _filmMakersList;
@@ -140,7 +140,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public FilmMakerListViewModel()
+        public FilmMakersListViewModel()
         {
             AddCommand = new Command(async vm => await AddNewFilmMaker());
             RefreshCommand = new Command(async vm => await RefreshList());

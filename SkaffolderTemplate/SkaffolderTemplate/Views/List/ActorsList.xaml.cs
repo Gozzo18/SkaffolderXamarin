@@ -9,11 +9,11 @@ namespace SkaffolderTemplate.Views.List
 	public partial class ActorsList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private ActorListViewModel ViewModel
+        private ActorsListViewModel ViewModel
         {
             get
             {
-                return BindingContext as ActorListViewModel;
+                return BindingContext as ActorsListViewModel;
             }
             set
             {
@@ -21,10 +21,10 @@ namespace SkaffolderTemplate.Views.List
             }
         }
         
-		public ActorList ()
+		public ActorsList ()
 		{
             //Setting BindingContext
-            ViewModel = new ActorListViewModel();
+            ViewModel = new ActorsListViewModel();
             InitializeComponent ();
 		}
 

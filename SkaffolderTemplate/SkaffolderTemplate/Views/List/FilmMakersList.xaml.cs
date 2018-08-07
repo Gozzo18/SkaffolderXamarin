@@ -9,11 +9,11 @@ namespace SkaffolderTemplate.Views.List
 	public partial class FilmMakersList : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private FilmMakerListViewModel ViewModel
+        private FilmMakersListViewModel ViewModel
         {
             get
             {
-                return BindingContext as FilmMakerListViewModel;
+                return BindingContext as FilmMakersListViewModel;
             }
             set
             {
@@ -21,10 +21,10 @@ namespace SkaffolderTemplate.Views.List
             }
         }
         
-		public FilmMakerList ()
+		public FilmMakersList ()
 		{
             //Setting BindingContext
-            ViewModel = new FilmMakerListViewModel();
+            ViewModel = new FilmMakersListViewModel();
             InitializeComponent ();
 		}
 
