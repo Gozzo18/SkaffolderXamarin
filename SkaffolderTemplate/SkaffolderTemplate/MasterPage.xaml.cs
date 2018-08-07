@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.Support;
+using SkaffolderTemplate.Support;
 using SkaffolderTemplate.ViewModels;
 using SkaffolderTemplate.Views;
 using SkaffolderTemplate.Views.List;
@@ -39,46 +39,46 @@ namespace SkaffolderTemplate
             {
                 switch (arg2)
                 {
-                    case "A c t o r":
+                    
+                    case "Actor":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-
-                    case "F i l m":
+                        
+                    case "Film":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-
-                    case "F i l m M a k e r":
+                        
+                    case "FilmMaker":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-
-                    case "H o m e":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
-
-                    case "P r o f i l e":
-                        ViewModel.GetUserById.Execute(null);
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
-
-                    case "M a n a g e  U s e r s":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
-
-                    case "L o g o u t":
-                        #region Delete all reference to UserLogged
-                        Settings.AuthenticationToken = "";
-                        Settings.CurrentUserRole = "";
-                        Settings.UserId = "";
-                        Settings.Password = "";
-                        #endregion
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
-                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        break;
+                        
+                    // Start Detail Page Elements Independent
+					case "H o m e":
+						((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());
+						((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+						break;
+					case "P r o f i l e":
+						ViewModel.GetUserById.Execute(null);
+						((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+						break;
+					case "M a n a g e U s e r s":
+						((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ManageUsers());
+						((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+						break;
+					case "L o g o u t":
+						#region Delete all reference to UserLogged
+						Settings.AuthenticationToken = "";
+						Settings.CurrentUserRole = "";
+						Settings.UserId = "";
+						Settings.Password = "";
+						#endregion
+						((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new LoginPage());
+						((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+						break;
+					 // End Detail Page Elements Independent
                 }
             });
             base.OnAppearing();
