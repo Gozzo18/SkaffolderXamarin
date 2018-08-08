@@ -1,13 +1,15 @@
-﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
+using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SkaffolderTemplate.Views.Edit
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmMakerEdit : ContentPage
-	{
+    public partial class FilmMakerEdit : ContentPage
+    {
         //Set ViewModel for BindingContext
         private FilmMakerEditViewModel ViewModel
         {
@@ -21,21 +23,29 @@ namespace SkaffolderTemplate.Views.Edit
             }
         }
 
-		public FilmMakerEdit (FilmMaker filmMaker)
+        public FilmMakerEdit (FilmMaker filmmaker)
 		{
             //Setting BindingContext
-            ViewModel = new FilmMakerEditViewModel(filmMaker);
+            ViewModel = new FilmEditViewModel(filmmaker);
 			InitializeComponent ();
-		}
+        }
 
-        private void FilmMakerNameEntry_Unfocused(object sender, FocusEventArgs e)
+        
+
+        
+        private void NameEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.NameCompletedCommand.Execute(sender as Entry);
         }
-
-        private void FilmMakerSurnameEntry_Unfocused(object sender, FocusEventArgs e)
+        private void SurnameEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.SurnameCompletedCommand.Execute(sender as Entry);
         }
+
+        
+
+        
+
+        
     }
 }

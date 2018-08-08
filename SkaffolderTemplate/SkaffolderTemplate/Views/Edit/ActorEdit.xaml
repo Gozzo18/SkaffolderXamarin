@@ -42,14 +42,37 @@
                     RelativeLayout.WidthConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Width,
+                        Factor=0.8}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
                         Factor=0.8}">
-                <StackLayout Spacing="5">
-                    <Label Text="Name" Style="{StaticResource label}"/>
-                    <Entry Style="{StaticResource entry}" Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="ActorNameEntry_Unfocused"/>
-                    <Label Text="Surname" Style="{StaticResource label}"/>
-                    <Entry Style="{StaticResource entry}" Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="ActorSurnameEntry_Unfocused"/>
-                    <Label Text="BirthDate" Style="{StaticResource label}"/>
-                    <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
+                <StackLayout>
+                    <ListView CachingStrategy="RecycleElement"  RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
+                        <ListView.Header>
+                            <StackLayout VerticalOptions="FillAndExpand"> 
+                                                                
+                                
+                                
+                                <Label Text="BirthDate" Margin="3,0,0,0"/>
+                                <Entry Placeholder="BirthDate" PlaceholderColor="White" FontSize="Small" Text="{Binding BirthDate }" TextColor="White" Unfocused="BirthDateEntry_Unfocused" Keyboard="Numeric" Margin="0,-6,0,0"/>
+                                
+                                <Label Text="Name" Margin="3,0,0,0"/>
+                                <Entry Placeholder="Name" PlaceholderColor="White" FontSize="Small" Text="{Binding Name }" TextColor="White" Unfocused="NameEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                
+                                <Label Text="Surname" Margin="3,0,0,0"/>
+                                <Entry Placeholder="Surname" PlaceholderColor="White" FontSize="Small" Text="{Binding Surname }" TextColor="White" Unfocused="SurnameEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                
+                                
+                            </StackLayout>
+                        </ListView.Header>
+                         
+                        <ListView.Footer>
+                            <StackLayout>
+                                
+                            </StackLayout>
+                        </ListView.Footer>
+                    </ListView>
                 </StackLayout>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"

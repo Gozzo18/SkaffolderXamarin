@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -30,6 +30,7 @@ namespace SkaffolderTemplate.Views.Edit
 			InitializeComponent ();
         }
 
+        
         protected override void OnAppearing()
         {
             //Remove from navigation stack the LoadingView
@@ -40,34 +41,37 @@ namespace SkaffolderTemplate.Views.Edit
             ViewModel.SetPickersItemSourceCommand.Execute(null);
         }
 
-        private void FilmTitleEntry_Unfocused(object sender, FocusEventArgs e)
+        
+        private void TitleEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.TitleCompletedCommand.Execute(sender as Entry);
         }
-
-        private void FilmYearEntry_Unfocused(object sender, FocusEventArgs e)
+        private void YearEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.YearCompletedCommand.Execute(sender as Entry);
         }
 
+        
         private void PickerGenre_SelectedIndexChanged(object sender, EventArgs e)
         {
             ViewModel.SelectedGenreCommand.Execute(sender as Picker);
         }
 
+        
         private void PickerFilmMaker_SelectedIndexChanged(object sender, EventArgs e)
         {
              ViewModel.SelectedFilmMakerCommand.Execute(sender as Picker); 
         }
 
-        private void PickerActor_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void PickerCast_SelectedIndexChanged(object sender, EventArgs e)
         {
-                ViewModel.SelectedActorCommand.Execute(sender as Picker);
+                ViewModel.SelectedCastCommand.Execute(sender as Picker);
         }
 
-        private void showActorPicker(object sender, EventArgs e)
+        private void showCastPicker(object sender, EventArgs e)
         {
-            actorPicker.Focus();
+            castPicker.Focus();
         }
 
         //Hide graphic effect on ListView

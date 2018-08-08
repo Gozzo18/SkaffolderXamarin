@@ -8,14 +8,14 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.Edit
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ActorEdit : ContentPage
+    public partial class UserEdit : ContentPage
     {
         //Set ViewModel for BindingContext
-        private ActorEditViewModel ViewModel
+        private UserEditViewModel ViewModel
         {
             get
             {
-                return BindingContext as ActorEditViewModel;
+                return BindingContext as UserEditViewModel;
             }
             set
             {
@@ -23,27 +23,35 @@ namespace SkaffolderTemplate.Views.Edit
             }
         }
 
-        public ActorEdit (Actor actor)
+        public UserEdit (User user)
 		{
             //Setting BindingContext
-            ViewModel = new FilmEditViewModel(actor);
+            ViewModel = new FilmEditViewModel(user);
 			InitializeComponent ();
         }
 
         
 
         
-        private void BirthDateEntry_Unfocused(object sender, FocusEventArgs e)
+        private void MailEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            ViewModel.BirthDateCompletedCommand.Execute(sender as Entry);
+            ViewModel.MailCompletedCommand.Execute(sender as Entry);
         }
         private void NameEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.NameCompletedCommand.Execute(sender as Entry);
         }
+        private void RolesEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            ViewModel.RolesCompletedCommand.Execute(sender as Entry);
+        }
         private void SurnameEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.SurnameCompletedCommand.Execute(sender as Entry);
+        }
+        private void UsernameEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            ViewModel.UsernameCompletedCommand.Execute(sender as Entry);
         }
 
         

@@ -1,4 +1,4 @@
-﻿using Plugin.Settings;
+using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
 namespace SkaffolderTemplate

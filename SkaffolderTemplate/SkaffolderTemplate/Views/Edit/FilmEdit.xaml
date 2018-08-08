@@ -19,7 +19,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout>
-            <Label x:Name="Subtitle" Text="Edit Actor" FontSize="Large" TextColor="#7970F5"
+            <Label x:Name="Subtitle" Text="Edit Film" FontSize="Large" TextColor="#7970F5"
                    RelativeLayout.XConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Width,
@@ -42,14 +42,73 @@
                     RelativeLayout.WidthConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Width,
+                        Factor=0.8}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
                         Factor=0.8}">
-                <StackLayout Spacing="5">
-                    <Label Text="Name" Style="{StaticResource label}"/>
-                    <Entry Style="{StaticResource entry}" Placeholder="Name*" Text="{Binding Name, Mode=TwoWay}" Unfocused="ActorNameEntry_Unfocused"/>
-                    <Label Text="Surname" Style="{StaticResource label}"/>
-                    <Entry Style="{StaticResource entry}" Placeholder="Surname" Text="{Binding Surname, Mode=TwoWay}" Unfocused="ActorSurnameEntry_Unfocused"/>
-                    <Label Text="BirthDate" Style="{StaticResource label}"/>
-                    <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding BirthDate}" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
+                <StackLayout>
+                    <ListView CachingStrategy="RecycleElement" x:Name="castInserted" ItemsSource="{Binding castInserted}" ItemSelected="castInserted_ItemSelected" RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
+                        <ListView.Header>
+                            <StackLayout VerticalOptions="FillAndExpand"> 
+                                <Picker x:Name="castPicker" IsVisible="False" ItemsSource="{Binding castAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerCast_SelectedIndexChanged"/>                                
+                                
+                                <Label Text="Genre" Margin="3,0,0,0"/>
+                                <Picker Title="Genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre }" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String }">
+                                            <x:String>Action</x:String>
+                                            <x:String>Crime</x:String>
+                                            <x:String>Fantasy</x:String>
+                                            <x:String>Horror</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                </Picker>
+                                
+                                <Label Text="Title" Margin="3,0,0,0"/>
+                                <Entry Placeholder="Title" PlaceholderColor="White" FontSize="Small" Text="{Binding Title }" TextColor="White" Unfocused="TitleEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                
+                                <Label Text="Year" Margin="3,0,0,0"/>
+                                <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year }" TextColor="White" Unfocused="YearEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                
+                                
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
+                                    <Label Text="Cast" VerticalOptions="Center" FontSize="Medium">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="showCastPicker"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Image Source="add.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="showCastPicker"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                                
+                            </StackLayout>
+                        </ListView.Header>
+                         
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <customrenderer:CustomViewCell>
+                                    <StackLayout x:Name="Item" Orientation="Horizontal" Margin="0,-10,0,0">
+                                        <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding DeleteItemCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
+                                        <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </customrenderer:CustomViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        <ListView.Footer>
+                            <StackLayout>
+                                
+                                <Label Text="FilmMaker" Margin="12,0,0,0"/>
+                                <Picker Title="FilmMaker" TextColor="White" FontSize="Small" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
+                                <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>
+                                
+                            </StackLayout>
+                        </ListView.Footer>
+                    </ListView>
                 </StackLayout>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
