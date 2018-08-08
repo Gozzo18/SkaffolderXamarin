@@ -1,8 +1,9 @@
-﻿using Rg.Plugins.Popup.Services;
+using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using SkaffolderTemplate.Views;
+using SkaffolderTemplate.Views.Loading;
 using SkaffolderTemplate.Views.Edit;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,28 +11,28 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace SkaffolderTemplate.ViewModels
+namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 {
-    public class FilmsListViewModel : BaseViewModel
+    public class ActorsListViewModel : BaseViewModel
     {
         #region Attributes and Properties
-        private ObservableCollection<Film> _filmsList;
+        private ObservableCollection<Actor> _actorsList;
         //This collection main purpose is to store data from API request 
-        public ObservableCollection<Film> FilmsList
+        public ObservableCollection<Actor> ActorsList
         {
             get
             {
-                return _filmsList;
+                return _actorsList;
             }
             set
             {
-                SetValue(ref _filmsList, value);
+                SetValue(ref _actorsList, value);
             }
         }
 
-        private ObservableCollection<Film> _supportList;
+        private ObservableCollection<Actor> _supportList;
         //This one instead is the ItemSource of the ListView. This allows to modify without any exceptions, the elements of the ListView.
-        public ObservableCollection<Film> SupportList
+        public ObservableCollection<Actor> SupportList
         {
             get
             {
@@ -102,21 +103,21 @@ namespace SkaffolderTemplate.ViewModels
         public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
-        public ICommand EditFilmCommand
+        public ICommand EditActorCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
-                    var film = (e as Film);
+                    var actor = (e as Actor);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new LoadingView(film), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new ActorLoadingView(actor), false);
                 });
 
             }
         }
 
-        public ICommand DeleteFilmCommand
+        public ICommand DeleteActorCommand
         {
             get
             {
@@ -129,8 +130,8 @@ namespace SkaffolderTemplate.ViewModels
                         //If Save button is tapped
                         if (arg2)
                         {
-                            var film = (e as Film);
-                            await App.filmService.DELETE(film.Id);
+                            var actor = (e as Actor);
+                            await App.actorService.DELETE(actor.Id);
                             await RefreshList();
                         }
                     });
@@ -139,26 +140,26 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public FilmsListViewModel()
+        public ActorsListViewModel()
         {
-            AddCommand = new Command(async vm => await AddNewFilm());
+            AddCommand = new Command(async vm => await AddNewActor());
             RefreshCommand = new Command(async vm => await RefreshList());
-            LoadDataCommand = new Command<ObservableCollection<Film>>(async vm => await GetRequest());
+            LoadDataCommand = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
 
         private async Task RefreshList()
         {
             Refreshing = true;
-            FilmsList = await App.filmService.GETList();
-            SupportList = new ObservableCollection<Film>(FilmsList);
+            ActorsList = await App.actorService.GETList();
+            SupportList = new ObservableCollection<Actor>(ActorsList);
             Refreshing = false;
         }
 
-        private async Task AddNewFilm()
+        private async Task AddNewActor()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PushAsync(new LoadingView(null), false);
+            await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null), false);
         }
 
         private async Task GetRequest()
@@ -167,8 +168,8 @@ namespace SkaffolderTemplate.ViewModels
             IsBusy = true;
             IsLoaded = false;
 
-            FilmsList = await App.filmService.GETList();
-            SupportList = new ObservableCollection<Film>(FilmsList);
+            ActorsList = await App.actorService.GETList();
+            SupportList = new ObservableCollection<Actor>(ActorsList);
 
             //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
             IsBusy = false;
@@ -182,12 +183,12 @@ namespace SkaffolderTemplate.ViewModels
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
 
             if (string.IsNullOrWhiteSpace(SearchedWord))
-                SupportList = new ObservableCollection<Film>(FilmsList);
+                SupportList = new ObservableCollection<Actor>(ActorsList);
             else
             {
-                //The filtering of elements is based on their titles. In case you wish to change, just overwrite c.Title with c.YourField
-                var tempRecords = FilmsList.Where(c => c.Title.Contains(SearchedWord));
-                SupportList = new ObservableCollection<Film>(tempRecords);
+                //The filtering of elements is based on the elemnts id. In case you wish to change, just overwrite c.Id with c.YourField
+                var tempRecords = ActorsList.Where(c => c.Id.Contains(SearchedWord));
+                SupportList = new ObservableCollection<Actor>(tempRecords);
             }
         }
     }

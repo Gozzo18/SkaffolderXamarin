@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ActorLoadingView : ContentPage
@@ -12,7 +12,7 @@ namespace SkaffolderTemplate.Views
         private Actor actor;
         
 
-		public LoadingView (Actor actorToEdit)
+		public ActorLoadingView (Actor actorToEdit)
 		{
             actor = actorToEdit;
             
@@ -26,12 +26,12 @@ namespace SkaffolderTemplate.Views
             {
                 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(actor, false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(actor), false);
             }
             else
             {
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null, null), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null), false);
             }
             this.OnDisappearing();
         

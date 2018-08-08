@@ -1,0 +1,353 @@
+**** PROPERTIES SKAFFOLDER ****
+{
+    "forEachObj": "resource",
+    "overwrite": true,
+    "_partials": []
+}
+**** END PROPERTIES SKAFFOLDER ****
+using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Views.List;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
+
+namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
+{
+    public class {{capitalize resource.name}}EditViewModel : BaseViewModel
+    {
+        #region Attributes and Properties
+        {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+        private {{#toCType type}}{{/toCType}} _{{name}};
+        public {{#toCType type}}{{/toCType}} {{capitalize name}}
+        {
+            get
+            {
+                return _{{name}};
+            }
+            set
+            {
+                SetValue(ref _{{name}}, value);
+            }
+        }{{/isNull}}{{/notEqual}}{{/each}}
+
+        {{#each resource._entity._attrs}}{{#notNull _enum}}
+        private {{type}} _{{lowercase name}};
+        public {{type}} {{capitalize name}}
+        {
+            get
+            {
+                return _{{lowercase name}};
+            }
+            set
+            {
+                SetValue(ref _{{lowercase name}}, value);
+            }
+        }{{/notNull}}{{/each}}
+
+        private bool _isPresent;
+        //True = editing {{capitalize resource.name}}, False = creating new {{capitalize resource.name}}
+        public bool IsPresent
+        {
+            get
+            {
+                return _isPresent;
+            }
+            set
+            {
+                SetValue(ref _isPresent, value);
+            }
+        }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                SetValue(ref _errorMessage, value);
+            }
+        }
+
+        {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        private {{capitalize _ent2.name}} _{{lowercase _ent2.name}};
+        public  {{capitalize _ent2.name}}  {{capitalize _ent2.name}}
+        {
+            get
+            {
+                return _{{lowercase _ent2.name}};
+            }
+            set
+            {
+                SetValue(ref _{{lowercase _ent2.name}}, value);
+            }
+        }
+        
+        private ObservableCollection<{{capitalize _ent2.name}}> _{{lowercase _ent2.name}}sAvailable;
+        //This is the collection of {{capitalize _ent2.name}}s that can be inserted as {{lowercase _ent2.name}} for the {{lowercase ent_1.name}}
+        public ObservableCollection<{{capitalize _ent2.name}}> {{capitalize _ent2.name}}sAvailable
+        {
+            get
+            {
+                return _{{lowercase _ent2.name}}sAvailable;
+            }
+            set
+            {
+                SetValue(ref _{{lowercase _ent2.name}}sAvailable, value);
+            }
+        }
+        {{/equal}}{{/equal}}{{/each}}
+
+        private {{capitalize resource.name}} _{{lowercase resource.name}};
+        public {{capitalize resource.name}} {{capitalize resource.name}}
+        {
+            get
+            {
+                return _{{lowercase resource.name}};
+            }
+            set
+            {
+                SetValue(ref _{{lowercase resource.name}}, value);
+            }
+        }
+
+        {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        private ObservableCollection<{{_ent2.name}}> _{{lowercase name}}Inserted;
+        //This is the collection of {{lowercase _ent2.name}}s that are ALREADY inserted as {{name}} members for the {{lowercase _ent1.name}}
+        public ObservableCollection<{{_ent2.name}}> {{capitalize name}}Inserted
+        {
+            get
+            {
+                return _{{lowercase name}}Inserted;
+            }
+            set
+            {
+                SetValue(ref _{{lowercase name}}Inserted, value);
+            }
+        }
+
+        private ObservableCollection<{{_ent2.name}}> _{{lowercase name}}Available;
+        //This is the collection of {{lowercase _ent2.name}}s that CAN BE inserted as {{name}} members for the {{lowercase ent_1.name}}
+        public ObservableCollection<{{_ent2.name}}> {{capitalize name}}Available
+        {
+            get
+            {
+                return _{{lowercase name}}Available;
+            }
+            set
+            {
+                SetValue(ref _{{lowercase name}}Available, value);
+            }
+        }{{/equal}}{{/equal}}{{/each}}
+        #endregion
+
+        #region Commands
+        public ICommand BackCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand SetDataForEditingCommand { get; private set; }
+        {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+        public ICommand {{capitalize name}}CompletedCommand { get; private set; }
+        {{/isNull}}{{/notEqual}}{{/each}}
+        {{#each resource._entity._attrs}}{{#notNull _enum}}
+        public ICommand Selected{{capitalize name}}Command { get; private set; }
+        {{/notNull}}{{/each}}
+        {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        public ICommand Selected{{_ent2.name}}Command { get; private set; }
+        {{/equal}}{{/equal}}{{/each}}
+
+        {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        public ICommand Selected{{capitalize name}}Command { get; private set; }
+        public ICommand DeleteItemCommand
+        {
+            get
+            {
+                return new Command((e) =>
+                {
+                    var item = (e as {{capitalize _ent2.name}});
+                    int i = 0 ;
+                    bool found = false;
+                    while (i <{{capitalize name}}Inserted.Count && !found)
+                    {
+                        if (item.Id.Equals({{capitalize name}}Inserted[i].Id))
+                        {
+                            {{capitalize name}}Available.Add({{capitalize name}}Inserted[i]);
+                            {{capitalize name}}Inserted.RemoveAt({{capitalize name}}Inserted.IndexOf({{capitalize name}}Inserted[i]));
+                            found = true;
+                        }
+                        i++;
+                    }
+                });
+            }
+        }{{/equal}}{{/equal}}{{/each}}
+        #endregion
+
+        public {{capitalize resource.name}}EditViewModel({{capitalize resource.name}} {{lowercase resource.name}}ToEdit{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
+        {
+            {{capitalize resource.name}} = {{lowercase resource.name}}ToEdit;
+
+            {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            {{capitalize name}}Inserted = {{lowercase _ent2.name}}s;
+            {{/equal}}{{/equal}}{{/each}}
+            SetDataForEditingCommand = new Command(async vm => await SetData());
+            SaveCommand = new Command(async vm => await SaveFilmData());
+            BackCommand = new Command(async vm => await GoBack());
+            {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+            {{capitalize name}}CompletedCommand = new Command<Entry>(vm => {{capitalize name}}EntryCompleted(vm));
+            {{/isNull}}{{/notEqual}}{{/each}}
+            {{#each resource._entity._attrs}}{{#notNull _enum}}
+            Selected{{capitalize name}}Command = new Command<Picker>(vm => {{capitalize name}}Completed(vm));
+            {{/notNull}}{{/each}}
+            {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            Selected{{capitalize name}}Command = new Command<Picker>(vm =>{{capitalize name}}Completed(vm));
+            {{/equal}}{{/equal}}{{/each}}
+            {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            Selected{{_ent2.name}}Command = new Command<Picker>(vm => {{_ent2.name}}Completed(vm));
+            {{/equal}}{{/equal}}{{/each}}
+        }
+
+        private async Task SetData()
+        {
+            {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            {{capitalize name}}Available = await App.{{lowercase ./../resource.name}}Service.GETList();
+            {{/equal}}{{/equal}}{{/each}}
+            
+            {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            {{_ent2.name}}sAvailable = await App.{{lowercase _ent2.name}}Service.GETList();
+            {{/equal}}{{/equal}}{{/each}}
+
+            if (Film != null)
+            {
+                //Overwrite Title, Year and Genre entries
+                Id = Film.Id;
+                Title = Film.Title;
+                Year = Film.Year.ToString();
+                Genre = Film.Genre;
+
+                //Overwrite FilmMaker entry
+                for (int i = 0; i < FilmMakersAvailable.Count; i++)
+                {
+                    if (FilmMakersAvailable[i].Id.Equals(Film.FilmMaker))
+                    {
+                        FilmMaker = FilmMakersAvailable[i];
+                    }
+                }
+
+                //Remove from ActorCastAvailable all the Actors which are already inserted
+                for (int k = 0; k < ActorsCastAvailable.Count; k++)
+                {
+                    for (int h = 0; h < ActorsCastInserted.Count; h++)
+                    {
+                        if(ActorsCastAvailable.Count != 0)
+                        {
+                            if (ActorsCastInserted[h].Id.Equals(ActorsCastAvailable[k].Id))
+                            {
+                                ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
+                                k = 0;
+                                h = 0;
+                            }
+                        }
+                    }
+                }
+                IsPresent = true;
+            }
+            else
+            {
+                Film = new Film();
+                ActorsCastInserted = new ObservableCollection<Actor>();
+            }
+                
+        }
+
+        private void TitleEntryCompleted(Entry FilmTitle)
+        {
+            Title = FilmTitle.Text;
+        }
+
+        private void YearEntryCompleted(Entry FilmYear)
+        {
+            Year = FilmYear.Text;
+        }
+
+        private void GenreCompleted(Picker picker)
+        {
+            Genre = (string)picker.SelectedItem;
+        }
+
+        private void ActorCompleted(Picker picker)
+        {
+           Actor actorSelected = (Actor)picker.SelectedItem;
+            if (actorSelected != null)
+            {
+                ActorsCastInserted.Add(actorSelected);
+                bool found = false;
+                int iterator = 0;
+                while(iterator < ActorsCastAvailable.Count && !found)
+                {
+                    if (actorSelected.Id.Equals(ActorsCastAvailable[iterator].Id))
+                    {
+                        found = true;
+                    }
+                    iterator++;
+                }
+
+                //DO NOT TOUCH
+                //This allows to modify the ItemSource of the Picker dynamically where actors can be selected
+                ObservableCollection<Actor> support = new ObservableCollection<Actor>(ActorsCastAvailable);
+                support.RemoveAt(iterator-1);
+                ActorsCastAvailable = support;
+            }            
+        }
+
+        private void FilmMakerCompleted(Picker picker)
+        {
+            FilmMaker = (FilmMaker)picker.SelectedItem;
+        }
+
+        private async Task GoBack()
+        {
+            var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            await masterDetailPage.Detail.Navigation.PopAsync();    
+            
+        }
+
+        private async Task SaveFilmData()
+        {
+            //Check if there is any empty field
+            if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Genre) || string.IsNullOrWhiteSpace(Year) || FilmMaker == null)  
+            {
+                ErrorMessage = "One or more fields are empty";
+                return;
+            }
+            else
+            {
+                Film.Title = Title;
+                Film.Year = Int32.Parse(Year);
+                Film.Genre = Genre;
+
+                List<string> supportList = new List<string>();
+                foreach (Actor a in ActorsCastInserted)
+                    supportList.Add(a.Id);
+                Film.Cast = supportList.ToArray();
+
+                Film.FilmMaker = FilmMaker.Id;
+
+                if (IsPresent)
+                {
+                    Film.Id = Film.Id;
+                    await App.filmService.PUT(Film);
+                }
+                else
+                    await App.filmService.POST(Film);
+
+                var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                await masterDetailPage.Detail.Navigation.PopAsync();
+            }
+            
+        }
+    }
+}

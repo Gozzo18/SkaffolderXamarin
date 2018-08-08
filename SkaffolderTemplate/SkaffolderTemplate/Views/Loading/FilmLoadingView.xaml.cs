@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FilmLoadingView : ContentPage
@@ -14,7 +14,7 @@ namespace SkaffolderTemplate.Views
         private ObservableCollection<Actor> actors;
         
 
-		public LoadingView (Film filmToEdit)
+		public FilmLoadingView (Film filmToEdit)
 		{
             film = filmToEdit;
             

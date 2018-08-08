@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class {{capitalize resource.name}}LoadingView : ContentPage
@@ -21,7 +21,7 @@ namespace SkaffolderTemplate.Views
         private ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s;
         {{/equal}}{{/equal}}{{/each}}
 
-		public LoadingView ({{capitalize resource.name}} {{lowercase resource.name}}ToEdit)
+		public {{capitalize resource.name}}LoadingView ({{capitalize resource.name}} {{lowercase resource.name}}ToEdit)
 		{
             {{lowercase resource.name}} = {{lowercase resource.name}}ToEdit;
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
@@ -41,12 +41,12 @@ namespace SkaffolderTemplate.Views
                      {{lowercase _ent2.name}}s.Add(await App. {{lowercase _ent2.name}}Service.GETId({{lowercase _ent2.name}}Id));
                 }{{/equal}}{{/equal}}{{/each}}
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}Edit({{lowercase resource.name}}{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}},  {{lowercase _ent2.name}}s){{/equal}}{{/equal}}{{/each}}, false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}Edit({{lowercase resource.name}}{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}},  {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}}), false);
             }
             else
             {
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}Edit(null, null), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}Edit(null{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, null{{/equal}}{{/equal}}{{/each}}), false);
             }
             this.OnDisappearing();
         

@@ -1,15 +1,9 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "oneTime",
-    "overwrite": false,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
-﻿using Rg.Plugins.Popup.Services;
+using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using SkaffolderTemplate.Views;
+using SkaffolderTemplate.Views.Loading;
 using SkaffolderTemplate.Views.Edit;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,9 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace SkaffolderTemplate.ViewModels
+namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 {
-    public class FilmListViewModel : BaseViewModel
+    public class FilmsListViewModel : BaseViewModel
     {
         #region Attributes and Properties
         private ObservableCollection<Film> _filmsList;
@@ -117,7 +111,7 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     var film = (e as Film);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new LoadingView(film), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmLoadingView(film), false);
                 });
 
             }
@@ -146,7 +140,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public FilmListViewModel()
+        public FilmsListViewModel()
         {
             AddCommand = new Command(async vm => await AddNewFilm());
             RefreshCommand = new Command(async vm => await RefreshList());
@@ -165,7 +159,7 @@ namespace SkaffolderTemplate.ViewModels
         private async Task AddNewFilm()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PushAsync(new LoadingView(null), false);
+            await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null), false);
         }
 
         private async Task GetRequest()
@@ -192,8 +186,8 @@ namespace SkaffolderTemplate.ViewModels
                 SupportList = new ObservableCollection<Film>(FilmsList);
             else
             {
-                //The filtering of elements is based on their titles. In case you wish to change, just overwrite c.Title with c.YourField
-                var tempRecords = FilmsList.Where(c => c.Title.Contains(SearchedWord));
+                //The filtering of elements is based on the elemnts id. In case you wish to change, just overwrite c.Id with c.YourField
+                var tempRecords = FilmsList.Where(c => c.Id.Contains(SearchedWord));
                 SupportList = new ObservableCollection<Film>(tempRecords);
             }
         }

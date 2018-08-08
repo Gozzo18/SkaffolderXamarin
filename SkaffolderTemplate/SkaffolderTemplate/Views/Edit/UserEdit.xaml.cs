@@ -1,5 +1,5 @@
 using SkaffolderTemplate.Models;
-using SkaffolderTemplate.ViewModels;
+using SkaffolderTemplate.ViewModels.ResourcesViewModel;
 using System;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
@@ -26,11 +26,18 @@ namespace SkaffolderTemplate.Views.Edit
         public UserEdit (User user)
 		{
             //Setting BindingContext
-            ViewModel = new FilmEditViewModel(user);
+            ViewModel = new UserEditViewModel(user);
 			InitializeComponent ();
         }
 
-        
+        protected override void OnAppearing()
+        {
+            //Remove from navigation stack the LoadingView
+            this.Navigation.RemovePage(this.Navigation.NavigationStack[this.Navigation.NavigationStack.Count - 2 ]);
+
+            base.OnAppearing();
+            
+        }
 
         
         private void MailEntry_Unfocused(object sender, FocusEventArgs e)

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class UserLoadingView : ContentPage
@@ -12,7 +12,7 @@ namespace SkaffolderTemplate.Views
         private User user;
         
 
-		public LoadingView (User userToEdit)
+		public UserLoadingView (User userToEdit)
 		{
             user = userToEdit;
             
@@ -26,12 +26,12 @@ namespace SkaffolderTemplate.Views
             {
                 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(user, false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(user), false);
             }
             else
             {
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(null, null), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(null), false);
             }
             this.OnDisappearing();
         

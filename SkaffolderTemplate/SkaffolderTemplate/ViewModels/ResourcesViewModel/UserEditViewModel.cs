@@ -1,4 +1,4 @@
-﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Views.List;
 using System;
 using System.Collections.Generic;
@@ -7,65 +7,77 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace SkaffolderTemplate.ViewModels
+namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 {
-    public class FilmEditViewModel : BaseViewModel
+    public class UserEditViewModel : BaseViewModel
     {
         #region Attributes and Properties
-        private string _id;
-        public string Id
+        
+        private string _mail;
+        public string Mail
         {
             get
             {
-                return _id;
+                return _mail;
             }
             set
             {
-                SetValue(ref _id, value);
+                SetValue(ref _mail, value);
+            }
+        }
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                SetValue(ref _name, value);
+            }
+        }
+        private string _roles;
+        public string Roles
+        {
+            get
+            {
+                return _roles;
+            }
+            set
+            {
+                SetValue(ref _roles, value);
+            }
+        }
+        private string _surname;
+        public string Surname
+        {
+            get
+            {
+                return _surname;
+            }
+            set
+            {
+                SetValue(ref _surname, value);
+            }
+        }
+        private string _username;
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                SetValue(ref _username, value);
             }
         }
 
-        private string _title;
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                SetValue(ref _title, value);
-            }
-        }
-
-        private string _year;
-        public string Year
-        {
-            get
-            {
-                return _year;
-            }
-            set
-            {
-                SetValue(ref _year, value);
-            }
-        }
-
-        private string _genre;
-        public string Genre
-        {
-            get
-            {
-                return _genre;
-            }
-            set
-            {
-                SetValue(ref _genre, value);
-            }
-        }
+        
 
         private bool _isPresent;
-        //True = editing Film, False = creating new Film
+        //True = editing User, False = creating new User
         public bool IsPresent
         {
             get
@@ -91,134 +103,75 @@ namespace SkaffolderTemplate.ViewModels
             }
         }
 
-        private FilmMaker _filmMaker;
-        public FilmMaker FilmMaker
+        
+
+        private User _user;
+        public User User
         {
             get
             {
-                return _filmMaker;
+                return _user;
             }
             set
             {
-                SetValue(ref _filmMaker, value);
+                SetValue(ref _user, value);
             }
         }
 
-        private Film _film;
-        public Film Film
-        {
-            get
-            {
-                return _film;
-            }
-            set
-            {
-                SetValue(ref _film, value);
-            }
-        }
-
-        private ObservableCollection<Actor> _actorsCastInserted;
-        //This is the collection of actors that are ALREADY inserted as cast members for the film
-        public ObservableCollection<Actor> ActorsCastInserted
-        {
-            get
-            {
-                return _actorsCastInserted;
-            }
-            set
-            {
-                SetValue(ref _actorsCastInserted, value);
-            }
-        }
-
-        private ObservableCollection<Actor> _actorsCastAvailable;
-        //This is the collection of actors that CAN BE inserted as cast members for the film
-        public ObservableCollection<Actor> ActorsCastAvailable
-        {
-            get
-            {
-                return _actorsCastAvailable;
-            }
-            set
-            {
-                SetValue(ref _actorsCastAvailable, value);
-            }
-        }
-
-        private ObservableCollection<FilmMaker> _filmMakersAvailable;
-        //This is the collection of filmMakers that can be inserted as filmMaker for the film
-        public ObservableCollection<FilmMaker> FilmMakersAvailable
-        {
-            get
-            {
-                return _filmMakersAvailable;
-            }
-            set
-            {
-                SetValue(ref _filmMakersAvailable, value);
-            }
-        }
+        
         #endregion
 
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
-        public ICommand TitleCompletedCommand { get; private set; }
-        public ICommand YearCompletedCommand { get; private set; }
-        public ICommand SelectedGenreCommand { get; private set; }
-        public ICommand SelectedActorCommand { get; private set; }
-        public ICommand SelectedFilmMakerCommand { get; private set; }
-        public ICommand SetPickersItemSourceCommand { get; private set; }
-        public ICommand DeleteItemCommand
-        {
-            get
-            {
-                return new Command((e) =>
-                {
-                    var item = (e as Actor);
-                    int i = 0 ;
-                    bool found = false;
-                    while (i < ActorsCastInserted.Count && !found)
-                    {
-                        if (item.Id.Equals(ActorsCastInserted[i].Id))
-                        {
-                            ActorsCastAvailable.Add(ActorsCastInserted[i]);
-                            ActorsCastInserted.RemoveAt(ActorsCastInserted.IndexOf(ActorsCastInserted[i]));
-                            found = true;
-                        }
-                        i++;
-                    }
-                });
-            }
-        }
+        public ICommand SetDataForEditingCommand { get; private set; }
+        
+        public ICommand MailCompletedCommand { get; private set; }
+        
+        public ICommand NameCompletedCommand { get; private set; }
+        
+        public ICommand RolesCompletedCommand { get; private set; }
+        
+        public ICommand SurnameCompletedCommand { get; private set; }
+        
+        public ICommand UsernameCompletedCommand { get; private set; }
+        
+        
+        
+
+        
         #endregion
 
-        public FilmEditViewModel(Film filmToEdit, ObservableCollection<Actor> actors)
+        public UserEditViewModel(User userToEdit)
         {
-            Film = filmToEdit;
+            User = userToEdit;
 
-            ActorsCastInserted = actors;
-
-            SetPickersItemSourceCommand = new Command(async vm => await PopulatePickers());
+            
+            SetDataForEditingCommand = new Command(async vm => await SetData());
             SaveCommand = new Command(async vm => await SaveFilmData());
             BackCommand = new Command(async vm => await GoBack());
-            TitleCompletedCommand = new Command<Entry>(vm => TitleEntryCompleted(vm));
-            YearCompletedCommand = new Command<Entry>(vm => YearEntryCompleted(vm));
-            SelectedGenreCommand = new Command<Picker>(vm => GenreCompleted(vm));
-            SelectedActorCommand = new Command<Picker>(vm => ActorCompleted(vm));
-            SelectedFilmMakerCommand = new Command<Picker>(vm => FilmMakerCompleted(vm));
+            
+            MailCompletedCommand = new Command<Entry>(vm => MailEntryCompleted(vm));
+            
+            NameCompletedCommand = new Command<Entry>(vm => NameEntryCompleted(vm));
+            
+            RolesCompletedCommand = new Command<Entry>(vm => RolesEntryCompleted(vm));
+            
+            SurnameCompletedCommand = new Command<Entry>(vm => SurnameEntryCompleted(vm));
+            
+            UsernameCompletedCommand = new Command<Entry>(vm => UsernameEntryCompleted(vm));
+            
+            
+            
+            
         }
 
-        private async Task PopulatePickers()
+        private async Task SetData()
         {
-            ActorsCastAvailable = await App.actorService.GETList();
-            FilmMakersAvailable = await App.filmMakerService.GETList();
+            
+            
+            
 
-            SetData();
-        }
-
-        private void SetData()
-        {
             if (Film != null)
             {
                 //Overwrite Title, Year and Genre entries

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FilmMakerLoadingView : ContentPage
@@ -12,7 +12,7 @@ namespace SkaffolderTemplate.Views
         private FilmMaker filmmaker;
         
 
-		public LoadingView (FilmMaker filmmakerToEdit)
+		public FilmMakerLoadingView (FilmMaker filmmakerToEdit)
 		{
             filmmaker = filmmakerToEdit;
             
@@ -26,12 +26,12 @@ namespace SkaffolderTemplate.Views
             {
                 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(filmmaker, false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(filmmaker), false);
             }
             else
             {
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null, null), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null), false);
             }
             this.OnDisappearing();
         

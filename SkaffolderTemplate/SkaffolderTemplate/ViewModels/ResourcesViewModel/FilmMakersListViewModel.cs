@@ -1,7 +1,9 @@
-﻿using Rg.Plugins.Popup.Services;
+using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
+using SkaffolderTemplate.Views;
+using SkaffolderTemplate.Views.Loading;
 using SkaffolderTemplate.Views.Edit;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,28 +11,28 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace SkaffolderTemplate.ViewModels
+namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 {
-    public class ActorsListViewModel : BaseViewModel
+    public class FilmMakersListViewModel : BaseViewModel
     {
         #region Attributes and Properties
-        private ObservableCollection<Actor> _actorList;
+        private ObservableCollection<FilmMaker> _filmmakersList;
         //This collection main purpose is to store data from API request 
-        public ObservableCollection<Actor> ActorsList
+        public ObservableCollection<FilmMaker> FilmMakersList
         {
             get
             {
-                return _actorList;
+                return _filmmakersList;
             }
             set
             {
-                SetValue(ref _actorList, value);
+                SetValue(ref _filmmakersList, value);
             }
         }
 
-        private ObservableCollection<Actor> _supportList;
+        private ObservableCollection<FilmMaker> _supportList;
         //This one instead is the ItemSource of the ListView. This allows to modify without any exceptions, the elements of the ListView.
-        public ObservableCollection<Actor> SupportList
+        public ObservableCollection<FilmMaker> SupportList
         {
             get
             {
@@ -101,21 +103,21 @@ namespace SkaffolderTemplate.ViewModels
         public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
-        public ICommand EditActorCommand
+        public ICommand EditFilmMakerCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
-                    var actor = (e as Actor);
+                    var filmmaker = (e as FilmMaker);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(actor), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerLoadingView(filmmaker), false);
                 });
-                
+
             }
         }
 
-        public ICommand DeleteActorCommand
+        public ICommand DeleteFilmMakerCommand
         {
             get
             {
@@ -123,13 +125,13 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     //Pop Up allert appear
                     await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
-                    MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2)  =>
+                    MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2) =>
                     {
                         //If Save button is tapped
                         if (arg2)
                         {
-                            var actor = (e as Actor);
-                            await App.actorService.DELETE(actor.Id);
+                            var filmmaker = (e as FilmMaker);
+                            await App.filmmakerService.DELETE(filmmaker.Id);
                             await RefreshList();
                         }
                     });
@@ -138,29 +140,26 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public ActorsListViewModel()
+        public FilmMakersListViewModel()
         {
-            AddCommand = new Command(async vm => await AddNewActor());
+            AddCommand = new Command(async vm => await AddNewFilmMaker());
             RefreshCommand = new Command(async vm => await RefreshList());
-            LoadDataCommand = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
+            LoadDataCommand = new Command<ObservableCollection<FilmMaker>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
 
         private async Task RefreshList()
         {
-            //When refreshing the ListView, we set to "" the field of the SearchBar
-            SearchedWord = "";
-
             Refreshing = true;
-            ActorsList = await App.actorService.GETList();
-            SupportList = new ObservableCollection<Actor>(ActorsList);
+            FilmMakersList = await App.filmmakerService.GETList();
+            SupportList = new ObservableCollection<FilmMaker>(FilmMakersList);
             Refreshing = false;
         }
 
-        private async Task AddNewActor()
+        private async Task AddNewFilmMaker()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null), false);
+            await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null), false);
         }
 
         private async Task GetRequest()
@@ -169,27 +168,27 @@ namespace SkaffolderTemplate.ViewModels
             IsBusy = true;
             IsLoaded = false;
 
-            ActorsList = await App.actorService.GETList();
-            SupportList = new ObservableCollection<Actor>(ActorsList);
+            FilmMakersList = await App.filmmakerService.GETList();
+            SupportList = new ObservableCollection<FilmMaker>(FilmMakersList);
 
             //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
             IsBusy = false;
-            IsLoaded = true;           
+            IsLoaded = true;
         }
 
         private void SearchWord()
         {
-            //Capitalize first letter of SearcheWord 
+            //Capitalize first letter of SearcheWord
             if (SearchedWord.Length >= 1)
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
 
             if (string.IsNullOrWhiteSpace(SearchedWord))
-                SupportList = new ObservableCollection<Actor>(ActorsList);
+                SupportList = new ObservableCollection<FilmMaker>(FilmMakersList);
             else
             {
-                //The filtering of elements is based on their names. In case you wish to change, just overwrite c.Name with c.YourField
-                var tempRecords = ActorsList.Where(c => c.Name.Contains(SearchedWord));
-                SupportList = new ObservableCollection<Actor>(tempRecords);
+                //The filtering of elements is based on the elemnts id. In case you wish to change, just overwrite c.Id with c.YourField
+                var tempRecords = FilmMakersList.Where(c => c.Id.Contains(SearchedWord));
+                SupportList = new ObservableCollection<FilmMaker>(tempRecords);
             }
         }
     }
