@@ -82,8 +82,6 @@ namespace SkaffolderTemplate.Rest.Base
                 _filmlist = JsonConvert.DeserializeObject<ObservableCollection<Film>>(content);
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR {0}", e);
-                //Send a notify of token expiration, to whoever is subscribed to this RestService
-                MessagingCenter.Send<FilmRestServiceBase, bool>(this, Events.TokenExpired, true);
             }
             return _filmlist;
         }

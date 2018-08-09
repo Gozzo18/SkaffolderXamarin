@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace SkaffolderTemplate.ViewModels
 {
-    public class ManageUsersViewModel : BaseViewModel
+    public class UsersListStaticViewModel : BaseViewModel
     {
         #region Attributes and Properties
         private ObservableCollection<User> _userList;
@@ -109,7 +109,7 @@ namespace SkaffolderTemplate.ViewModels
                     if (!user.Id.Equals(Application.Current.Properties["UserId"]))
                     {
                         //Check if the user to delete is an Admin
-                        if (!user.Roles[0].Equals("ADMIN"))
+                        if (!user.Roles.Equals("ADMIN"))
                         {
                             //Pop Up allert appear
                             await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
@@ -129,7 +129,7 @@ namespace SkaffolderTemplate.ViewModels
         }
         #endregion
 
-        public ManageUsersViewModel()
+        public UsersListStaticViewModel()
         {
             AddCommand = new Command(async vm => await AddNewUser());
             RefreshCommand = new Command(async vm => await RefreshList());
