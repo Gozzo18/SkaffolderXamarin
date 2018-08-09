@@ -7,9 +7,9 @@ namespace SkaffolderTemplate.Extensions
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TokenExpiredPopUp : PopupPage
 	{
-		public TokenExpiredPopUp ()
+		public TokenExpiredPopUp()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
         private void Ok(object sender, System.EventArgs e)

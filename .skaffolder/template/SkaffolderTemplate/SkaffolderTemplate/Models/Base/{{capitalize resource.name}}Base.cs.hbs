@@ -2,7 +2,14 @@
 {
 "forEachObj": "resource",
 "overwrite": true,
-"_partials": []
+"_partials": [
+{
+    "name": "Id Attribute",
+    "tagFrom": " // Id Start ",
+    "tagTo": " // Id End ",
+    "template": "\t\tprivate string _id;\n\t\t[JsonProperty(PropertyName = \"_id\")]\n\t\tpublic string Id\n\t\t{\n\t\t\tget\n\t\t\t{\n\t\t\t\treturn _id;\n\t\t\t}\n\t\t\tset\n\t\t\t\t{\n\t\t\t\t\tSetValue(ref _id, value);\n\t\t\t\t}\n\t\t\t}\n\t\t"
+}
+]
 }
 **** END PROPERTIES SKAFFOLDER ****
 using System;
@@ -13,19 +20,9 @@ namespace SkaffolderTemplate.Models.Base
 {
     public class {{capitalize resource.name}}Base : BaseViewModel
     {
-        private string _id;
-        [JsonProperty(PropertyName = "_id")]
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                SetValue(ref _id, value);
-            }
-        }
+        // Id Start 
+        
+        // Id End 
 
         {{#each resource._entity._attrs}}
         private {{toCType type}} {{name}};

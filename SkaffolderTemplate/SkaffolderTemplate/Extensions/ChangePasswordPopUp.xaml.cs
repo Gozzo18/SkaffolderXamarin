@@ -20,10 +20,10 @@ namespace SkaffolderTemplate.Extensions
             }
         }
 
-		public ChangePasswordPopUp ()
+		public ChangePasswordPopUp()
 		{
             ViewModel = new ChangePasswordPopUpViewModel();
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
         private void BackButton(object sender, System.EventArgs e)

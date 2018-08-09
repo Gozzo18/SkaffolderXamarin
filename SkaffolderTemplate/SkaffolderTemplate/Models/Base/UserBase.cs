@@ -6,19 +6,21 @@ namespace SkaffolderTemplate.Models.Base
 {
     public class UserBase : BaseViewModel
     {
-        private string _id;
-        [JsonProperty(PropertyName = "_id")]
-        public string Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                SetValue(ref _id, value);
-            }
-        }
+        // Id Start 
+		private string _id;
+		[JsonProperty(PropertyName = "_id")]
+		public string Id
+		{
+			get
+			{
+				return _id;
+			}
+			set
+				{
+					SetValue(ref _id, value);
+				}
+			}
+		  // Id End 
 
         private string mail;
         [JsonProperty(PropertyName = "mail")]

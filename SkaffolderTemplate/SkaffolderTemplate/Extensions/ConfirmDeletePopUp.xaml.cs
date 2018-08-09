@@ -10,9 +10,9 @@ namespace SkaffolderTemplate.Extensions
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ConfirmDeletePopUp : PopupPage
 	{
-        public ConfirmDeletePopUp ()
+        public ConfirmDeletePopUp()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
         private void Back(object sender, EventArgs e)
