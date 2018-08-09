@@ -159,7 +159,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         private async Task AddNewUser()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(null), false);
+            await masterDetailPage.Detail.Navigation.PushAsync(new RegisterNewUser(),false);
+            
         }
 
         private async Task GetRequest()

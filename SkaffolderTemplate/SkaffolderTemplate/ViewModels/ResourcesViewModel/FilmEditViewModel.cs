@@ -12,6 +12,19 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
     public class FilmEditViewModel : BaseViewModel
     {
         #region Attributes and Properties
+        private string _id;
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                SetValue(ref _id, value);
+            } 
+        }
+
         
         private string _title;
         public string Title
@@ -25,8 +38,10 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 SetValue(ref _title, value);
             }
         }
-        private int _year;
-        public int Year
+
+        
+        private string _year;
+        public string Year
         {
             get
             {
@@ -123,7 +138,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         
         private ObservableCollection<Actor> _castInserted;
-        //This is the collection of actors that are ALREADY inserted as cast members for the film
+        //This is the collection of actors that are ALREADY inserted as cast members for the 
         public ObservableCollection<Actor> CastInserted
         {
             get
@@ -209,10 +224,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             YearCompletedCommand = new Command<Entry>(vm => YearEntryCompleted(vm));
             
             
+            
             SelectedGenreCommand = new Command<Picker>(vm => GenreCompleted(vm));
             
             
-            SelectedCastCommand = new Command<Picker>(vm =>CastCompleted(vm));
+            SelectedCastCommand = new Command<Picker>(vm =>ActorCompleted(vm));
             
             
             SelectedFilmMakerCommand = new Command<Picker>(vm => FilmMakerCompleted(vm));
@@ -222,7 +238,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         private async Task SetData()
         {
             
-            CastAvailable = await App.filmService.GETList();
+            CastAvailable = await App.actorService.GETList();
             
             
             
@@ -231,13 +247,18 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
             if (Film != null)
             {
-                //Overwrite Title, Year and Genre entries
+                //Overwrite entries
                 Id = Film.Id;
+                
                 Title = Film.Title;
-                Year = Film.Year.ToString();
-                Genre = Film.Genre;
+                
 
-                //Overwrite FilmMaker entry
+                
+                Year = Film.Year.ToString();
+                
+
+                
+                //Overwrite FilmMaker entry 
                 for (int i = 0; i < FilmMakersAvailable.Count; i++)
                 {
                     if (FilmMakersAvailable[i].Id.Equals(Film.FilmMaker))
@@ -246,16 +267,17 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                     }
                 }
 
-                //Remove from ActorCastAvailable all the Actors which are already inserted
-                for (int k = 0; k < ActorsCastAvailable.Count; k++)
+                
+                //Remove from CastAvailable all the Actor which are already inserted
+                for (int k = 0; k < CastAvailable.Count; k++)
                 {
-                    for (int h = 0; h < ActorsCastInserted.Count; h++)
+                    for (int h = 0; h <CastInserted.Count; h++)
                     {
-                        if(ActorsCastAvailable.Count != 0)
+                        if(CastAvailable.Count != 0)
                         {
-                            if (ActorsCastInserted[h].Id.Equals(ActorsCastAvailable[k].Id))
+                            if (CastInserted[h].Id.Equals(CastAvailable[k].Id))
                             {
-                                ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
+                                CastAvailable.Remove(CastAvailable[k]);
                                 k = 0;
                                 h = 0;
                             }
@@ -267,37 +289,43 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             else
             {
                 Film = new Film();
-                ActorsCastInserted = new ObservableCollection<Actor>();
+                 
+                CastInserted = new ObservableCollection<Actor>();
+                
             }
                 
         }
 
+        
         private void TitleEntryCompleted(Entry FilmTitle)
         {
             Title = FilmTitle.Text;
         }
-
         private void YearEntryCompleted(Entry FilmYear)
         {
             Year = FilmYear.Text;
         }
 
+        
+
+        
         private void GenreCompleted(Picker picker)
         {
             Genre = (string)picker.SelectedItem;
         }
 
+        
         private void ActorCompleted(Picker picker)
         {
            Actor actorSelected = (Actor)picker.SelectedItem;
             if (actorSelected != null)
             {
-                ActorsCastInserted.Add(actorSelected);
+                CastInserted.Add(actorSelected);
                 bool found = false;
                 int iterator = 0;
-                while(iterator < ActorsCastAvailable.Count && !found)
+                while(iterator < CastAvailable.Count && !found)
                 {
-                    if (actorSelected.Id.Equals(ActorsCastAvailable[iterator].Id))
+                    if (actorSelected.Id.Equals(CastAvailable[iterator].Id))
                     {
                         found = true;
                     }
@@ -306,12 +334,13 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
                 //DO NOT TOUCH
                 //This allows to modify the ItemSource of the Picker dynamically where actors can be selected
-                ObservableCollection<Actor> support = new ObservableCollection<Actor>(ActorsCastAvailable);
+                ObservableCollection<Actor> support = new ObservableCollection<Actor>(CastAvailable);
                 support.RemoveAt(iterator-1);
-                ActorsCastAvailable = support;
+                CastAvailable = support;
             }            
         }
 
+        
         private void FilmMakerCompleted(Picker picker)
         {
             FilmMaker = (FilmMaker)picker.SelectedItem;
@@ -326,25 +355,26 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         private async Task SaveFilmData()
         {
-            //Check if there is any empty field
-            if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Genre) || string.IsNullOrWhiteSpace(Year) || FilmMaker == null)  
-            {
-                ErrorMessage = "One or more fields are empty";
-                return;
-            }
-            else
-            {
-                Film.Title = Title;
-                Film.Year = Int32.Parse(Year);
-                Film.Genre = Genre;
 
+            
+                Film.Title = Title;
+            
+            
+                Film.Year = Int32.Parse(Year);
+            
+            
+                Film.Genre = Genre;
+            
+
+            
                 List<string> supportList = new List<string>();
-                foreach (Actor a in ActorsCastInserted)
+                foreach (Actor a in CastInserted)
                     supportList.Add(a.Id);
                 Film.Cast = supportList.ToArray();
-
+            
+            
                 Film.FilmMaker = FilmMaker.Id;
-
+            
                 if (IsPresent)
                 {
                     Film.Id = Film.Id;
@@ -354,9 +384,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                     await App.filmService.POST(Film);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PopAsync();
-            }
-            
+                await masterDetailPage.Detail.Navigation.PopAsync();   
         }
     }
 }

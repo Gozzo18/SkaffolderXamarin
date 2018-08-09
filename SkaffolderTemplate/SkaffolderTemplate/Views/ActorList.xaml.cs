@@ -76,46 +76,6 @@ pagina list {
   "_project": "5b30dbb7c3dbdb5d5470bc14",
   "_roles": [],
   "__v": 0,
-  "_relations": [
-    {
-      "_id": "5b3386872034b06899839a8e",
-      "name": "cast",
-      "type": "m:m",
-      "_ent1": {
-        "_id": "5b3386872034b06899839a6b",
-        "name": "Film",
-        "_db": "5b3386872034b06899839a65",
-        "__v": 0,
-        "_resource": {
-          "_id": "5b3386872034b06899839a98",
-          "name": "Film",
-          "url": "/films",
-          "_db": "5b3386872034b06899839a65",
-          "_entity": "5b3386872034b06899839a6b",
-          "_project": "5b30dbb7c3dbdb5d5470bc14",
-          "__v": 0,
-          "_roles": []
-        }
-      },
-      "_ent2": {
-        "_id": "5b3386872034b06899839a6a",
-        "name": "Actor",
-        "_db": "5b3386872034b06899839a65",
-        "__v": 0,
-        "_resource": {
-          "_id": "5b3386872034b06899839a82",
-          "name": "Actor",
-          "url": "/actors",
-          "_db": "5b3386872034b06899839a65",
-          "_entity": "5b3386872034b06899839a6a",
-          "_project": "5b30dbb7c3dbdb5d5470bc14",
-          "__v": 0,
-          "_roles": []
-        }
-      },
-      "__v": 0
-    }
-  ],
   "_services": [
     {
       "_id": "5b3386872034b06899839a93",
@@ -208,6 +168,46 @@ pagina list {
           "__v": 0
         }
       ]
+    }
+  ],
+  "_relations": [
+    {
+      "_id": "5b3386872034b06899839a8e",
+      "name": "cast",
+      "type": "m:m",
+      "_ent1": {
+        "_id": "5b3386872034b06899839a6b",
+        "name": "Film",
+        "_db": "5b3386872034b06899839a65",
+        "__v": 0,
+        "_resource": {
+          "_id": "5b3386872034b06899839a98",
+          "name": "Film",
+          "url": "/films",
+          "_db": "5b3386872034b06899839a65",
+          "_entity": "5b3386872034b06899839a6b",
+          "_project": "5b30dbb7c3dbdb5d5470bc14",
+          "__v": 0,
+          "_roles": []
+        }
+      },
+      "_ent2": {
+        "_id": "5b3386872034b06899839a6a",
+        "name": "Actor",
+        "_db": "5b3386872034b06899839a65",
+        "__v": 0,
+        "_resource": {
+          "_id": "5b3386872034b06899839a82",
+          "name": "Actor",
+          "url": "/actors",
+          "_db": "5b3386872034b06899839a65",
+          "_entity": "5b3386872034b06899839a6a",
+          "_project": "5b30dbb7c3dbdb5d5470bc14",
+          "__v": 0,
+          "_roles": []
+        }
+      },
+      "__v": 0
     }
   ]
 }

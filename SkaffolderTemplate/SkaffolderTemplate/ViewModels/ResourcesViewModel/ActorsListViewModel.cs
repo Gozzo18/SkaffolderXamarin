@@ -159,6 +159,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         private async Task AddNewActor()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+            
             await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null), false);
         }
 

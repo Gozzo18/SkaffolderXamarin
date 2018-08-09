@@ -1,11 +1,11 @@
 **** PROPERTIES SKAFFOLDER ****
 {
     "forEachObj": "oneTime",
-    "overwrite": false,
+    "overwrite": true,
     "_partials": []
 }
 **** END PROPERTIES SKAFFOLDER ****
-﻿using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Models;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -175,20 +175,12 @@ namespace SkaffolderTemplate.ViewModels
                 user.Mail = Mail;
                 user.Username = Username;
                 user.Password = Password;
-                string[] roleToAdd = new string []{ Role};
+                string roleToAdd = Role;
                 user.Roles = roleToAdd;
-                if (await App.userService.POST(user))
-                {
-                    var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PopAsync();
-                }
-                //If the update goes wrong, it can be either cause by internet connection or another user has the same password.
-                //To change the latter criteria, check userService.POST()
-                else
-                {
-                    ErrorData = true;
-                    ErrorMessage = "There is already an User with that email";
-                }
+                
+                await App.userService.POST(user);
+                var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                await masterDetailPage.Detail.Navigation.PopAsync();
             }
                 
                 

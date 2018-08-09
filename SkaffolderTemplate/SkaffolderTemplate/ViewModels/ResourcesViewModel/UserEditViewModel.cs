@@ -12,6 +12,19 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
     public class UserEditViewModel : BaseViewModel
     {
         #region Attributes and Properties
+        private string _id;
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                SetValue(ref _id, value);
+            } 
+        }
+
         
         private string _mail;
         public string Mail
@@ -73,6 +86,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 SetValue(ref _username, value);
             }
         }
+
+        
 
         
 
@@ -148,7 +163,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
             
             SetDataForEditingCommand = new Command(async vm => await SetData());
-            SaveCommand = new Command(async vm => await SaveFilmData());
+            SaveCommand = new Command(async vm => await SaveUserData());
             BackCommand = new Command(async vm => await GoBack());
             
             MailCompletedCommand = new Command<Entry>(vm => MailEntryCompleted(vm));
@@ -164,6 +179,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
             
             
+            
         }
 
         private async Task SetData()
@@ -172,93 +188,66 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
             
 
-            if (Film != null)
+            if (User != null)
             {
-                //Overwrite Title, Year and Genre entries
-                Id = Film.Id;
-                Title = Film.Title;
-                Year = Film.Year.ToString();
-                Genre = Film.Genre;
+                //Overwrite entries
+                Id = User.Id;
+                
+                Mail = User.Mail;
+                
+                Name = User.Name;
+                
+                Roles = User.Roles;
+                
+                Surname = User.Surname;
+                
+                Username = User.Username;
+                
 
-                //Overwrite FilmMaker entry
-                for (int i = 0; i < FilmMakersAvailable.Count; i++)
-                {
-                    if (FilmMakersAvailable[i].Id.Equals(Film.FilmMaker))
-                    {
-                        FilmMaker = FilmMakersAvailable[i];
-                    }
-                }
+                
 
-                //Remove from ActorCastAvailable all the Actors which are already inserted
-                for (int k = 0; k < ActorsCastAvailable.Count; k++)
-                {
-                    for (int h = 0; h < ActorsCastInserted.Count; h++)
-                    {
-                        if(ActorsCastAvailable.Count != 0)
-                        {
-                            if (ActorsCastInserted[h].Id.Equals(ActorsCastAvailable[k].Id))
-                            {
-                                ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
-                                k = 0;
-                                h = 0;
-                            }
-                        }
-                    }
-                }
+                
+
+                
                 IsPresent = true;
             }
             else
             {
-                Film = new Film();
-                ActorsCastInserted = new ObservableCollection<Actor>();
+                User = new User();
+                 
             }
                 
         }
 
-        private void TitleEntryCompleted(Entry FilmTitle)
+        
+        private void MailEntryCompleted(Entry UserMail)
         {
-            Title = FilmTitle.Text;
+            Mail = UserMail.Text;
+        }
+        private void NameEntryCompleted(Entry UserName)
+        {
+            Name = UserName.Text;
+        }
+        private void RolesEntryCompleted(Entry UserRoles)
+        {
+            Roles = UserRoles.Text;
+        }
+        private void SurnameEntryCompleted(Entry UserSurname)
+        {
+            Surname = UserSurname.Text;
+        }
+        private void UsernameEntryCompleted(Entry UserUsername)
+        {
+            Username = UserUsername.Text;
         }
 
-        private void YearEntryCompleted(Entry FilmYear)
-        {
-            Year = FilmYear.Text;
-        }
+        
 
-        private void GenreCompleted(Picker picker)
-        {
-            Genre = (string)picker.SelectedItem;
-        }
+        
 
-        private void ActorCompleted(Picker picker)
-        {
-           Actor actorSelected = (Actor)picker.SelectedItem;
-            if (actorSelected != null)
-            {
-                ActorsCastInserted.Add(actorSelected);
-                bool found = false;
-                int iterator = 0;
-                while(iterator < ActorsCastAvailable.Count && !found)
-                {
-                    if (actorSelected.Id.Equals(ActorsCastAvailable[iterator].Id))
-                    {
-                        found = true;
-                    }
-                    iterator++;
-                }
+        
 
-                //DO NOT TOUCH
-                //This allows to modify the ItemSource of the Picker dynamically where actors can be selected
-                ObservableCollection<Actor> support = new ObservableCollection<Actor>(ActorsCastAvailable);
-                support.RemoveAt(iterator-1);
-                ActorsCastAvailable = support;
-            }            
-        }
-
-        private void FilmMakerCompleted(Picker picker)
-        {
-            FilmMaker = (FilmMaker)picker.SelectedItem;
-        }
+        
 
         private async Task GoBack()
         {
@@ -267,39 +256,35 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
         }
 
-        private async Task SaveFilmData()
+        private async Task SaveUserData()
         {
-            //Check if there is any empty field
-            if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Genre) || string.IsNullOrWhiteSpace(Year) || FilmMaker == null)  
-            {
-                ErrorMessage = "One or more fields are empty";
-                return;
-            }
-            else
-            {
-                Film.Title = Title;
-                Film.Year = Int32.Parse(Year);
-                Film.Genre = Genre;
 
-                List<string> supportList = new List<string>();
-                foreach (Actor a in ActorsCastInserted)
-                    supportList.Add(a.Id);
-                Film.Cast = supportList.ToArray();
+            
+                User.Mail = Mail;
+            
+                User.Name = Name;
+            
+                User.Roles = Roles;
+            
+                User.Surname = Surname;
+            
+                User.Username = Username;
+            
+            
+            
 
-                Film.FilmMaker = FilmMaker.Id;
-
+            
+            
                 if (IsPresent)
                 {
-                    Film.Id = Film.Id;
-                    await App.filmService.PUT(Film);
+                    User.Id = User.Id;
+                    await App.userService.PUT(User);
                 }
                 else
-                    await App.filmService.POST(Film);
+                    await App.userService.POST(User);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PopAsync();
-            }
-            
+                await masterDetailPage.Detail.Navigation.PopAsync();   
         }
     }
 }

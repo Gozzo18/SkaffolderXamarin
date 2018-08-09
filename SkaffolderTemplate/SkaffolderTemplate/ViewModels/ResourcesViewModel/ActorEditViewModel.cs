@@ -12,6 +12,19 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
     public class ActorEditViewModel : BaseViewModel
     {
         #region Attributes and Properties
+        private string _id;
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                SetValue(ref _id, value);
+            } 
+        }
+
         
         private DateTime _birthDate;
         public DateTime BirthDate
@@ -49,6 +62,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 SetValue(ref _surname, value);
             }
         }
+
+        
 
         
 
@@ -120,14 +135,15 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
             
             SetDataForEditingCommand = new Command(async vm => await SetData());
-            SaveCommand = new Command(async vm => await SaveFilmData());
+            SaveCommand = new Command(async vm => await SaveActorData());
             BackCommand = new Command(async vm => await GoBack());
-            
-            BirthDateCompletedCommand = new Command<Entry>(vm => BirthDateEntryCompleted(vm));
             
             NameCompletedCommand = new Command<Entry>(vm => NameEntryCompleted(vm));
             
             SurnameCompletedCommand = new Command<Entry>(vm => SurnameEntryCompleted(vm));
+            
+            
+            BirthDateCompletedCommand = new Command<DateTime>(vm => BirthDatePickerSelected(vm));
             
             
             
@@ -140,93 +156,54 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
             
 
-            if (Film != null)
+            if (Actor != null)
             {
-                //Overwrite Title, Year and Genre entries
-                Id = Film.Id;
-                Title = Film.Title;
-                Year = Film.Year.ToString();
-                Genre = Film.Genre;
+                //Overwrite entries
+                Id = Actor.Id;
+                
+                BirthDate = Actor.BirthDate;
+                
+                Name = Actor.Name;
+                
+                Surname = Actor.Surname;
+                
 
-                //Overwrite FilmMaker entry
-                for (int i = 0; i < FilmMakersAvailable.Count; i++)
-                {
-                    if (FilmMakersAvailable[i].Id.Equals(Film.FilmMaker))
-                    {
-                        FilmMaker = FilmMakersAvailable[i];
-                    }
-                }
+                
 
-                //Remove from ActorCastAvailable all the Actors which are already inserted
-                for (int k = 0; k < ActorsCastAvailable.Count; k++)
-                {
-                    for (int h = 0; h < ActorsCastInserted.Count; h++)
-                    {
-                        if(ActorsCastAvailable.Count != 0)
-                        {
-                            if (ActorsCastInserted[h].Id.Equals(ActorsCastAvailable[k].Id))
-                            {
-                                ActorsCastAvailable.Remove(ActorsCastAvailable[k]);
-                                k = 0;
-                                h = 0;
-                            }
-                        }
-                    }
-                }
+                
+
+                
                 IsPresent = true;
             }
             else
             {
-                Film = new Film();
-                ActorsCastInserted = new ObservableCollection<Actor>();
+                Actor = new Actor();
+                 
             }
                 
         }
 
-        private void TitleEntryCompleted(Entry FilmTitle)
+        
+        private void NameEntryCompleted(Entry ActorName)
         {
-            Title = FilmTitle.Text;
+            Name = ActorName.Text;
+        }
+        private void SurnameEntryCompleted(Entry ActorSurname)
+        {
+            Surname = ActorSurname.Text;
         }
 
-        private void YearEntryCompleted(Entry FilmYear)
+        
+        private void BirthDatePickerSelected(DateTime ActorBirthDate)
         {
-            Year = FilmYear.Text;
+            BirthDate = ActorBirthDate;
         }
 
-        private void GenreCompleted(Picker picker)
-        {
-            Genre = (string)picker.SelectedItem;
-        }
+        
 
-        private void ActorCompleted(Picker picker)
-        {
-           Actor actorSelected = (Actor)picker.SelectedItem;
-            if (actorSelected != null)
-            {
-                ActorsCastInserted.Add(actorSelected);
-                bool found = false;
-                int iterator = 0;
-                while(iterator < ActorsCastAvailable.Count && !found)
-                {
-                    if (actorSelected.Id.Equals(ActorsCastAvailable[iterator].Id))
-                    {
-                        found = true;
-                    }
-                    iterator++;
-                }
+        
 
-                //DO NOT TOUCH
-                //This allows to modify the ItemSource of the Picker dynamically where actors can be selected
-                ObservableCollection<Actor> support = new ObservableCollection<Actor>(ActorsCastAvailable);
-                support.RemoveAt(iterator-1);
-                ActorsCastAvailable = support;
-            }            
-        }
-
-        private void FilmMakerCompleted(Picker picker)
-        {
-            FilmMaker = (FilmMaker)picker.SelectedItem;
-        }
+        
 
         private async Task GoBack()
         {
@@ -235,39 +212,31 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
         }
 
-        private async Task SaveFilmData()
+        private async Task SaveActorData()
         {
-            //Check if there is any empty field
-            if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Genre) || string.IsNullOrWhiteSpace(Year) || FilmMaker == null)  
-            {
-                ErrorMessage = "One or more fields are empty";
-                return;
-            }
-            else
-            {
-                Film.Title = Title;
-                Film.Year = Int32.Parse(Year);
-                Film.Genre = Genre;
 
-                List<string> supportList = new List<string>();
-                foreach (Actor a in ActorsCastInserted)
-                    supportList.Add(a.Id);
-                Film.Cast = supportList.ToArray();
+            
+                Actor.BirthDate = BirthDate;
+            
+                Actor.Name = Name;
+            
+                Actor.Surname = Surname;
+            
+            
+            
 
-                Film.FilmMaker = FilmMaker.Id;
-
+            
+            
                 if (IsPresent)
                 {
-                    Film.Id = Film.Id;
-                    await App.filmService.PUT(Film);
+                    Actor.Id = Actor.Id;
+                    await App.actorService.PUT(Actor);
                 }
                 else
-                    await App.filmService.POST(Film);
+                    await App.actorService.POST(Actor);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PopAsync();
-            }
-            
+                await masterDetailPage.Detail.Navigation.PopAsync();   
         }
     }
 }
