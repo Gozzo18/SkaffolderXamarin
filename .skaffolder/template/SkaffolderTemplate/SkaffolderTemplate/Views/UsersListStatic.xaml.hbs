@@ -1,6 +1,6 @@
 **** PROPERTIES SKAFFOLDER ****
 {
-    "forEachObj": "resource",
+    "forEachObj": "oneTime",
     "overwrite": true,
     "_partials": []
 }
@@ -9,8 +9,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
-             x:Class="SkaffolderTemplate.Views.List.{{capitalize resource.name}}sList"
-             Title="{{capitalize resource.name}}">
+             x:Class="SkaffolderTemplate.Views.UsersListStatic"
+             Title="Manage Users">
     <ContentPage.Content>
         <RelativeLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"
@@ -30,7 +30,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOf{{capitalize resource.name}}s" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOf{{capitalize resource.name}}s_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfUsers" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOfUsers_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>
@@ -39,18 +39,30 @@
                             <customrenderer:CustomViewCell>
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
-                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">{{#each resource._entity._attrs}}{{#notEqual name "password"}}
-                                            <Label Text="{{name}}:"/>
-                                            <Label Text="{Binding {{capitalize name}} }" TextColor="White"/>{{/notEqual}}{{/each}}
+                                        <StackLayout HorizontalOptions="Start" x:Name="UserItem">
+                                            <Label Text="Username:"/>
+                                            <Label Text="{Binding Username}" TextColor="White"/>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                                <StackLayout>
+                                                    <Label Text="Name:"/>
+                                                    <Label Text="{Binding Name}" TextColor="White"/>
+                                                </StackLayout>
+                                                <StackLayout Margin="75,0,0,0">
+                                                    <Label Text="Surname:"/>
+                                                    <Label Text="{Binding Surname}" TextColor="White"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Label Text="Email"/>
+                                            <Label Text="{Binding Mail}" TextColor="White"/>
+                                            <Label Text="Role:"/>
+                                            <Label Text="{Binding Roles[0]}" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfUsers}, Path=BindingContext}" Command="{Binding DeleteUserCommand}" CommandParameter="{Binding Source={x:Reference UserItem}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
-                                            <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

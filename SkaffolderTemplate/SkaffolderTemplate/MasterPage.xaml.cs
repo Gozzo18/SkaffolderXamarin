@@ -41,18 +41,22 @@ namespace SkaffolderTemplate
                 {
                     case "Actors":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorsList());
+                        
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
                     case "Films":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmsList());
+                        
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
                     case "FilmMakers":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakersList());
+                        
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
                     case "Users":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersList());
+                        
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersListStatic());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
                     // Start Detail Page Elements Independent

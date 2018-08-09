@@ -7,13 +7,13 @@
         "name": "Services declare",
         "tagFrom": "// Start declare services",
         "tagTo": "// End declare services",
-        "template": "{{#each resources.0._resources}}\t\tpublic static {{capitalize name}}RestService {{lowercase name}}Service { get; private set; }\n{{/each}}"
+        "template": "{{#each resources.0._resources}}\t\tpublic static {{capitalize name}}RestService {{lowercase name}}Service { get; private set; }\n{{/each}}\n\t\t"
     },
     {
         "name": "Services create",
         "tagFrom": "// Start create services",
         "tagTo": "// End create services",
-        "template": "{{#each resources.0._resources}}\t\t\t{{lowercase name}}Service = new {{capitalize name}}RestService();\n{{/each}}"
+        "template": "{{#each resources.0._resources}}\t\t\t{{lowercase name}}Service = new {{capitalize name}}RestService();\n{{/each}}\n\t\t\t"
     }
     ]
 }

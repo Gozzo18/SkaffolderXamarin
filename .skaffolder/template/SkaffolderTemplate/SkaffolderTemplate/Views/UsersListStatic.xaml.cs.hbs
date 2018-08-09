@@ -1,45 +1,44 @@
 **** PROPERTIES SKAFFOLDER ****
 {
-    "forEachObj": "resource",
+    "forEachObj": "oneTime",
     "overwrite": true,
     "_partials": []
 }
 **** END PROPERTIES SKAFFOLDER ****
-using SkaffolderTemplate.ViewModels.ResourcesViewModel;
-using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SkaffolderTemplate.ViewModels;
 
-namespace SkaffolderTemplate.Views.List
+namespace SkaffolderTemplate.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class {{capitalize resource.name}}sList : ContentPage
-	{
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class UsersListStatic : ContentPage
+    {
         //Set ViewModel for BindingContext
-        private {{capitalize resource.name}}sListViewModel ViewModel
+        private UsersListStaticViewModel ViewModel
         {
             get
             {
-                return BindingContext as {{capitalize resource.name}}sListViewModel;
+                return BindingContext as UsersListStaticViewModel;
             }
             set
             {
                 BindingContext = value;
             }
         }
-        
-		public {{capitalize resource.name}}sList ()
-		{
+
+        public UsersListStatic()
+        {
             //Setting BindingContext
-            ViewModel = new {{capitalize resource.name}}sListViewModel();
-            InitializeComponent ();
-		}
+            BindingContext = new UsersListStaticViewModel();
+            InitializeComponent();
+        }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             //Loading data with API request
-            ViewModel.LoadDataCommand.Execute(null);           
+            ViewModel.LoadDataCommand.Execute(null);
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -47,8 +46,8 @@ namespace SkaffolderTemplate.Views.List
             ViewModel.SearchCommand.Execute(null);
         }
 
-        //Remove graphic effect on ListView
-        private void MainListOf{{capitalize resource.name}}s_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //Hide graphic effect on ListView
+        private void MainListOfUsers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

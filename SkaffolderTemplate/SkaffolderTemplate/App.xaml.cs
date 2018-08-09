@@ -18,7 +18,7 @@ namespace SkaffolderTemplate
 		public static FilmRestService filmService { get; private set; }
 		public static FilmMakerRestService filmmakerService { get; private set; }
 		public static UserRestService userService { get; private set; }
- // End declare services        
+		 // End declare services        
         public static LoginRestService loginService { get; private set; }
 
         public App()
@@ -29,7 +29,7 @@ namespace SkaffolderTemplate
 			filmService = new FilmRestService();
 			filmmakerService = new FilmMakerRestService();
 			userService = new UserRestService();
- // End create services
+			 // End create services
             loginService = new LoginRestService();
 
             MainPage = new NavigationPage(new LoginPage());

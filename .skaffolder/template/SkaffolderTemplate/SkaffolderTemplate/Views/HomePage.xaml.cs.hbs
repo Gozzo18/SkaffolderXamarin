@@ -30,8 +30,9 @@ namespace SkaffolderTemplate.Views
             var label = sender as Label;
             var masterPage = App.Current.MainPage as MasterDetailPage;
             {{#each resources.0._resources}}
-            if (label.Text.Equals("{{capitalize name}}"))
-                masterPage.Detail = new NavigationPage(new {{capitalize name}}sList());
+            if (label.Text.Equals("{{capitalize name}}s"))
+                {{#notEqual name "User"}}masterPage.Detail = new NavigationPage(new {{capitalize name}}sList());{{/notEqual}}
+                {{#equal name "User"}}masterPage.Detail = new NavigationPage(new UsersListStatic());{{/equal}}
             {{/each}}
         }
     }
