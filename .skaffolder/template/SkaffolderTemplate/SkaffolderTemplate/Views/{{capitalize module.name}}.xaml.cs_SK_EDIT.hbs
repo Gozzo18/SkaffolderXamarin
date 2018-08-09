@@ -1,10 +1,3 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "resource",
-    "overwrite": true,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.ViewModels.ResourcesViewModel;
 using System;
@@ -15,14 +8,14 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class {{capitalize resource.name}}Edit : ContentPage
+    public partial class {{capitalize crudResource.name}}Edit : ContentPage
     {
         //Set ViewModel for BindingContext
-        private {{capitalize resource.name}}EditViewModel ViewModel
+        private {{capitalize crudResource.name}}EditViewModel ViewModel
         {
             get
             {
-                return BindingContext as {{capitalize resource.name}}EditViewModel;
+                return BindingContext as {{capitalize crudResource.name}}EditViewModel;
             }
             set
             {
@@ -30,10 +23,10 @@ namespace SkaffolderTemplate.Views
             }
         }
 
-        public {{capitalize resource.name}}Edit ({{capitalize resource.name}} {{lowercase resource.name}}{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
+        public {{capitalize crudResource.name}}Edit ({{capitalize crudResource.name}} {{lowercase crudResource.name}}{{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}, ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
 		{
             //Setting BindingContext
-            ViewModel = new {{capitalize resource.name}}EditViewModel({{lowercase resource.name}}{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}});
+            ViewModel = new {{capitalize crudResource.name}}EditViewModel({{lowercase crudResource.name}}{{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}, {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}});
 			InitializeComponent ();
         }
 
@@ -43,30 +36,30 @@ namespace SkaffolderTemplate.Views
             this.Navigation.RemovePage(this.Navigation.NavigationStack[this.Navigation.NavigationStack.Count - 2 ]);
 
             base.OnAppearing();
-            {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
             //Set the ItemSource for all the Pickers
             ViewModel.SetDataForEditingCommand.Execute(null);{{/equal}}{{/equal}}{{/each}}
         }
 
-        {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+        {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
         private void {{capitalize name}}Entry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.{{capitalize name}}CompletedCommand.Execute(sender as Entry);
         }{{/isNull}}{{/notEqual}}{{/each}}
 
-        {{#each resource._entity._attrs}}{{#notNull _enum}}
+        {{#each crudResource._entity._attrs}}{{#notNull _enum}}
         private void Picker{{capitalize name}}_SelectedIndexChanged(object sender, EventArgs e)
         {
             ViewModel.Selected{{capitalize name}}Command.Execute(sender as Picker);
         }{{/notNull}}{{/each}}
 
-        {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        {{#each crudResource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
         private void Picker{{_ent2.name}}_SelectedIndexChanged(object sender, EventArgs e)
         {
              ViewModel.Selected{{_ent2.name}}Command.Execute(sender as Picker); 
         }{{/equal}}{{/equal}}{{/each}}
 
-        {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
         private void Picker{{capitalize name}}_SelectedIndexChanged(object sender, EventArgs e)
         {
                 ViewModel.Selected{{capitalize name}}Command.Execute(sender as Picker);

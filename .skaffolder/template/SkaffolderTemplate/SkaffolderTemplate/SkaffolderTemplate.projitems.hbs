@@ -2,7 +2,32 @@
 {
     "forEachObj": "oneTime",
     "overwrite": true,
-    "_partials": []
+    "_partials": [
+    {
+      "name": "Dynamic EmbeddedResource",
+      "tagFrom": "<!-- Start EmbeddedResource -->",
+      "tagTo": "<!-- End EmbeddedResource -->",
+      "template": "{{#each modules}}\t\t<EmbeddedResource Include=\"$(MSBuildThisFileDirectory)Views\\\\{{capitalize name}}.xaml\"/>\n\t\t{{#equal template \"Edit_Crud\"}}\n\t\t<EmbeddedResource Include=\"$(MSBuildThisFileDirectory)Views\\Loading\\\\{{capitalize name}}LoadingView.xaml\"/>\n{{/equal}}{{/each}}\t "
+    },
+    {
+      "name": "Dynamic Resources .cs",
+      "tagFrom": "<!-- Start Dynamic Resources .cs -->",
+      "tagTo": "   <!-- End Dynamic Resources .cs -->",
+      "template": "{{#each resources.0._resources}}\t\t<Compile Include=\"$(MSBuildThisFileDirectory)Models\\\\{{capitalize name}}.cs\"/>\n\t\t<Compile Include=\"$(MSBuildThisFileDirectory)Models\\Base\\\\{{capitalize name}}Base.cs\"/>\n\t\t<Compile Include=\"$(MSBuildThisFileDirectory)Rest\\\\{{capitalize name}}RestService.cs\"/>\n\t\t<Compile Include=\"$(MSBuildThisFileDirectory)Rest\\Base\\\\{{capitalize name}}RestServiceBase.cs\"/>\n{{/each}}"
+    },
+    {
+      "name": "Dynamic ViewModels",
+      "tagFrom": "<!-- Start ViewModels -->",
+      "tagTo": "   <!-- End ViewModels -->",
+      "template": "{{#each modules}}{{#notEqual name \"Home\"}}\t\t<Compile Include=\"$(MSBuildThisFileDirectory)ViewModels\\ResourcesViewModel\\\\{{capitalize name}}ViewModel.cs\"/>\n{{/notEqual}}{{/each}}"
+    },
+    {
+      "name": "Dynamic Pages",
+      "tagFrom": "<!-- Start Dynamic Pages -->",
+      "tagTo": "   <!-- End Dynamic Pages -->",
+      "template": "{{#each modules}}{{#notEqual name \"Home\"}}{{#equal template \"Edit_Crud\"}}\t\t<Compile Include=\"$(MSBuildThisFileDirectory)Views\\Loading\\\\{{capitalize name}}LoadingView.xaml.cs\">\n\t\t\t<DependentUpon>{{capitalize name}}LoadingView.xaml</DependentUpon>\n\t\t</Compile>\n\t\t{{/equal}}\n\t\t<Compile Include=\"$(MSBuildThisFileDirectory)Views\\\\{{capitalize name}}.xaml.cs\">\n\t\t\t<DependentUpon>{{capitalize name}}.xaml</DependentUpon>\n\t\t</Compile>\n{{/notEqual}}{{/each}}"
+    }
+    ]
 }
 **** END PROPERTIES SKAFFOLDER ****
 <?xml version="1.0" encoding="utf-8"?>
@@ -16,25 +41,16 @@
     <Import_RootNamespace>SkaffolderTemplate</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <!-- Start EmbeddedResource -->
+
+    <!-- End EmbeddedResource -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\UserEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\ActorEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\FilmEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Edit\FilmMakerEdit.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\UsersList.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmsList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Profile.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UsersListStatic.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\UserLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\ActorLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\FilmMakerLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\FilmLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\ActorsList.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\List\FilmMakersList.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ChangePasswordPopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\ConfirmDeletePopUp.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Extensions\TokenExpiredPopUp.xaml" />
@@ -44,89 +60,41 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CustomRenderer\CustomViewCell.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\UserBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\RestClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\UserRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Support\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\ActorBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmMakerBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\ActorRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmMakerRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmRestServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Rest\Security\LoginRestService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Support\TokenExpiredHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ActorEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ActorsListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordPopUpViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmMakerEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmMakersListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmsListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\UsersListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\UserEditViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UsersListStaticViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterNewUserViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\UserLoadingView.xaml.cs">
-      <DependentUpon>UserLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\ActorLoadingView.xaml.cs">
-      <DependentUpon>ActorLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\FilmMakerLoadingView.xaml.cs">
-      <DependentUpon>FilmMakerLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\FilmLoadingView.xaml.cs">
-      <DependentUpon>FilmLoadingView.xaml</DependentUpon>
-    </Compile>
+    <!-- Start Dynamic Resources .cs -->
+    
+    <!-- End Dynamic Resources .cs -->
+    <!-- Start ViewModels -->
+    
+    <!-- End ViewModels -->
+    <!-- Start Dynamic Pages -->
+
+    <!-- End Dynamic Pages -->
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml.cs">
       <DependentUpon>RegisterNewUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmsList.xaml.cs">
-      <DependentUpon>FilmsList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\ActorsList.xaml.cs">
-      <DependentUpon>ActorsList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\FilmMakersList.xaml.cs">
-      <DependentUpon>FilmMakersList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\ActorEdit.xaml.cs">
-      <DependentUpon>ActorEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\UserEdit.xaml.cs">
-      <DependentUpon>UserEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\FilmEdit.xaml.cs">
-      <DependentUpon>FilmEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Edit\FilmMakerEdit.xaml.cs">
-      <DependentUpon>FilmMakerEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\List\UsersList.xaml.cs">
-      <DependentUpon>UsersList.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
@@ -145,8 +113,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Views\List\ " />
-    <Folder Include="$(MSBuildThisFileDirectory)Views\Edit\ " />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Loading\ " />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ " />
   </ItemGroup>

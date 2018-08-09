@@ -1,5 +1,5 @@
 using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views.Edit;
+using SkaffolderTemplate.Views;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,12 +7,12 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ActorLoadingView : ContentPage
+	public partial class ActorListLoadingView : ContentPage
 	{
         private Actor actor;
         
 
-		public ActorLoadingView (Actor actorToEdit)
+		public ActorListLoadingView (Actor actorToEdit)
 		{
             actor = actorToEdit;
             

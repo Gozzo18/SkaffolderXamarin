@@ -1,5 +1,5 @@
 using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views.Edit;
+using SkaffolderTemplate.Views;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,12 +7,12 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmMakerLoadingView : ContentPage
+	public partial class FilmMakerEditLoadingView : ContentPage
 	{
         private FilmMaker filmmaker;
         
 
-		public FilmMakerLoadingView (FilmMaker filmmakerToEdit)
+		public FilmMakerEditLoadingView (FilmMaker filmmakerToEdit)
 		{
             filmmaker = filmmakerToEdit;
             

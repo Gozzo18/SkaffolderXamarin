@@ -1,5 +1,5 @@
 using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views.Edit;
+using SkaffolderTemplate.Views;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,31 +7,31 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class UserLoadingView : ContentPage
+	public partial class FilmMakerListLoadingView : ContentPage
 	{
-        private User user;
+        private FilmMaker filmmaker;
         
 
-		public UserLoadingView (User userToEdit)
+		public FilmMakerListLoadingView (FilmMaker filmmakerToEdit)
 		{
-            user = userToEdit;
+            filmmaker = filmmakerToEdit;
             
 			InitializeComponent();
 		}
 
-        //Load data that will be used by UserEdit
+        //Load data that will be used by FilmMakerEdit
         protected override async void OnAppearing()
         {
-            if (user != null)
+            if (filmmaker != null)
             {
                 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(user), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(filmmaker), false);
             }
             else
             {
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new UserEdit(null), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new FilmMakerEdit(null), false);
             }
             this.OnDisappearing();
         

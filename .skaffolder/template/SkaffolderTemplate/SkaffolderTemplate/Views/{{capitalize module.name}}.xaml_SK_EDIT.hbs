@@ -1,17 +1,10 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "resource",
-    "overwrite": true,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
-             x:Class="SkaffolderTemplate.Views.{{capitalize resource.name}}Edit"
-             Title="{{capitalize resource.name}}">
+             x:Class="SkaffolderTemplate.Views.{{capitalize crudResource.name}}Edit"
+             Title="{{capitalize crudResource.name}}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="label" TargetType="Label">
@@ -27,7 +20,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout>
-            <Label x:Name="Subtitle" Text="Edit {{capitalize resource.name}}" FontSize="Large" TextColor="#7970F5"
+            <Label x:Name="Subtitle" Text="Edit {{capitalize crudResource.name}}" FontSize="Large" TextColor="#7970F5"
                    RelativeLayout.XConstraint="{ConstraintExpression
                         Type=RelativeToParent,
                         Property=Width,
@@ -56,11 +49,11 @@
                         Property=Height,
                         Factor=0.8}">
                 <StackLayout>
-                    <ListView CachingStrategy="RecycleElement" {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}x:Name="{{name}}Inserted" ItemsSource="{Binding {{name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected"{{/equal}}{{/equal}}{{/each}} RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
+                    <ListView CachingStrategy="RecycleElement" {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}x:Name="{{name}}Inserted" ItemsSource="{Binding {{name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected"{{/equal}}{{/equal}}{{/each}} RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
                         <ListView.Header>
                             <StackLayout VerticalOptions="FillAndExpand"> 
-                                {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}<Picker x:Name="{{name}}Picker" IsVisible="False" ItemsSource="{Binding {{name}}Available}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged"/>{{/equal}}{{/equal}}{{/each}}                                
-                                {{#each resource._entity._attrs}}{{#notNull _enum}}
+                                {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}<Picker x:Name="{{name}}Picker" IsVisible="False" ItemsSource="{Binding {{name}}Available}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged"/>{{/equal}}{{/equal}}{{/each}}                                
+                                {{#each crudResource._entity._attrs}}{{#notNull _enum}}
                                 <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
                                 <Picker Title="{{capitalize name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
                                     <Picker.ItemsSource>
@@ -71,11 +64,11 @@
                                         </x:Array>
                                     </Picker.ItemsSource>
                                 </Picker>{{/notNull}}{{/each}}
-                                {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+                                {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
                                 <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
                                 <Entry Placeholder="{{capitalize name}}" PlaceholderColor="White" FontSize="Small" Text="{Binding {{capitalize name}} }" TextColor="White" Unfocused="{{capitalize name}}Entry_Unfocused" {{#equal type "Date"}}Keyboard="Numeric"{{/equal}} Margin="0,-6,0,0"/>
                                 {{/isNull}}{{/notEqual}}{{/each}}
-                                {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+                                {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
                                     <Label Text="{{capitalize name}}" VerticalOptions="Center" FontSize="Medium">
                                         <Label.GestureRecognizers>
@@ -91,7 +84,7 @@
                                 {{/equal}}{{/equal}}{{/each}}
                             </StackLayout>
                         </ListView.Header>
-                         {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+                         {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <customrenderer:CustomViewCell>
@@ -105,7 +98,7 @@
                         {{/equal}}{{/equal}}{{/each}}
                         <ListView.Footer>
                             <StackLayout>
-                                {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+                                {{#each crudResource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
                                 <Label Text="{{_ent2.name}}" Margin="12,0,0,0"/>
                                 <Picker Title="{{_ent2.name}}" TextColor="White" FontSize="Small" ItemsSource="{Binding {{_ent2.name}}sAvailable}" SelectedItem="{Binding {{_ent2.name}}, Mode=TwoWay}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{_ent2.name}}_SelectedIndexChanged"/>
                                 <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>

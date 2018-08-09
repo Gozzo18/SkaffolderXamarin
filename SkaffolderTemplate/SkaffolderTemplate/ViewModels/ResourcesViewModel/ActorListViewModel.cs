@@ -1,41 +1,37 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "oneTime",
-    "overwrite": false,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
 using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using SkaffolderTemplate.Views;
+using SkaffolderTemplate.Views.Loading;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace SkaffolderTemplate.ViewModels
+namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 {
-    public class ManageUsersViewModel : BaseViewModel
+    public class ActorListViewModel : BaseViewModel
     {
         #region Attributes and Properties
-        private ObservableCollection<User> _userList;
-        public ObservableCollection<User> UsersList
+        private ObservableCollection<Actor> _actorsList;
+        //This collection main purpose is to store data from API request 
+        public ObservableCollection<Actor> ActorsList
         {
             get
             {
-                return _userList;
+                return _actorsList;
             }
             set
             {
-                SetValue(ref _userList, value);
+                SetValue(ref _actorsList, value);
             }
         }
 
-        private ObservableCollection<User> _supportList;
-        public ObservableCollection<User> SupportList
+        private ObservableCollection<Actor> _supportList;
+        //This one instead is the ItemSource of the ListView. This allows to modify without any exceptions, the elements of the ListView.
+        public ObservableCollection<Actor> SupportList
         {
             get
             {
@@ -105,40 +101,47 @@ namespace SkaffolderTemplate.ViewModels
         public ICommand RefreshCommand { get; private set; }
         public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
-        public ICommand DeleteUserCommand
+
+        public ICommand EditActorCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
-                    var user = (e as User);
-                    //Check if the user to delete is the CurrentUser
-                    if (!user.Id.Equals(Application.Current.Properties["UserId"]))
+                    var actor = (e as Actor);
+                    var masterDetailPage = App.Current.MainPage as MasterDetailPage;
+                    await masterDetailPage.Detail.Navigation.PushAsync(new ActorEditLoadingView(actor), false);
+                });
+
+            }
+        }
+
+        public ICommand DeleteActorCommand
+        {
+            get
+            {
+                return new Command(async (e) =>
+                {
+                    //Pop Up allert appear
+                    await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
+                    MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2) =>
                     {
-                        //Check if the user to delete is an Admin
-                        if (!user.Roles[0].Equals("ADMIN"))
+                        //If Save button is tapped
+                        if (arg2)
                         {
-                            //Pop Up allert appear
-                            await PopupNavigation.Instance.PushAsync(new ConfirmDeletePopUp());
-                            MessagingCenter.Subscribe<ConfirmDeletePopUp, bool>(this, Events.ConfirmDelete, async (arg1, arg2) =>
-                            {
-                                //If Save button is tapped
-                                if (arg2)
-                                {
-                                    await App.userService.DELETE(user.Id);
-                                    await RefreshList();
-                                }
-                            });
+                            var actor = (e as Actor);
+                            await App.actorService.DELETE(actor.Id);
+                            await RefreshList();
                         }
-                    }                   
+                    });
                 });
             }
         }
         #endregion
 
-        public ManageUsersViewModel()
+        public ActorListViewModel()
         {
-            AddCommand = new Command(async vm => await AddNewUser());
+            AddCommand = new Command(async vm => await AddNewActor());
             RefreshCommand = new Command(async vm => await RefreshList());
             LoadDataCommand = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
@@ -146,18 +149,17 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task RefreshList()
         {
-            //When refreshing the ListView, we set to "" the field of the SearchBar
-            SearchedWord = "";
             Refreshing = true;
-            UsersList = await App.userService.GETList();
-            SupportList = new ObservableCollection<User>(UsersList);
+            ActorsList = await App.actorService.GETList();
+            SupportList = new ObservableCollection<Actor>(ActorsList);
             Refreshing = false;
         }
 
-        private async Task AddNewUser()
+        private async Task AddNewActor()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            await masterDetailPage.Detail.Navigation.PushAsync(new RegisterNewUser(), false);
+            
+            await masterDetailPage.Detail.Navigation.PushAsync(new ActorEdit(null), false);
         }
 
         private async Task GetRequest()
@@ -166,8 +168,8 @@ namespace SkaffolderTemplate.ViewModels
             IsBusy = true;
             IsLoaded = false;
 
-            UsersList = await App.userService.GETList();
-            SupportList = new ObservableCollection<User>(UsersList);
+            ActorsList = await App.actorService.GETList();
+            SupportList = new ObservableCollection<Actor>(ActorsList);
 
             //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
             IsBusy = false;
@@ -179,13 +181,14 @@ namespace SkaffolderTemplate.ViewModels
             //Capitalize first letter of SearcheWord
             if (SearchedWord.Length >= 1)
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
+
             if (string.IsNullOrWhiteSpace(SearchedWord))
-                SupportList = new ObservableCollection<User>(UsersList);
+                SupportList = new ObservableCollection<Actor>(ActorsList);
             else
             {
-                //The filtering of elements is based on their surnames. In case you wish to change, just overwrite c.Surname with c.YourField
-                var tempRecords = UsersList.Where(c => c.Surname.Contains(SearchedWord));
-                SupportList = new ObservableCollection<User>(tempRecords);
+                //The filtering of elements is based on the elemnts id. In case you wish to change, just overwrite c.Id with c.YourField
+                var tempRecords = ActorsList.Where(c => c.Id.Contains(SearchedWord));
+                SupportList = new ObservableCollection<Actor>(tempRecords);
             }
         }
     }

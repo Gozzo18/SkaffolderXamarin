@@ -14,10 +14,10 @@ namespace SkaffolderTemplate
     public partial class App : Application
     {
         // Start declare services
-		public static ActorRestService actorService { get; private set; }
-		public static FilmRestService filmService { get; private set; }
-		public static FilmMakerRestService filmmakerService { get; private set; }
-		public static UserRestService userService { get; private set; }
+		public static ActorRestService actorService { get; private set; }
+		public static FilmRestService filmService { get; private set; }
+		public static FilmMakerRestService filmmakerService { get; private set; }
+		public static UserRestService userService { get; private set; }
 		 // End declare services        
         public static LoginRestService loginService { get; private set; }
 
@@ -25,10 +25,10 @@ namespace SkaffolderTemplate
         {
             InitializeComponent();
             // Start create services
-			actorService = new ActorRestService();
-			filmService = new FilmRestService();
-			filmmakerService = new FilmMakerRestService();
-			userService = new UserRestService();
+			actorService = new ActorRestService();
+			filmService = new FilmRestService();
+			filmmakerService = new FilmMakerRestService();
+			userService = new UserRestService();
 			 // End create services
             loginService = new LoginRestService();
 

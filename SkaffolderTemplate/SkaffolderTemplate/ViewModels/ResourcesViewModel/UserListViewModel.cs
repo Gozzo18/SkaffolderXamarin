@@ -1,17 +1,9 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "resource",
-    "overwrite": true,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
 using Rg.Plugins.Popup.Services;
 using SkaffolderTemplate.Extensions;
 using SkaffolderTemplate.Models;
 using SkaffolderTemplate.Support;
 using SkaffolderTemplate.Views;
 using SkaffolderTemplate.Views.Loading;
-using SkaffolderTemplate.Views.Edit;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,26 +12,26 @@ using Xamarin.Forms;
 
 namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 {
-    public class {{capitalize resource.name}}sListViewModel : BaseViewModel
+    public class UserListViewModel : BaseViewModel
     {
         #region Attributes and Properties
-        private ObservableCollection<{{capitalize resource.name}}> _{{lowercase resource.name}}sList;
+        private ObservableCollection<User> _usersList;
         //This collection main purpose is to store data from API request 
-        public ObservableCollection<{{capitalize resource.name}}> {{capitalize resource.name}}sList
+        public ObservableCollection<User> UsersList
         {
             get
             {
-                return _{{lowercase resource.name}}sList;
+                return _usersList;
             }
             set
             {
-                SetValue(ref _{{lowercase resource.name}}sList, value);
+                SetValue(ref _usersList, value);
             }
         }
 
-        private ObservableCollection<{{capitalize resource.name}}> _supportList;
+        private ObservableCollection<User> _supportList;
         //This one instead is the ItemSource of the ListView. This allows to modify without any exceptions, the elements of the ListView.
-        public ObservableCollection<{{capitalize resource.name}}> SupportList
+        public ObservableCollection<User> SupportList
         {
             get
             {
@@ -110,21 +102,21 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         public ICommand LoadDataCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
 
-        public ICommand Edit{{capitalize resource.name}}Command
+        public ICommand EditUserCommand
         {
             get
             {
                 return new Command(async (e) =>
                 {
-                    var {{lowercase resource.name}} = (e as {{capitalize resource.name}});
+                    var user = (e as User);
                     var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                    await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}LoadingView({{lowercase resource.name}}), false);
+                    await masterDetailPage.Detail.Navigation.PushAsync(new UserEditLoadingView(user), false);
                 });
 
             }
         }
 
-        public ICommand Delete{{capitalize resource.name}}Command
+        public ICommand DeleteUserCommand
         {
             get
             {
@@ -137,8 +129,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                         //If Save button is tapped
                         if (arg2)
                         {
-                            var {{lowercase resource.name}} = (e as {{capitalize resource.name}});
-                            await App.{{lowercase resource.name}}Service.DELETE({{lowercase resource.name}}.Id);
+                            var user = (e as User);
+                            await App.userService.DELETE(user.Id);
                             await RefreshList();
                         }
                     });
@@ -147,27 +139,27 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         }
         #endregion
 
-        public {{capitalize resource.name}}sListViewModel()
+        public UserListViewModel()
         {
-            AddCommand = new Command(async vm => await AddNew{{capitalize resource.name}}());
+            AddCommand = new Command(async vm => await AddNewUser());
             RefreshCommand = new Command(async vm => await RefreshList());
-            LoadDataCommand = new Command<ObservableCollection<{{capitalize resource.name}}>>(async vm => await GetRequest());
+            LoadDataCommand = new Command<ObservableCollection<User>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
 
         private async Task RefreshList()
         {
             Refreshing = true;
-            {{capitalize resource.name}}sList = await App.{{lowercase resource.name}}Service.GETList();
-            SupportList = new ObservableCollection<{{capitalize resource.name}}>({{capitalize resource.name}}sList);
+            UsersList = await App.userService.GETList();
+            SupportList = new ObservableCollection<User>(UsersList);
             Refreshing = false;
         }
 
-        private async Task AddNew{{capitalize resource.name}}()
+        private async Task AddNewUser()
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-            {{#equal resource.name "User"}}await masterDetailPage.Detail.Navigation.PushAsync(new RegisterNewUser(),false);{{/equal}}
-            {{#notEqual resource.name "User"}}await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}Edit(null{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, null{{/equal}}{{/equal}}{{/each}}), false);{{/notEqual}}
+            await masterDetailPage.Detail.Navigation.PushAsync(new RegisterNewUser(),false);
+            
         }
 
         private async Task GetRequest()
@@ -176,8 +168,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             IsBusy = true;
             IsLoaded = false;
 
-            {{capitalize resource.name}}sList = await App.{{lowercase resource.name}}Service.GETList();
-            SupportList = new ObservableCollection<{{capitalize resource.name}}>({{capitalize resource.name}}sList);
+            UsersList = await App.userService.GETList();
+            SupportList = new ObservableCollection<User>(UsersList);
 
             //Once ListView finished loading, we stop ActivityIndicator and set visible again the ListView
             IsBusy = false;
@@ -191,12 +183,12 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 SearchedWord = char.ToUpper(SearchedWord[0]) + SearchedWord.Substring(1);
 
             if (string.IsNullOrWhiteSpace(SearchedWord))
-                SupportList = new ObservableCollection<{{capitalize resource.name}}>({{capitalize resource.name}}sList);
+                SupportList = new ObservableCollection<User>(UsersList);
             else
             {
                 //The filtering of elements is based on the elemnts id. In case you wish to change, just overwrite c.Id with c.YourField
-                var tempRecords = {{capitalize resource.name}}sList.Where(c => c.Id.Contains(SearchedWord));
-                SupportList = new ObservableCollection<{{capitalize resource.name}}>(tempRecords);
+                var tempRecords = UsersList.Where(c => c.Id.Contains(SearchedWord));
+                SupportList = new ObservableCollection<User>(tempRecords);
             }
         }
     }

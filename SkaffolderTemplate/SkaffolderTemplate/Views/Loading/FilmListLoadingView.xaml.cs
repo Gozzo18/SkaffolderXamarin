@@ -1,21 +1,25 @@
-﻿using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views.Edit;
+using SkaffolderTemplate.Models;
+using SkaffolderTemplate.Views;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views
+namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoadingView : ContentPage
+	public partial class FilmListLoadingView : ContentPage
 	{
         private Film film;
+        
         private ObservableCollection<Actor> actors;
+        
 
-		public LoadingView (Film filmToEdit)
+		public FilmListLoadingView (Film filmToEdit)
 		{
             film = filmToEdit;
+            
             actors = new ObservableCollection<Actor>();
+            
 			InitializeComponent();
 		}
 
@@ -24,12 +28,13 @@ namespace SkaffolderTemplate.Views
         {
             if (film != null)
             {
+                
                 foreach (string actorId in film.Cast)
                 {
-                    actors.Add(await App.actorService.GETId(actorId));
+                     actors.Add(await App. actorService.GETId(actorId));
                 }
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
-                await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(film, actors), false);
+                await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(film,  actors), false);
             }
             else
             {

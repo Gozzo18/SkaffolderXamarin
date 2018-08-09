@@ -1,16 +1,9 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "resource",
-    "overwrite": true,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customrenderer="clr-namespace:SkaffolderTemplate.CustomRenderer"
-             x:Class="SkaffolderTemplate.Views.{{capitalize resource.name}}sList"
-             Title="{{capitalize resource.name}}">
+             x:Class="SkaffolderTemplate.Views.{{capitalize crudResource.name}}List"
+             Title="{{capitalize crudResource.name}}">
     <ContentPage.Content>
         <RelativeLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"
@@ -30,7 +23,7 @@
                             Type=RelativeToParent,
                             Property=Height,
                             Factor=0.9}">
-                <ListView CachingStrategy="RecycleElement" x:Name="MainListOf{{capitalize resource.name}}s" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOf{{capitalize resource.name}}s_ItemSelected">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOf{{capitalize crudResource.name}}s" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOf{{capitalize crudResource.name}}s_ItemSelected">
                     <ListView.Header>
                         <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
                     </ListView.Header>
@@ -39,7 +32,7 @@
                             <customrenderer:CustomViewCell>
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
-                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">{{#each resource._entity._attrs}}{{#notEqual name "password"}}
+                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">{{#each crudResource._entity._attrs}}{{#notEqual name "password"}}
                                             <Label Text="{{name}}:"/>
                                             <Label Text="{Binding {{capitalize name}} }" TextColor="White"/>{{/notEqual}}{{/each}}
                                         </StackLayout>

@@ -1,5 +1,5 @@
 using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views.List;
+using SkaffolderTemplate.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

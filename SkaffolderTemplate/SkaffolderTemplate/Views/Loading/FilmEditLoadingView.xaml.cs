@@ -1,5 +1,5 @@
 using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views.Edit;
+using SkaffolderTemplate.Views;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,14 +7,14 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilmLoadingView : ContentPage
+	public partial class FilmEditLoadingView : ContentPage
 	{
         private Film film;
         
         private ObservableCollection<Actor> actors;
         
 
-		public FilmLoadingView (Film filmToEdit)
+		public FilmEditLoadingView (Film filmToEdit)
 		{
             film = filmToEdit;
             

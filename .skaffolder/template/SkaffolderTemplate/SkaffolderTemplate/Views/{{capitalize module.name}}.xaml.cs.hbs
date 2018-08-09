@@ -1,3 +1,10 @@
+**** PROPERTIES SKAFFOLDER ****
+{
+    "forEachObj": "module",
+    "overwrite": true,
+    "_partials": []
+}
+**** END PROPERTIES SKAFFOLDER ****
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +17,9 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Home : ContentPage
+	public partial class {{module.name}} : ContentPage
 	{
-		public Home ()
+		public {{module.name}} ()
 		{
 			InitializeComponent ();
 		}

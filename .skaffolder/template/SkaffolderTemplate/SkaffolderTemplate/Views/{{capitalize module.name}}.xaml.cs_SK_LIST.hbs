@@ -1,10 +1,3 @@
-**** PROPERTIES SKAFFOLDER ****
-{
-    "forEachObj": "resource",
-    "overwrite": true,
-    "_partials": []
-}
-**** END PROPERTIES SKAFFOLDER ****
 using SkaffolderTemplate.ViewModels.ResourcesViewModel;
 using System;
 using Xamarin.Forms;
@@ -13,14 +6,14 @@ using Xamarin.Forms.Xaml;
 namespace SkaffolderTemplate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class {{capitalize resource.name}}sList : ContentPage
+	public partial class {{capitalize crudResource.name}}List : ContentPage
 	{
         //Set ViewModel for BindingContext
-        private {{capitalize resource.name}}sListViewModel ViewModel
+        private {{capitalize crudResource.name}}ListViewModel ViewModel
         {
             get
             {
-                return BindingContext as {{capitalize resource.name}}sListViewModel;
+                return BindingContext as {{capitalize crudResource.name}}ListViewModel;
             }
             set
             {
@@ -28,10 +21,10 @@ namespace SkaffolderTemplate.Views
             }
         }
         
-		public {{capitalize resource.name}}sList ()
+		public {{capitalize crudResource.name}}List ()
 		{
             //Setting BindingContext
-            ViewModel = new {{capitalize resource.name}}sListViewModel();
+            ViewModel = new {{capitalize crudResource.name}}ListViewModel();
             InitializeComponent ();
 		}
 
@@ -48,7 +41,7 @@ namespace SkaffolderTemplate.Views
         }
 
         //Remove graphic effect on ListView
-        private void MainListOf{{capitalize resource.name}}s_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MainListOf{{capitalize crudResource.name}}s_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
