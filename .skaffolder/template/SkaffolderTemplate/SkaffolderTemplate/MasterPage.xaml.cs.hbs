@@ -53,9 +53,8 @@ namespace SkaffolderTemplate
                 switch (arg2)
                 {
                     {{#each resources.0._resources}}
-                    case "{{capitalize name}}s":
-                        {{#notEqual name "User"}}((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new {{capitalize name}}sList());{{/notEqual}}
-                        {{#equal name "User"}}((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersListStatic());{{/equal}}
+                    case "{{capitalize name}}":
+                        {{#notEqual name "User"}}((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new {{capitalize name}}List());{{/notEqual}}{{#equal name "User"}}((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersListStatic());{{/equal}}
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
                     {{/each}}

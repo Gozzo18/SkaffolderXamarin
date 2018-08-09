@@ -38,23 +38,19 @@ namespace SkaffolderTemplate
             {
                 switch (arg2)
                 {
-                    case "Actors":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorsList());
-                        
+                    case "Actor":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new ActorList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                    case "Films":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmsList());
-                        
+                    case "Film":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                    case "FilmMakers":
-                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakersList());
-                        
+                    case "FilmMaker":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new FilmMakerList());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
-                    case "Users":
-                        
+                    case "User":
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersListStatic());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;

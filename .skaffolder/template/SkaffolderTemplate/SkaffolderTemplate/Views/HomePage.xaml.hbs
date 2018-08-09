@@ -31,7 +31,7 @@
         <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
             {{#each resources.0._resources}}
             <StackLayout Style="{StaticResource stackLayout}">
-                <Label Text="{{capitalize name}}s" Style="{StaticResource label}">
+                <Label Text="{{capitalize name}}" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
                     </Label.GestureRecognizers>
