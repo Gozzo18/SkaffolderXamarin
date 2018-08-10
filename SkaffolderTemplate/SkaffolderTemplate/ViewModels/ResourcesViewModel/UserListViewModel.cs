@@ -160,6 +160,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             await masterDetailPage.Detail.Navigation.PushAsync(new RegisterNewUser(),false);
             
+                                              
         }
 
         private async Task GetRequest()

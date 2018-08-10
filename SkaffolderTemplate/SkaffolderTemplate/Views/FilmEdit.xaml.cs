@@ -52,6 +52,7 @@ namespace SkaffolderTemplate.Views
         }
 
         
+        
         private void PickerGenre_SelectedIndexChanged(object sender, EventArgs e)
         {
             ViewModel.SelectedGenreCommand.Execute(sender as Picker);

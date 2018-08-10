@@ -103,7 +103,6 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
-        public ICommand SetDataForEditingCommand { get; private set; }
         
         public ICommand NameCompletedCommand { get; private set; }
         
@@ -118,9 +117,16 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         public FilmMakerEditViewModel(FilmMaker filmmakerToEdit)
         {
             FilmMaker = filmmakerToEdit;
+            
+            if(FilmMaker != null)
+            {
+                Name = FilmMaker.Name;
+                Surname = FilmMaker.Surname;
+                IsPresent = true;
+            }
+            
 
             
-            SetDataForEditingCommand = new Command(async vm => await SetData());
             SaveCommand = new Command(async vm => await SaveFilmMakerData());
             BackCommand = new Command(async vm => await GoBack());
             
@@ -131,39 +137,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
             
             
-            
         }
-
-        private async Task SetData()
-        {
-            
-            
-            
-
-            if (FilmMaker != null)
-            {
-                //Overwrite entries
-                Id = FilmMaker.Id;
-                
-                Name = FilmMaker.Name;
-                
-                Surname = FilmMaker.Surname;
-                
-
-                
-
-                
-
-                
-                IsPresent = true;
-            }
-            else
-            {
-                FilmMaker = new FilmMaker();
-                 
-            }
-                
-        }
+        
 
         
         private void NameEntryCompleted(Entry FilmMakerName)
@@ -192,11 +167,12 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         private async Task SaveFilmMakerData()
         {
+            FilmMaker filmmaker = new FilmMaker();
 
             
-                FilmMaker.Name = Name;
+                filmmaker.Name = Name;
             
-                FilmMaker.Surname = Surname;
+                filmmaker.Surname = Surname;
             
             
             
@@ -205,11 +181,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
                 if (IsPresent)
                 {
-                    FilmMaker.Id = FilmMaker.Id;
-                    await App.filmmakerService.PUT(FilmMaker);
+                    filmmaker.Id = FilmMaker.Id;
+                    await App.filmmakerService.PUT(filmmaker);
                 }
                 else
-                    await App.filmmakerService.POST(FilmMaker);
+                    await App.filmmakerService.POST(filmmaker);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PopAsync();   

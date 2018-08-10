@@ -49,6 +49,7 @@ namespace SkaffolderTemplate.Rest.Base
         {
             try
             {
+                {{#equal resource.name "User"}}item.Password = App.loginService.EncryptPassword(item.Password);{{/equal}}
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync({{capitalize resource.name}}Api, content);

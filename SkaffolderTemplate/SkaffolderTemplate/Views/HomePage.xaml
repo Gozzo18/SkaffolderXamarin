@@ -22,7 +22,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
-            <StackLayout Style="{StaticResource stackLayout}">
+            <StackLayout Style="{StaticResource stackLayout}" >
                 <Label Text="Actor" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
@@ -30,7 +30,7 @@
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            <StackLayout Style="{StaticResource stackLayout}">
+            <StackLayout Style="{StaticResource stackLayout}" >
                 <Label Text="Film" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
@@ -38,7 +38,7 @@
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            <StackLayout Style="{StaticResource stackLayout}">
+            <StackLayout Style="{StaticResource stackLayout}" >
                 <Label Text="FilmMaker" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>
@@ -46,7 +46,7 @@
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
-            <StackLayout Style="{StaticResource stackLayout}">
+            <StackLayout Style="{StaticResource stackLayout}" x:Name="UserLabel">
                 <Label Text="User" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>

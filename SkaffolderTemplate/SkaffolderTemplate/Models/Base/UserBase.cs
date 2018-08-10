@@ -22,6 +22,7 @@ namespace SkaffolderTemplate.Models.Base
 			}
 		  // Id End 
 
+        
         private string mail;
         [JsonProperty(PropertyName = "mail")]
         public string Mail
@@ -61,19 +62,6 @@ namespace SkaffolderTemplate.Models.Base
                 SetValue(ref password, value);
             }
         }
-        private string roles;
-        [JsonProperty(PropertyName = "roles")]
-        public string Roles
-        {
-            get
-            {
-                return roles;
-            }
-            set
-            {
-                SetValue(ref roles, value);
-            }
-        }
         private string surname;
         [JsonProperty(PropertyName = "surname")]
         public string Surname
@@ -98,6 +86,20 @@ namespace SkaffolderTemplate.Models.Base
             set
             {
                 SetValue(ref username, value);
+            }
+        }
+        
+        private string[] roles;
+        [JsonProperty(PropertyName = "roles")]
+        public string[] Roles
+        {
+            get
+            {
+                return roles;
+            }
+            set
+            {
+                SetValue(ref roles, value);
             }
         }
         

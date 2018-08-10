@@ -22,6 +22,7 @@ namespace SkaffolderTemplate.Models.Base
 			}
 		  // Id End 
 
+        
         private string genre;
         [JsonProperty(PropertyName = "genre")]
         public string Genre
@@ -61,6 +62,7 @@ namespace SkaffolderTemplate.Models.Base
                 SetValue(ref year, value);
             }
         }
+        
         
         private string[] cast;
         [JsonProperty(PropertyName = "cast")]

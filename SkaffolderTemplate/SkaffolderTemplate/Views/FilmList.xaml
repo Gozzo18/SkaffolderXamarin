@@ -32,22 +32,22 @@
                             <customrenderer:CustomViewCell>
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
-                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">
-                                            <Label Text="genre:"/>
+                                        <StackLayout HorizontalOptions="Start" x:Name="FilmItem">
+                                            <Label Text="Genre:"/>
                                             <Label Text="{Binding Genre }" TextColor="White"/>
-                                            <Label Text="title:"/>
+                                            <Label Text="Title:"/>
                                             <Label Text="{Binding Title }" TextColor="White"/>
-                                            <Label Text="year:"/>
+                                            <Label Text="Year:"/>
                                             <Label Text="{Binding Year }" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilms}, Path=BindingContext}" Command="{Binding DeleteFilmCommand}" CommandParameter="{Binding Source={x:Reference FilmItem}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                             <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                        BindingContext="{Binding Source={x:Reference MainListOfFilms}, Path=BindingContext}" Command="{Binding EditFilmCommand}" CommandParameter="{Binding Source={x:Reference FilmItem}, Path=BindingContext}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

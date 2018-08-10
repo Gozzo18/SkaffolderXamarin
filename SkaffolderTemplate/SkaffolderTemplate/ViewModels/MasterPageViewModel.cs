@@ -32,7 +32,7 @@ namespace SkaffolderTemplate.ViewModels
             GetUserById = new Command(async vm => await GetIdRequest());
             SetDetailPage = new Command<Button>(vm => UpdateDetailPage(vm));
 
-            if (!Application.Current.Properties["CurrentUserRole"].Equals("ADMIN"))
+            if (!Settings.CurrentUserRole.Equals("ADMIN"))
                 IsAllowed = false;
             else
                 IsAllowed = true;
@@ -40,7 +40,7 @@ namespace SkaffolderTemplate.ViewModels
 
         private async Task GetIdRequest()
         {
-            User user = await App.userService.GETId((string)Application.Current.Properties["UserId"]);
+            User user = await App.userService.GETId((string)Settings.UserId);
             var masterPage = App.Current.MainPage as MasterDetailPage;
             masterPage.Detail = new NavigationPage(new Profile(user));
         }

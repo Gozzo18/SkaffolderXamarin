@@ -166,7 +166,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             {{#equal resource.name "User"}}await masterDetailPage.Detail.Navigation.PushAsync(new RegisterNewUser(),false);{{/equal}}
-            {{#notEqual resource.name "User"}}await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}Edit(null{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, null{{/equal}}{{/equal}}{{/each}}), false);{{/notEqual}}
+            {{#notEqual resource.name "User"}}await masterDetailPage.Detail.Navigation.PushAsync(new {{capitalize resource.name}}EditLoadingView(null), false);{{/notEqual}}
+                                              
         }
 
         private async Task GetRequest()

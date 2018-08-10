@@ -49,10 +49,10 @@
                         Property=Height,
                         Factor=0.8}">
                 <StackLayout>
-                    <ListView CachingStrategy="RecycleElement" {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}x:Name="{{name}}Inserted" ItemsSource="{Binding {{name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected"{{/equal}}{{/equal}}{{/each}} RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
+                    <ListView CachingStrategy="RecycleElement" {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}x:Name="{{name}}Inserted" ItemsSource="{Binding {{capitalize name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected"{{/equal}}{{/equal}}{{/each}} RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
                         <ListView.Header>
                             <StackLayout VerticalOptions="FillAndExpand"> 
-                                {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}<Picker x:Name="{{name}}Picker" IsVisible="False" ItemsSource="{Binding {{name}}Available}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged"/>{{/equal}}{{/equal}}{{/each}}                                
+                                {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}<Picker x:Name="{{name}}Picker" IsVisible="False" ItemsSource="{Binding {{capitalize name}}Available}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged"/>{{/equal}}{{/equal}}{{/each}}                                
                                 {{#each crudResource._entity._attrs}}{{#notNull _enum}}
                                 <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
                                 <Picker Title="{{capitalize name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
@@ -64,10 +64,14 @@
                                         </x:Array>
                                     </Picker.ItemsSource>
                                 </Picker>{{/notNull}}{{/each}}
-                                {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+                                {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
                                 <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
-                                <Entry Placeholder="{{capitalize name}}" PlaceholderColor="White" FontSize="Small" Text="{Binding {{capitalize name}} }" TextColor="White" Unfocused="{{capitalize name}}Entry_Unfocused" {{#equal type "Date"}}Keyboard="Numeric"{{/equal}} Margin="0,-6,0,0"/>
-                                {{/isNull}}{{/notEqual}}{{/each}}
+                                <Entry Placeholder="{{capitalize name}}" PlaceholderColor="White" FontSize="Small" Text="{Binding {{capitalize name}} }" {{#equal type "Number"}}Keyboard = "Numeric"{{/equal}} TextColor="White" Unfocused="{{capitalize name}}Entry_Unfocused" {{#equal type "Date"}}Keyboard="Numeric"{{/equal}} Margin="0,-6,0,0"/>
+                                {{/isNull}}{{/notEqual}}{{/notEqual}}{{/each}}
+                                {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#equal type "Date"}}{{#isNull _enum}}
+                                <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
+                                <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding {{capitalize name}} }" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
+                                {{/isNull}}{{/equal}}{{/notEqual}}{{/each}}
                                 {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
                                     <Label Text="{{capitalize name}}" VerticalOptions="Center" FontSize="Medium">

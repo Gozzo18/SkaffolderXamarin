@@ -52,7 +52,7 @@ namespace SkaffolderTemplate.Rest.Security
                     Settings.AuthenticationToken = user.Token;
                     Settings.UserId = user.Id;
                     Settings.Password = password;
-                    Settings.CurrentUserRole = user.Roles;
+                    Settings.CurrentUserRole = user.Roles[0];
                 }
             }catch (Exception e){
                 Debug.WriteLine(@"				ERROR{0}", e);

@@ -13,7 +13,7 @@
         "name": "OtherButtons",
         "tagFrom" : "<!--// Start Other Buttons -->",
         "tagTo": "<!--// End Other Buttons -->",
-        "template": "\t\t\t\t\t\t<Button Text=\"P r o f i l e\" Style=\"{StaticResource button}\" Clicked=\"Button_Clicked\"/>\n\t\t\t\t\t\t<Button Image=\"logout.png\" Text=\"L o g o u t\" Style=\"{StaticResource button}\" Clicked=\"Button_Clicked\"/>\n\t\t\t\t\t\t"
+        "template": "\t\t\t\t\t\t<Button Text=\"P r o f i l e\" Style=\"{StaticResource button}\" Clicked=\"Button_Clicked\" IsVisible=\"{Binding IsAllowed}\"/>\n\t\t\t\t\t\t<Button Image=\"logout.png\" Text=\"L o g o u t\" Style=\"{StaticResource button}\" Clicked=\"Button_Clicked\"/>\n\t\t\t\t\t\t"
     }
     ]
 }
@@ -41,7 +41,7 @@
                         <!--// Start Home Button -->
 
                         <!--// End Home Button -->{{#each resources.0._resources}}
-                        <Button Text="{{capitalize name}}s" Style="{StaticResource button}" Clicked="Button_Clicked"/>{{/each}}
+                        <Button Text="{{capitalize name}}" Style="{StaticResource button}" Clicked="Button_Clicked" {{#equal name "User"}}IsVisible="{Binding IsAllowed}"{{/equal}}/>{{/each}}
                     </StackLayout>
                 </ScrollView>
                 <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">

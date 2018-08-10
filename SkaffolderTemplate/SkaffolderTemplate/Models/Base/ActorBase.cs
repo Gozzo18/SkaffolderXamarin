@@ -22,6 +22,7 @@ namespace SkaffolderTemplate.Models.Base
 			}
 		  // Id End 
 
+        
         private DateTime birthDate;
         [JsonProperty(PropertyName = "birthDate")]
         public DateTime BirthDate
@@ -61,6 +62,7 @@ namespace SkaffolderTemplate.Models.Base
                 SetValue(ref surname, value);
             }
         }
+        
         
     }
 }

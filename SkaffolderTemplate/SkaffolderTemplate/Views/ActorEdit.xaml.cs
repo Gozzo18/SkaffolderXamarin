@@ -40,10 +40,6 @@ namespace SkaffolderTemplate.Views
         }
 
         
-        private void BirthDateEntry_Unfocused(object sender, FocusEventArgs e)
-        {
-            ViewModel.BirthDateCompletedCommand.Execute(sender as Entry);
-        }
         private void NameEntry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.NameCompletedCommand.Execute(sender as Entry);
@@ -53,6 +49,12 @@ namespace SkaffolderTemplate.Views
             ViewModel.SurnameCompletedCommand.Execute(sender as Entry);
         }
 
+        
+        private void BirthDate_Selected(object sender, DateChangedEventArgs e)
+        {
+            ViewModel.BirthDateCompletedCommand.Execute(e.NewDate);
+        }
+        
         
 
         

@@ -11,6 +11,10 @@ namespace SkaffolderTemplate.Views
 		public HomePage ()
 		{
 			InitializeComponent ();
+             if (!Settings.CurrentUserRole.Equals("ADMIN"))
+                UserLabel.IsVisible = false;
+            else
+                UserLabel.IsVisible = true;
 		}
 
         /// <summary>

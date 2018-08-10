@@ -32,18 +32,18 @@
                             <customrenderer:CustomViewCell>
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
-                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">{{#each crudResource._entity._attrs}}{{#notEqual name "password"}}
-                                            <Label Text="{{name}}:"/>
-                                            <Label Text="{Binding {{capitalize name}} }" TextColor="White"/>{{/notEqual}}{{/each}}
+                                        <StackLayout HorizontalOptions="Start" x:Name="{{capitalize crudResource.name}}Item">{{#each crudResource._entity._attrs}}{{#notEqual name "password"}}
+                                            <Label Text="{{capitalize name}}:"/>
+                                            <Label Text="{Binding {{capitalize name}}{{#equal type "Date"}}, StringFormat='{}{0:dd/MM/yyyy}'{{/equal}} }" TextColor="White"/>{{/notEqual}}{{/each}}
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOf{{capitalize crudResource.name}}s}, Path=BindingContext}" Command="{Binding Delete{{capitalize crudResource.name}}Command}" CommandParameter="{Binding Source={x:Reference {{capitalize crudResource.name}}Item}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                             <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                        BindingContext="{Binding Source={x:Reference MainListOf{{capitalize crudResource.name}}s}, Path=BindingContext}" Command="{Binding Edit{{capitalize crudResource.name}}Command}" CommandParameter="{Binding Source={x:Reference {{capitalize crudResource.name}}Item}, Path=BindingContext}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

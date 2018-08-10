@@ -42,6 +42,7 @@ namespace SkaffolderTemplate.Rest.Base
         {
             try
             {
+                item.Password = App.loginService.EncryptPassword(item.Password);
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(UserApi, content);

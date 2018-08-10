@@ -159,7 +159,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         {
             var masterDetailPage = App.Current.MainPage as MasterDetailPage;
             
-            await masterDetailPage.Detail.Navigation.PushAsync(new FilmEdit(null, null), false);
+            await masterDetailPage.Detail.Navigation.PushAsync(new FilmEditLoadingView(null), false);
+                                              
         }
 
         private async Task GetRequest()

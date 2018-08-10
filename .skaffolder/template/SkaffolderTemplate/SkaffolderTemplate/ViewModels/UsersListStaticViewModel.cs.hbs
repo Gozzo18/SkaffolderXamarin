@@ -113,7 +113,7 @@ namespace SkaffolderTemplate.ViewModels
                 {
                     var user = (e as User);
                     //Check if the user to delete is the CurrentUser
-                    if (!user.Id.Equals(Application.Current.Properties["UserId"]))
+                    if (!user.Id.Equals(Settings.UserId))
                     {
                         //Check if the user to delete is an Admin
                         if (!user.Roles.Equals("ADMIN"))

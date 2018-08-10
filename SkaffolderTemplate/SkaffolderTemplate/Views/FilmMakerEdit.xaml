@@ -56,10 +56,11 @@
                                 
                                 
                                 <Label Text="Name" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Name" PlaceholderColor="White" FontSize="Small" Text="{Binding Name }" TextColor="White" Unfocused="NameEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                <Entry Placeholder="Name" PlaceholderColor="White" FontSize="Small" Text="{Binding Name }"  TextColor="White" Unfocused="NameEntry_Unfocused"  Margin="0,-6,0,0"/>
                                 
                                 <Label Text="Surname" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Surname" PlaceholderColor="White" FontSize="Small" Text="{Binding Surname }" TextColor="White" Unfocused="SurnameEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                <Entry Placeholder="Surname" PlaceholderColor="White" FontSize="Small" Text="{Binding Surname }"  TextColor="White" Unfocused="SurnameEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                
                                 
                                 
                             </StackLayout>

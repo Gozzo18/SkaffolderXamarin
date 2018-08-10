@@ -30,7 +30,7 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
             {{#each resources.0._resources}}
-            <StackLayout Style="{StaticResource stackLayout}">
+            <StackLayout Style="{StaticResource stackLayout}" {{#equal name "User"}}x:Name="UserLabel"{{/equal}}>
                 <Label Text="{{capitalize name}}" Style="{StaticResource label}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ChangePage"/>

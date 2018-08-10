@@ -115,7 +115,6 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
-        public ICommand SetDataForEditingCommand { get; private set; }
         
         public ICommand BirthDateCompletedCommand { get; private set; }
         
@@ -132,9 +131,17 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         public ActorEditViewModel(Actor actorToEdit)
         {
             Actor = actorToEdit;
+            
+            if(Actor != null)
+            {
+                BirthDate = Actor.BirthDate;
+                Name = Actor.Name;
+                Surname = Actor.Surname;
+                IsPresent = true;
+            }
+            
 
             
-            SetDataForEditingCommand = new Command(async vm => await SetData());
             SaveCommand = new Command(async vm => await SaveActorData());
             BackCommand = new Command(async vm => await GoBack());
             
@@ -147,41 +154,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
             
             
-            
         }
-
-        private async Task SetData()
-        {
-            
-            
-            
-
-            if (Actor != null)
-            {
-                //Overwrite entries
-                Id = Actor.Id;
-                
-                BirthDate = Actor.BirthDate;
-                
-                Name = Actor.Name;
-                
-                Surname = Actor.Surname;
-                
-
-                
-
-                
-
-                
-                IsPresent = true;
-            }
-            else
-            {
-                Actor = new Actor();
-                 
-            }
-                
-        }
+        
 
         
         private void NameEntryCompleted(Entry ActorName)
@@ -214,13 +188,14 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         private async Task SaveActorData()
         {
+            Actor actor = new Actor();
 
             
-                Actor.BirthDate = BirthDate;
+                actor.BirthDate = BirthDate;
             
-                Actor.Name = Name;
+                actor.Name = Name;
             
-                Actor.Surname = Surname;
+                actor.Surname = Surname;
             
             
             
@@ -229,11 +204,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
                 if (IsPresent)
                 {
-                    Actor.Id = Actor.Id;
-                    await App.actorService.PUT(Actor);
+                    actor.Id = Actor.Id;
+                    await App.actorService.PUT(actor);
                 }
                 else
-                    await App.actorService.POST(Actor);
+                    await App.actorService.POST(actor);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PopAsync();   

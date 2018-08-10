@@ -49,10 +49,10 @@
                         Property=Height,
                         Factor=0.8}">
                 <StackLayout>
-                    <ListView CachingStrategy="RecycleElement" x:Name="castInserted" ItemsSource="{Binding castInserted}" ItemSelected="castInserted_ItemSelected" RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
+                    <ListView CachingStrategy="RecycleElement" x:Name="castInserted" ItemsSource="{Binding CastInserted}" ItemSelected="castInserted_ItemSelected" RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
                         <ListView.Header>
                             <StackLayout VerticalOptions="FillAndExpand"> 
-                                <Picker x:Name="castPicker" IsVisible="False" ItemsSource="{Binding castAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerCast_SelectedIndexChanged"/>                                
+                                <Picker x:Name="castPicker" IsVisible="False" ItemsSource="{Binding CastAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerCast_SelectedIndexChanged"/>                                
                                 
                                 <Label Text="Genre" Margin="3,0,0,0"/>
                                 <Picker Title="Genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre }" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
@@ -67,10 +67,11 @@
                                 </Picker>
                                 
                                 <Label Text="Title" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Title" PlaceholderColor="White" FontSize="Small" Text="{Binding Title }" TextColor="White" Unfocused="TitleEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                <Entry Placeholder="Title" PlaceholderColor="White" FontSize="Small" Text="{Binding Title }"  TextColor="White" Unfocused="TitleEntry_Unfocused"  Margin="0,-6,0,0"/>
                                 
                                 <Label Text="Year" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year }" TextColor="White" Unfocused="YearEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year }" Keyboard = "Numeric" TextColor="White" Unfocused="YearEntry_Unfocused"  Margin="0,-6,0,0"/>
+                                
                                 
                                 
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">

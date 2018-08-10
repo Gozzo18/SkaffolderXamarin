@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -70,13 +70,13 @@ namespace SkaffolderTemplate.ViewModels
         }
 
         private async Task SavePassword()
-        {
+        {   
             //Check if any field is empty
             if (string.IsNullOrWhiteSpace(OldPassword) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmedPassword))
                 ErrorField = "One or more fields are empty";
 
             //Check if OldPassword is equals to UserPassword
-            else if (!OldPassword.Equals(Application.Current.Properties["Password"]))
+            else if (!OldPassword.Equals(Settings.Password))
                 ErrorField = "Old password is not correct";
 
             //Check if NewPassword and ConfirmedPassword are equals

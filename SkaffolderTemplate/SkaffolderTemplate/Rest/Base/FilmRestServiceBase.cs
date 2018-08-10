@@ -42,6 +42,7 @@ namespace SkaffolderTemplate.Rest.Base
         {
             try
             {
+                
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(FilmApi, content);

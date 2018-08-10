@@ -32,22 +32,22 @@
                             <customrenderer:CustomViewCell>
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
-                                        <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">
-                                            <Label Text="birthDate:"/>
-                                            <Label Text="{Binding BirthDate }" TextColor="White"/>
-                                            <Label Text="name:"/>
+                                        <StackLayout HorizontalOptions="Start" x:Name="ActorItem">
+                                            <Label Text="BirthDate:"/>
+                                            <Label Text="{Binding BirthDate, StringFormat='{}{0:dd/MM/yyyy}' }" TextColor="White"/>
+                                            <Label Text="Name:"/>
                                             <Label Text="{Binding Name }" TextColor="White"/>
-                                            <Label Text="surname:"/>
+                                            <Label Text="Surname:"/>
                                             <Label Text="{Binding Surname }" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
                                             <Image Source="delete.png" HorizontalOptions="End">
                                                 <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding DeleteFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding DeleteActorCommand}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
                                                 </Image.GestureRecognizers>
                                             </Image>
                                             <Button Image="edit.png"  HorizontalOptions="Start"  VerticalOptions="EndAndExpand" BorderRadius="21" HeightRequest="42" WidthRequest="42" BackgroundColor="White"
-                                                        BindingContext="{Binding Source={x:Reference MainListOfFilmMakers}, Path=BindingContext}" Command="{Binding EditFilmMakerCommand}" CommandParameter="{Binding Source={x:Reference FilmMakerItem}, Path=BindingContext}"/>
+                                                        BindingContext="{Binding Source={x:Reference MainListOfActors}, Path=BindingContext}" Command="{Binding EditActorCommand}" CommandParameter="{Binding Source={x:Reference ActorItem}, Path=BindingContext}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

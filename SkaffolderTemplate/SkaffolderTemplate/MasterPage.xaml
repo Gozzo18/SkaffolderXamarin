@@ -21,16 +21,16 @@
                         <!--// Start Home Button -->
 						<Button Text="H o m e" Style="{StaticResource button}" Clicked="Button_Clicked"/>
 						 <!--// End Home Button -->
-                        <Button Text="Actors" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="Films" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="FilmMakers" Style="{StaticResource button}" Clicked="Button_Clicked"/>
-                        <Button Text="Users" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+                        <Button Text="Actor" Style="{StaticResource button}" Clicked="Button_Clicked" />
+                        <Button Text="Film" Style="{StaticResource button}" Clicked="Button_Clicked" />
+                        <Button Text="FilmMaker" Style="{StaticResource button}" Clicked="Button_Clicked" />
+                        <Button Text="User" Style="{StaticResource button}" Clicked="Button_Clicked" IsVisible="{Binding IsAllowed}"/>
                     </StackLayout>
                 </ScrollView>
                 <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">
                     <StackLayout Spacing="20" HorizontalOptions="Center">
                         <!--// Start Other Buttons -->
-						<Button Text="P r o f i l e" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+						<Button Text="P r o f i l e" Style="{StaticResource button}" Clicked="Button_Clicked" IsVisible="{Binding IsAllowed}"/>
 						<Button Image="logout.png" Text="L o g o u t" Style="{StaticResource button}" Clicked="Button_Clicked"/>
 						 <!--// End Other Buttons -->
                     </StackLayout>

@@ -169,7 +169,6 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
-        public ICommand SetDataForEditingCommand { get; private set; }
         
         public ICommand TitleCompletedCommand { get; private set; }
         
@@ -183,6 +182,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         
 
         
+        public ICommand SetDataForEditingCommand { get; private set; }
         public ICommand SelectedCastCommand { get; private set; }
         public ICommand DeleteItemCommand
         {
@@ -211,11 +211,23 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         public FilmEditViewModel(Film filmToEdit, ObservableCollection<Actor> actors)
         {
             Film = filmToEdit;
+            
 
             
+            //Remove from actors all the elements that are null
+            if(actors != null){
+                for(int i = 0; i<actors.Count; i++)
+                {
+                    if (actors[i] == null)
+                    {
+                        actors.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
             CastInserted = actors;
-            
             SetDataForEditingCommand = new Command(async vm => await SetData());
+            SelectedCastCommand = new Command<Picker>(vm =>ActorCompleted(vm));
             SaveCommand = new Command(async vm => await SaveFilmData());
             BackCommand = new Command(async vm => await GoBack());
             
@@ -228,13 +240,10 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             SelectedGenreCommand = new Command<Picker>(vm => GenreCompleted(vm));
             
             
-            SelectedCastCommand = new Command<Picker>(vm =>ActorCompleted(vm));
-            
-            
             SelectedFilmMakerCommand = new Command<Picker>(vm => FilmMakerCompleted(vm));
             
         }
-
+        
         private async Task SetData()
         {
             
@@ -258,6 +267,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 
 
                 
+                Genre = Film.Genre;
+                
+            
+
+                
                 //Overwrite FilmMaker entry 
                 for (int i = 0; i < FilmMakersAvailable.Count; i++)
                 {
@@ -279,7 +293,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                             {
                                 CastAvailable.Remove(CastAvailable[k]);
                                 k = 0;
-                                h = 0;
+                                h = -1;
                             }
                         }
                     }
@@ -355,33 +369,34 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         private async Task SaveFilmData()
         {
+            Film film = new Film();
 
             
-                Film.Title = Title;
+                film.Title = Title;
             
             
-                Film.Year = Int32.Parse(Year);
+                film.Year = Int32.Parse(Year);
             
             
-                Film.Genre = Genre;
+                film.Genre = Genre;
             
 
             
                 List<string> supportList = new List<string>();
                 foreach (Actor a in CastInserted)
                     supportList.Add(a.Id);
-                Film.Cast = supportList.ToArray();
+                film.Cast = supportList.ToArray();
             
             
-                Film.FilmMaker = FilmMaker.Id;
+                film.FilmMaker = FilmMaker.Id;
             
                 if (IsPresent)
                 {
-                    Film.Id = Film.Id;
-                    await App.filmService.PUT(Film);
+                    film.Id = Film.Id;
+                    await App.filmService.PUT(film);
                 }
                 else
-                    await App.filmService.POST(Film);
+                    await App.filmService.POST(film);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PopAsync();   

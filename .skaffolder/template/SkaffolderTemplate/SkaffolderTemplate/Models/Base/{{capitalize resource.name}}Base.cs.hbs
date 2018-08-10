@@ -24,7 +24,7 @@ namespace SkaffolderTemplate.Models.Base
         
         // Id End 
 
-        {{#each resource._entity._attrs}}
+        {{#each resource._entity._attrs}}{{#notEqual name "roles"}}
         private {{toCType type}} {{name}};
         [JsonProperty(PropertyName = "{{name}}")]
         public {{toCType type}} {{capitalize name}}
@@ -37,8 +37,21 @@ namespace SkaffolderTemplate.Models.Base
             {
                 SetValue(ref {{name}}, value);
             }
-        }
-        {{/each}}
+        }{{/notEqual}}{{/each}}
+        {{#each resource._entity._attrs}}{{#equal ./../resource.name "User"}}{{#equal name "roles"}}
+        private {{toCType type}}[] {{name}};
+        [JsonProperty(PropertyName = "{{name}}")]
+        public {{toCType type}}[] {{capitalize name}}
+        {
+            get
+            {
+                return {{name}};
+            }
+            set
+            {
+                SetValue(ref {{name}}, value);
+            }
+        }{{/equal}}{{/equal}}{{/each}}
         {{#each resource._entity._relations}}{{#equal ./../resource._entity._id _ent1._id}}
         private string{{#equal type "m:m"}}[]{{/equal}} {{name}};
         [JsonProperty(PropertyName = "{{name}}")]

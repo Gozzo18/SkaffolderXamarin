@@ -33,9 +33,9 @@
                                 <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
                                     <StackLayout Orientation="Horizontal">
                                         <StackLayout HorizontalOptions="Start" x:Name="FilmMakerItem">
-                                            <Label Text="name:"/>
+                                            <Label Text="Name:"/>
                                             <Label Text="{Binding Name }" TextColor="White"/>
-                                            <Label Text="surname:"/>
+                                            <Label Text="Surname:"/>
                                             <Label Text="{Binding Surname }" TextColor="White"/>
                                         </StackLayout>
                                         <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">

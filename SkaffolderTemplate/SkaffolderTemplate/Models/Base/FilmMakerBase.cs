@@ -22,6 +22,7 @@ namespace SkaffolderTemplate.Models.Base
 			}
 		  // Id End 
 
+        
         private string name;
         [JsonProperty(PropertyName = "name")]
         public string Name
@@ -48,6 +49,7 @@ namespace SkaffolderTemplate.Models.Base
                 SetValue(ref surname, value);
             }
         }
+        
         
     }
 }

@@ -139,7 +139,6 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
-        public ICommand SetDataForEditingCommand { get; private set; }
         
         public ICommand MailCompletedCommand { get; private set; }
         
@@ -160,9 +159,9 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         public UserEditViewModel(User userToEdit)
         {
             User = userToEdit;
+            
 
             
-            SetDataForEditingCommand = new Command(async vm => await SetData());
             SaveCommand = new Command(async vm => await SaveUserData());
             BackCommand = new Command(async vm => await GoBack());
             
@@ -179,45 +178,8 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
             
             
-            
         }
-
-        private async Task SetData()
-        {
-            
-            
-            
-
-            if (User != null)
-            {
-                //Overwrite entries
-                Id = User.Id;
-                
-                Mail = User.Mail;
-                
-                Name = User.Name;
-                
-                Roles = User.Roles;
-                
-                Surname = User.Surname;
-                
-                Username = User.Username;
-                
-
-                
-
-                
-
-                
-                IsPresent = true;
-            }
-            else
-            {
-                User = new User();
-                 
-            }
-                
-        }
+        
 
         
         private void MailEntryCompleted(Entry UserMail)
@@ -258,17 +220,18 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         private async Task SaveUserData()
         {
+            User user = new User();
 
             
-                User.Mail = Mail;
+                user.Mail = Mail;
             
-                User.Name = Name;
+                user.Name = Name;
             
-                User.Roles = Roles;
+                user.Roles = Roles;
             
-                User.Surname = Surname;
+                user.Surname = Surname;
             
-                User.Username = Username;
+                user.Username = Username;
             
             
             
@@ -277,11 +240,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             
                 if (IsPresent)
                 {
-                    User.Id = User.Id;
-                    await App.userService.PUT(User);
+                    user.Id = User.Id;
+                    await App.userService.PUT(user);
                 }
                 else
-                    await App.userService.POST(User);
+                    await App.userService.POST(user);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PopAsync();   

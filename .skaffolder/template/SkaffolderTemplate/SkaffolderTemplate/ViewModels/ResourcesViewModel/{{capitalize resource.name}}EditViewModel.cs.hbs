@@ -176,7 +176,6 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         #region Commands
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
-        public ICommand SetDataForEditingCommand { get; private set; }
         {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
         public ICommand {{capitalize name}}CompletedCommand { get; private set; }
         {{/isNull}}{{/notEqual}}{{/each}}
@@ -188,6 +187,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         {{/equal}}{{/equal}}{{/each}}
 
         {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+        public ICommand SetDataForEditingCommand { get; private set; }
         public ICommand Selected{{capitalize name}}Command { get; private set; }
         public ICommand DeleteItemCommand
         {
@@ -216,11 +216,31 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
         public {{capitalize resource.name}}EditViewModel({{capitalize resource.name}} {{lowercase resource.name}}ToEdit{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
         {
             {{capitalize resource.name}} = {{lowercase resource.name}}ToEdit;
+            {{#each resource._entity._relations}}{{#notEqual ./../resource._entity._id _ent1._id}}
+            if({{capitalize ./../resource.name}} != null)
+            {
+                {{#each ./../resource._entity._attrs}}
+                {{capitalize name}} = {{capitalize ./../../resource.name}}.{{capitalize name}};
+                {{/each}}
+                IsPresent = true;
+            }
+            {{/notEqual}}{{/each}}
 
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
+            //Remove from {{lowercase _ent2.name}}s all the elements that are null
+            if({{lowercase _ent2.name}}s != null){
+                for(int i = 0; i<{{lowercase _ent2.name}}s.Count; i++)
+                {
+                    if ({{lowercase _ent2.name}}s[i] == null)
+                    {
+                        {{lowercase _ent2.name}}s.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
             {{capitalize name}}Inserted = {{lowercase _ent2.name}}s;
-            {{/equal}}{{/equal}}{{/each}}
             SetDataForEditingCommand = new Command(async vm => await SetData());
+            Selected{{capitalize name}}Command = new Command<Picker>(vm =>{{capitalize _ent2.name}}Completed(vm));{{/equal}}{{/equal}}{{/each}}
             SaveCommand = new Command(async vm => await Save{{capitalize resource.name}}Data());
             BackCommand = new Command(async vm => await GoBack());
             {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
@@ -232,14 +252,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
             {{#each resource._entity._attrs}}{{#notNull _enum}}
             Selected{{capitalize name}}Command = new Command<Picker>(vm => {{capitalize name}}Completed(vm));
             {{/notNull}}{{/each}}
-            {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-            Selected{{capitalize name}}Command = new Command<Picker>(vm =>{{capitalize _ent2.name}}Completed(vm));
-            {{/equal}}{{/equal}}{{/each}}
             {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
             Selected{{_ent2.name}}Command = new Command<Picker>(vm => {{_ent2.name}}Completed(vm));
             {{/equal}}{{/equal}}{{/each}}
         }
-
+        {{#equal resource._entity._relations.0.type "m:m"}}{{#equal resource._entity._id resource._entity._relations.0._ent1._id}}
         private async Task SetData()
         {
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
@@ -261,6 +278,11 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#equal type "Number"}}{{#isNull _enum}}
                 {{capitalize name}} = {{capitalize ./../resource.name}}.{{capitalize name}}.ToString();
                 {{/isNull}}{{/equal}}{{/notEqual}}{{/each}}
+
+                {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notNull _enum}}
+                {{capitalize name}} = {{capitalize ./../resource.name}}.{{capitalize name}};
+                {{/notNull}}{{/notEqual}}{{/each}}
+            
 
                 {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
                 //Overwrite {{_ent2.name}} entry 
@@ -284,7 +306,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                             {
                                 {{capitalize name}}Available.Remove({{capitalize name}}Available[k]);
                                 k = 0;
-                                h = 0;
+                                h = -1;
                             }
                         }
                     }
@@ -299,7 +321,7 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
                 {{/equal}}{{/equal}}{{/each}}
             }
                 
-        }
+        }{{/equal}}{{/equal}}
 
         {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
         private void {{capitalize name}}EntryCompleted(Entry {{capitalize ./../resource.name}}{{capitalize name}})
@@ -360,33 +382,34 @@ namespace SkaffolderTemplate.ViewModels.ResourcesViewModel
 
         private async Task Save{{capitalize resource.name}}Data()
         {
+            {{resource.name}} {{lowercase resource.name}} = new {{resource.name}}();
 
             {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Number"}}{{#isNull _enum}}
-                {{capitalize ./../resource.name}}.{{capitalize name}} = {{capitalize name}};
+                {{lowercase ./../resource.name}}.{{capitalize name}} = {{capitalize name}};
             {{/isNull}}{{/notEqual}}{{/notEqual}}{{/each}}
             {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#equal type "Number"}}{{#isNull _enum}}
-                {{capitalize ./../resource.name}}.{{capitalize name}} = Int32.Parse({{capitalize name}});
+                {{lowercase ./../resource.name}}.{{capitalize name}} = Int32.Parse({{capitalize name}});
             {{/isNull}}{{/equal}}{{/notEqual}}{{/each}}
             {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notNull _enum}}
-                {{capitalize ./../resource.name}}.{{capitalize name}} = {{capitalize name}};
+                {{lowercase ./../resource.name}}.{{capitalize name}} = {{capitalize name}};
             {{/notNull}}{{/notEqual}}{{/each}}
 
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
                 List<string> supportList = new List<string>();
                 foreach ({{capitalize _ent2.name}} a in {{capitalize name}}Inserted)
                     supportList.Add(a.Id);
-                {{capitalize ./../resource.name}}.Cast = supportList.ToArray();
+                {{lowercase ./../resource.name}}.Cast = supportList.ToArray();
             {{/equal}}{{/equal}}{{/each}}
             {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-                {{capitalize ./../resource.name}}.{{capitalize _ent2.name}} = {{capitalize _ent2.name}}.Id;
+                {{lowercase ./../resource.name}}.{{capitalize _ent2.name}} = {{capitalize _ent2.name}}.Id;
             {{/equal}}{{/equal}}{{/each}}
                 if (IsPresent)
                 {
-                    {{capitalize resource.name}}.Id = {{capitalize resource.name}}.Id;
-                    await App.{{lowercase resource.name}}Service.PUT({{capitalize resource.name}});
+                    {{lowercase resource.name}}.Id = {{capitalize resource.name}}.Id;
+                    await App.{{lowercase resource.name}}Service.PUT({{lowercase resource.name}});
                 }
                 else
-                    await App.{{lowercase resource.name}}Service.POST({{capitalize resource.name}});
+                    await App.{{lowercase resource.name}}Service.POST({{lowercase resource.name}});
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PopAsync();   

@@ -168,7 +168,7 @@ namespace SkaffolderTemplate.ViewModels
                 user.Mail = Mail;
                 user.Username = Username;
                 user.Password = Password;
-                string roleToAdd = Role;
+                string[] roleToAdd = new string[]{ Role };
                 user.Roles = roleToAdd;
                 
                 await App.userService.POST(user);

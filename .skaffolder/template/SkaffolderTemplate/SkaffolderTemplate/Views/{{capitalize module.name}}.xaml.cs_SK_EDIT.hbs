@@ -41,12 +41,18 @@ namespace SkaffolderTemplate.Views
             ViewModel.SetDataForEditingCommand.Execute(null);{{/equal}}{{/equal}}{{/each}}
         }
 
-        {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#isNull _enum}}
+        {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
         private void {{capitalize name}}Entry_Unfocused(object sender, FocusEventArgs e)
         {
             ViewModel.{{capitalize name}}CompletedCommand.Execute(sender as Entry);
-        }{{/isNull}}{{/notEqual}}{{/each}}
+        }{{/isNull}}{{/notEqual}}{{/notEqual}}{{/each}}
 
+        {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#equal type "Date"}}{{#isNull _enum}}
+        private void {{capitalize name}}_Selected(object sender, DateChangedEventArgs e)
+        {
+            ViewModel.{{capitalize name}}CompletedCommand.Execute(e.NewDate);
+        }
+        {{/isNull}}{{/equal}}{{/notEqual}}{{/each}}
         {{#each crudResource._entity._attrs}}{{#notNull _enum}}
         private void Picker{{capitalize name}}_SelectedIndexChanged(object sender, EventArgs e)
         {
