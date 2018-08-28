@@ -18,18 +18,18 @@
     ]
 }
 **** END PROPERTIES SKAFFOLDER ****
-using SkaffolderTemplate.Rest;
+using {{project.name}}.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using SkaffolderTemplate.Views;
-using SkaffolderTemplate.Rest.Security;
-using SkaffolderTemplate.Support;
-using SkaffolderTemplate.Rest.Base;
+using {{project.name}}.Views;
+using {{project.name}}.Rest.Security;
+using {{project.name}}.Support;
+using {{project.name}}.Rest.Base;
 using Rg.Plugins.Popup.Services;
-using SkaffolderTemplate.Extensions;
+using {{project.name}}.Extensions;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace SkaffolderTemplate
+namespace {{project.name}}
 {
     public partial class App : Application
     {

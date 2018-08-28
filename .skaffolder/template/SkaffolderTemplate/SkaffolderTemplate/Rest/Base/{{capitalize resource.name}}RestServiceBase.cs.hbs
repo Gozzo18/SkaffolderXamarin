@@ -6,8 +6,8 @@
 }
 **** END PROPERTIES SKAFFOLDER ****
 using Newtonsoft.Json;
-using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Support;
+using {{project.name}}.Models;
+using {{project.name}}.Support;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace SkaffolderTemplate.Rest.Base
+namespace {{project.name}}.Rest.Base
 {
     public class {{capitalize resource.name}}RestServiceBase : RestClient
     {

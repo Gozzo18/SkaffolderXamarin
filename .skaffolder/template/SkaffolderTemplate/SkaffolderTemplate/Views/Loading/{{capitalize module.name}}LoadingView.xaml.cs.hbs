@@ -5,13 +5,13 @@
     "_partials": []
 }
 **** END PROPERTIES SKAFFOLDER ****
-using SkaffolderTemplate.Models;
-using SkaffolderTemplate.Views;
+using {{project.name}}.Models;
+using {{project.name}}.Views;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SkaffolderTemplate.Views.Loading
+namespace {{project.name}}.Views.Loading
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class {{capitalize module.name}}LoadingView : ContentPage
