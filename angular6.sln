@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular6.Android", "angular6{{project.name}}.Android{{project.name}}.Android.csproj", "{D4978013-4E0C-414B-A934-000207853D59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular6.Android", "angular6\angular6.Android\angular6.Android.csproj", "{D4978013-4E0C-414B-A934-000207853D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular6.iOS", "angular6{{project.name}}.iOS{{project.name}}.iOS.csproj", "{1E7B2E51-3B81-49F5-8637-54BCEE6D5DFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angular6.iOS", "angular6\angular6.iOS\angular6.iOS.csproj", "{1E7B2E51-3B81-49F5-8637-54BCEE6D5DFE}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "angular6", "angular6{{project.name}}{{project.name}}.shproj", "{AAC4934D-3E21-46E1-A0F1-647096E91C5C}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "angular6", "angular6\angular6\angular6.shproj", "{AAC4934D-3E21-46E1-A0F1-647096E91C5C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
