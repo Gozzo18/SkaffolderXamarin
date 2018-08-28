@@ -84,7 +84,7 @@
                             ElementName=mainElement,
                             Property=Height,
                             Factor=0.98}">
-                <Image Source="add2.png" Margin="10,-39,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
+                <Image Source="bigadd.png" Margin="10,-39,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AddCommand}"/>
                     </Image.GestureRecognizers>
