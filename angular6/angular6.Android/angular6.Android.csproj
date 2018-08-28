@@ -224,6 +224,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\littleadd.png" />
   </ItemGroup>
-  <Import Project="..{{project.name}}{{project.name}}.projitems" Label="Shared" />
+  <Import Project="..\angular6\angular6.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

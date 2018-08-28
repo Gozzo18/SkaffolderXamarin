@@ -11,9 +11,9 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "angular6", "angular6{{proje
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		angular6{{project.name}}{{project.name}}.projitems*{1e7b2e51-3b81-49f5-8637-54bcee6d5dfe}*SharedItemsImports = 4
-		angular6{{project.name}}{{project.name}}.projitems*{aac4934d-3e21-46e1-a0f1-647096e91c5c}*SharedItemsImports = 13
-		angular6{{project.name}}{{project.name}}.projitems*{d4978013-4e0c-414b-a934-000207853d59}*SharedItemsImports = 4
+		angular6\angular6\angular6.projitems*{1e7b2e51-3b81-49f5-8637-54bcee6d5dfe}*SharedItemsImports = 4
+		angular6\angular6\angular6.projitems*{aac4934d-3e21-46e1-a0f1-647096e91c5c}*SharedItemsImports = 13
+		angular6\angular6\angular6.projitems*{d4978013-4e0c-414b-a934-000207853d59}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
