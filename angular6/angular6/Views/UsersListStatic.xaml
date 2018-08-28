@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customrenderer="clr-namespace:angular6.CustomRenderer"
+             x:Class="angular6.Views.UsersListStatic"
+             Title="Manage Users">
+    <ContentPage.Content>
+        <RelativeLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.4}"
+                         RelativeLayout.XConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=0.45}"/>
+            <StackLayout x:Name="mainElement" RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.9}">
+                <ListView CachingStrategy="RecycleElement" x:Name="MainListOfUsers" IsVisible="{Binding IsLoaded}" ItemsSource="{Binding SupportList}" BackgroundColor="White" HorizontalOptions="Start" HasUnevenRows="True" SeparatorVisibility="None" Margin="10" IsPullToRefreshEnabled="True" IsRefreshing="{Binding Refreshing, Mode=OneWay}" RefreshCommand="{Binding RefreshCommand}" ItemSelected="MainListOfUsers_ItemSelected">
+                    <ListView.Header>
+                        <SearchBar HorizontalOptions="StartAndExpand" Text="{Binding SearchedWord, Mode=TwoWay}" Placeholder="Search" HeightRequest="44" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}" TextChanged="SearchBar_TextChanged"/>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <customrenderer:CustomViewCell>
+                                <Frame BackgroundColor="#7970F5" CornerRadius="10" Margin="10">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout HorizontalOptions="Start" x:Name="UserItem">
+                                            <Label Text="Username:"/>
+                                            <Label Text="{Binding Username}" TextColor="White"/>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                                <StackLayout>
+                                                    <Label Text="Name:"/>
+                                                    <Label Text="{Binding Name}" TextColor="White"/>
+                                                </StackLayout>
+                                                <StackLayout Margin="75,0,0,0">
+                                                    <Label Text="Surname:"/>
+                                                    <Label Text="{Binding Surname}" TextColor="White"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Label Text="Email"/>
+                                            <Label Text="{Binding Mail}" TextColor="White"/>
+                                            <Label Text="Role:"/>
+                                            <Label Text="{Binding Roles[0]}" TextColor="White"/>
+                                        </StackLayout>
+                                        <StackLayout HorizontalOptions="EndAndExpand"  VerticalOptions="FillAndExpand">
+                                            <Image Source="delete.png" HorizontalOptions="End">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer BindingContext="{Binding Source={x:Reference MainListOfUsers}, Path=BindingContext}" Command="{Binding DeleteUserCommand}" CommandParameter="{Binding Source={x:Reference UserItem}, Path=BindingContext}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </customrenderer:CustomViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout x:Name="supportStackLayout" BackgroundColor="LightGray"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0,
+                            Constant=1}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=mainElement,
+                            Property=Height,
+                            Factor=0.979}">
+            </StackLayout>
+            <StackLayout BackgroundColor="#7970F5"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Width,
+                            Factor=1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression
+                            Type=RelativeToParent,
+                            Property=Height,
+                            Factor=0.2}"                        
+                         RelativeLayout.YConstraint="{ConstraintExpression
+                            Type=RelativeToView,
+                            ElementName=mainElement,
+                            Property=Height,
+                            Factor=0.98}">
+                <Image Source="bigadd.png" Margin="10,-39,0,0" VerticalOptions="Center"  HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>
