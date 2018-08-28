@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="angular6.Views.RegisterNewUser"
+             Title="Manage Users">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="label" TargetType="Label">
+                <Setter Property="TextColor" Value="DarkBlue"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="entry" TargetType="Entry">
+                <Setter Property="IsSpellCheckEnabled" Value="False"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Margin" Value="0,-6,0,0"/>
+                <Setter Property="FontSize" Value="Small"/>
+            </Style>
+            <Style x:Key="stackLayout" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Spacing" Value="-2"/>
+            </Style>
+            <Style x:Key="boxview" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="Color" Value="White"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Margin" Value="-100,0,-100,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+        <ContentPage.Content>
+            <RelativeLayout>
+            <Label x:Name="Subtitle" Text="New User" FontSize="Large" TextColor="#7970F5"
+                   RelativeLayout.XConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.35}"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=1}"/>
+            <Frame BackgroundColor="#7970F5" CornerRadius="10" 
+                    RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToView,
+                        Property=Height,
+                        ElementName=Subtitle,
+                        Factor=1,
+                        Constant=10}"
+                    RelativeLayout.XConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.1}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=0.8}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.8}">
+                <StackLayout x:Name="MainLayout">
+                    <StackLayout Spacing="6">
+                        <StackLayout Style="{StaticResource stackLayout}">
+                            <Label Text="Username" Style="{StaticResource label}"/>
+                            <Entry Text="{Binding Username}" Style="{StaticResource entry}" HorizontalOptions="Start" WidthRequest="200" Keyboard="Default"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <StackLayout Style="{StaticResource stackLayout}">
+                                <Label Text="Name" Style="{StaticResource label}"/>
+                                <Entry Text="{Binding Name}" Style="{StaticResource entry}"/>
+                            </StackLayout>
+
+                            <StackLayout Style="{StaticResource stackLayout}">
+                                <Label Text="Surname" Style="{StaticResource label}"/>
+                                <Entry Text="{Binding Surname}" Style="{StaticResource entry}" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout Style="{StaticResource stackLayout}">
+                            <Label Text="Email" Style="{StaticResource label}"/>
+                            <Entry Text="{Binding Mail}" Style="{StaticResource entry}" Keyboard="Default" />
+                        </StackLayout>
+
+                        <BoxView Style="{StaticResource boxview}"/>
+
+                        <StackLayout Style="{StaticResource stackLayout}">
+                            <Label Text="Password" Style="{StaticResource label}"/>
+                            <Entry Text="{Binding Password}" Style="{StaticResource entry}" IsPassword="True" Keyboard="Default"/>
+                        </StackLayout>
+
+                        <StackLayout Style="{StaticResource stackLayout}">
+                            <Label Text="Confirm password" Style="{StaticResource label}"/>
+                            <Entry Text="{Binding ConfirmPassword}" Style="{StaticResource entry}" IsPassword="True" Keyboard="Default"/>
+                        </StackLayout>
+
+                        <BoxView Style="{StaticResource boxview}"/>
+
+                        <StackLayout Style="{StaticResource stackLayout}">
+                            <Label Text="Role" Style="{StaticResource label}"/>
+                            <Picker x:Name="Picker" Title="Role" TextColor="White" FontSize="Small" SelectedItem="{Binding Role}" SelectedIndexChanged="RoleSelected" Margin="0,-6,0,0">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>ADMIN</x:String>
+                                        <x:String>USER</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand">
+                            <Label VerticalOptions="Start" IsVisible="{Binding ErrorData}" HorizontalOptions="Center" Text="{Binding ErrorMessage}" TextColor="Red"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                    RelativeLayout.YConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.91}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Height,
+                        Factor=0.2}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression
+                        Type=RelativeToParent,
+                        Property=Width,
+                        Factor=1}">
+                <Button Style="{StaticResource editPageButton}" Text="Back To List" Command="{Binding BackCommand}"/>
+                <Button Style="{StaticResource editPageButton}" Text="Save" HorizontalOptions="EndAndExpand" Command="{Binding SaveCommand}"/>
+            </StackLayout>
+        </RelativeLayout>
+        </ContentPage.Content>
+</ContentPage>

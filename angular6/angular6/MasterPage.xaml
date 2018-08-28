@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="angular6.MasterPage"
+                  NavigationPage.HasNavigationBar="False">
+    <MasterDetailPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="button" TargetType="Button">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+        </ResourceDictionary>
+    </MasterDetailPage.Resources>
+    <MasterDetailPage.Master>
+        <ContentPage Title=" " BackgroundColor="#7970F5">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ScrollView HorizontalOptions="Center"  VerticalOptions="Start" Padding="0,20,0,0">
+                    <StackLayout>
+                        <!--// Start Home Button -->
+						<Button Text="H o m e" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+						 <!--// End Home Button -->
+                        <Button Text="Actor" Style="{StaticResource button}" Clicked="Button_Clicked" />
+                        <Button Text="Film" Style="{StaticResource button}" Clicked="Button_Clicked" />
+                        <Button Text="FilmMaker" Style="{StaticResource button}" Clicked="Button_Clicked" />
+                        <Button Text="User" Style="{StaticResource button}" Clicked="Button_Clicked" IsVisible="{Binding IsAllowed}"/>
+                    </StackLayout>
+                </ScrollView>
+                <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">
+                    <StackLayout Spacing="20" HorizontalOptions="Center">
+                        <!--// Start Other Buttons -->
+						<Button Text="P r o f i l e" Style="{StaticResource button}" Clicked="Button_Clicked" IsVisible="{Binding IsAllowed}"/>
+						<Button Image="logout.png" Text="L o g o u t" Style="{StaticResource button}" Clicked="Button_Clicked"/>
+						 <!--// End Other Buttons -->
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <ContentPage />
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
