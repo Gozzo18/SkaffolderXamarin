@@ -8,14 +8,14 @@ using Xamarin.Forms.Xaml;
 namespace angular6.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FilmMakerEdit : ContentPage
+    public partial class TestEdit : ContentPage
     {
         //Set ViewModel for BindingContext
-        private FilmMakerEditViewModel ViewModel
+        private TestEditViewModel ViewModel
         {
             get
             {
-                return BindingContext as FilmMakerEditViewModel;
+                return BindingContext as TestEditViewModel;
             }
             set
             {
@@ -23,10 +23,10 @@ namespace angular6.Views
             }
         }
 
-        public FilmMakerEdit (FilmMaker filmmaker)
+        public TestEdit (Test test)
 		{
             //Setting BindingContext
-            ViewModel = new FilmMakerEditViewModel(filmmaker);
+            ViewModel = new TestEditViewModel(test);
 			InitializeComponent ();
         }
 
@@ -42,13 +42,9 @@ namespace angular6.Views
         }
 
         
-        private void NameEntry_Unfocused(object sender, FocusEventArgs e)
+        private void NomeEntry_Unfocused(object sender, FocusEventArgs e)
         {
-            ViewModel.NameCompletedCommand.Execute(sender as Entry);
-        }
-        private void SurnameEntry_Unfocused(object sender, FocusEventArgs e)
-        {
-            ViewModel.SurnameCompletedCommand.Execute(sender as Entry);
+            ViewModel.NomeCompletedCommand.Execute(sender as Entry);
         }
 
         

@@ -54,6 +54,10 @@ namespace angular6
                         ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new UsersListStatic());
                         ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                         break;
+                    case "Test":
+                        ((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new TestList());
+                        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                        break;
                     // Start Detail Page Elements Independent
 					case "H o m e":
 						((MasterDetailPage)Application.Current.MainPage).Detail = new NavigationPage(new HomePage());

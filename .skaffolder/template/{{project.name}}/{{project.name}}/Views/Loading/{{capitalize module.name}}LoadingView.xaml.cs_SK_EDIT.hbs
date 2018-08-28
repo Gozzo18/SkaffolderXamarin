@@ -11,14 +11,14 @@ namespace {{project.name}}.Views.Loading
 	{
         private {{capitalize crudResource.name}} {{lowercase crudResource.name}};
         {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-        private ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s;
+        private ObservableCollection<{{capitalize _ent2.name}}> {{lowercase _ent2.name}}s;
         {{/equal}}{{/equal}}{{/each}}
 
 		public {{capitalize module.name}}LoadingView ({{capitalize crudResource.name}} {{lowercase crudResource.name}}ToEdit)
 		{
             {{lowercase crudResource.name}} = {{lowercase crudResource.name}}ToEdit;
             {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-            {{lowercase _ent2.name}}s = new ObservableCollection<{{_ent2.name}}>();
+            {{lowercase _ent2.name}}s = new ObservableCollection<{{capitalize _ent2.name}}>();
             {{/equal}}{{/equal}}{{/each}}
 			InitializeComponent();
 		}

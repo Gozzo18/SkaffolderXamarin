@@ -23,10 +23,10 @@ namespace angular6.Views
             }
         }
 
-        public FilmEdit (Film film, ObservableCollection<Actor> actors)
+        public FilmEdit (Film film, ObservableCollection<Actor> actors, ObservableCollection<Test> tests)
 		{
             //Setting BindingContext
-            ViewModel = new FilmEditViewModel(film, actors);
+            ViewModel = new FilmEditViewModel(film, actors, tests);
 			InitializeComponent ();
         }
 
@@ -77,6 +77,23 @@ namespace angular6.Views
 
         //Hide graphic effect on ListView
         private void castInserted_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ((ListView)sender).SelectedItem = null;
+        }
+        private void PickerTest_SelectedIndexChanged(object sender, EventArgs e)
+        {
+                ViewModel.SelectedTestCommand.Execute(sender as Picker);
+        }
+
+        private void showTestPicker(object sender, EventArgs e)
+        {
+            testPicker.Focus();
+        }
+
+        //Hide graphic effect on ListView
+        private void testInserted_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;

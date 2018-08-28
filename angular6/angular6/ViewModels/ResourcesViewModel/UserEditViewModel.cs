@@ -153,14 +153,15 @@ namespace angular6.ViewModels.ResourcesViewModel
         
         
 
+        public ICommand SetDataForEditingCommand { get; private set; }
         
         #endregion
 
         public UserEditViewModel(User userToEdit)
         {
             User = userToEdit;
-            
 
+            SetDataForEditingCommand = new Command(async vm => await SetData());
             
             SaveCommand = new Command(async vm => await SaveUserData());
             BackCommand = new Command(async vm => await GoBack());
@@ -180,6 +181,45 @@ namespace angular6.ViewModels.ResourcesViewModel
             
         }
         
+        private async Task SetData()
+        {
+            
+            
+            
+
+            if (User != null)
+            {
+                IsPresent = true;
+                //Overwrite entries
+                Id = User.Id;
+                
+                Mail = User.Mail;
+                
+                Name = User.Name;
+                
+                Roles = User.Roles;
+                
+                Surname = User.Surname;
+                
+                Username = User.Username;
+                
+
+                
+
+                
+            
+
+                
+
+                
+            }
+            else
+            {
+                User = new User();
+                 
+            }
+                
+        }
 
         
         private void MailEntryCompleted(Entry UserMail)

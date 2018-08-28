@@ -25,6 +25,7 @@
                         <Button Text="Film" Style="{StaticResource button}" Clicked="Button_Clicked" />
                         <Button Text="FilmMaker" Style="{StaticResource button}" Clicked="Button_Clicked" />
                         <Button Text="User" Style="{StaticResource button}" Clicked="Button_Clicked" IsVisible="{Binding IsAllowed}"/>
+                        <Button Text="Test" Style="{StaticResource button}" Clicked="Button_Clicked" />
                     </StackLayout>
                 </ScrollView>
                 <Frame HorizontalOptions="FillAndExpand"  VerticalOptions="EndAndExpand" Padding="10,0,0,10" BackgroundColor="#7970F5" BorderColor="Black">

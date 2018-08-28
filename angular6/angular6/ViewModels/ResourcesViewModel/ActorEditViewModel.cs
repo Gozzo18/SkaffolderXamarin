@@ -125,22 +125,15 @@ namespace angular6.ViewModels.ResourcesViewModel
         
         
 
+        public ICommand SetDataForEditingCommand { get; private set; }
         
         #endregion
 
         public ActorEditViewModel(Actor actorToEdit)
         {
             Actor = actorToEdit;
-            
-            if(Actor != null)
-            {
-                BirthDate = Actor.BirthDate;
-                Name = Actor.Name;
-                Surname = Actor.Surname;
-                IsPresent = true;
-            }
-            
 
+            SetDataForEditingCommand = new Command(async vm => await SetData());
             
             SaveCommand = new Command(async vm => await SaveActorData());
             BackCommand = new Command(async vm => await GoBack());
@@ -156,6 +149,41 @@ namespace angular6.ViewModels.ResourcesViewModel
             
         }
         
+        private async Task SetData()
+        {
+            
+            
+            
+
+            if (Actor != null)
+            {
+                IsPresent = true;
+                //Overwrite entries
+                Id = Actor.Id;
+                
+                BirthDate = Actor.BirthDate;
+                
+                Name = Actor.Name;
+                
+                Surname = Actor.Surname;
+                
+
+                
+
+                
+            
+
+                
+
+                
+            }
+            else
+            {
+                Actor = new Actor();
+                 
+            }
+                
+        }
 
         
         private void NameEntryCompleted(Entry ActorName)

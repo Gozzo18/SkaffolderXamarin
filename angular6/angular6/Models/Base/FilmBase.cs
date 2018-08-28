@@ -92,5 +92,19 @@ namespace angular6.Models.Base
             }
         }
         
+        private string[] test;
+        [JsonProperty(PropertyName = "test")]
+        public string[] Test
+        {
+            get
+            {
+                return test;
+            }
+            set
+            {
+                SetValue(ref test, value);
+            }
+        }
+        
     }
 }

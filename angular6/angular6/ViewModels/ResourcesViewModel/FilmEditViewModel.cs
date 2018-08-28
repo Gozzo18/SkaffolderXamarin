@@ -164,6 +164,33 @@ namespace angular6.ViewModels.ResourcesViewModel
                 SetValue(ref _castAvailable, value);
             }
         }
+        private ObservableCollection<Test> _testInserted;
+        //This is the collection of tests that are ALREADY inserted as test members for the 
+        public ObservableCollection<Test> TestInserted
+        {
+            get
+            {
+                return _testInserted;
+            }
+            set
+            {
+                SetValue(ref _testInserted, value);
+            }
+        }
+
+        private ObservableCollection<Test> _testAvailable;
+        //This is the collection of tests that CAN BE inserted as test members for the 
+        public ObservableCollection<Test> TestAvailable
+        {
+            get
+            {
+                return _testAvailable;
+            }
+            set
+            {
+                SetValue(ref _testAvailable, value);
+            }
+        }
         #endregion
 
         #region Commands
@@ -181,10 +208,10 @@ namespace angular6.ViewModels.ResourcesViewModel
         public ICommand SelectedFilmMakerCommand { get; private set; }
         
 
-        
         public ICommand SetDataForEditingCommand { get; private set; }
+        
         public ICommand SelectedCastCommand { get; private set; }
-        public ICommand DeleteItemCommand
+        public ICommand DeleteItemCastCommand
         {
             get
             {
@@ -206,13 +233,36 @@ namespace angular6.ViewModels.ResourcesViewModel
                 });
             }
         }
+        public ICommand SelectedTestCommand { get; private set; }
+        public ICommand DeleteItemTestCommand
+        {
+            get
+            {
+                return new Command((e) =>
+                {
+                    var item = (e as Test);
+                    int i = 0 ;
+                    bool found = false;
+                    while (i <TestInserted.Count && !found)
+                    {
+                        if (item.Id.Equals(TestInserted[i].Id))
+                        {
+                            TestAvailable.Add(TestInserted[i]);
+                            TestInserted.RemoveAt(TestInserted.IndexOf(TestInserted[i]));
+                            found = true;
+                        }
+                        i++;
+                    }
+                });
+            }
+        }
         #endregion
 
-        public FilmEditViewModel(Film filmToEdit, ObservableCollection<Actor> actors)
+        public FilmEditViewModel(Film filmToEdit, ObservableCollection<Actor> actors, ObservableCollection<Test> tests)
         {
             Film = filmToEdit;
-            
 
+            SetDataForEditingCommand = new Command(async vm => await SetData());
             
             //Remove from actors all the elements that are null
             if(actors != null){
@@ -226,8 +276,20 @@ namespace angular6.ViewModels.ResourcesViewModel
                 }
             }
             CastInserted = actors;
-            SetDataForEditingCommand = new Command(async vm => await SetData());
             SelectedCastCommand = new Command<Picker>(vm =>ActorCompleted(vm));
+            //Remove from tests all the elements that are null
+            if(tests != null){
+                for(int i = 0; i<tests.Count; i++)
+                {
+                    if (tests[i] == null)
+                    {
+                        tests.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            TestInserted = tests;
+            SelectedTestCommand = new Command<Picker>(vm =>TestCompleted(vm));
             SaveCommand = new Command(async vm => await SaveFilmData());
             BackCommand = new Command(async vm => await GoBack());
             
@@ -249,6 +311,8 @@ namespace angular6.ViewModels.ResourcesViewModel
             
             CastAvailable = await App.actorService.GETList();
             
+            TestAvailable = await App.testService.GETList();
+            
             
             
             FilmMakersAvailable = await App.filmmakerService.GETList();
@@ -256,6 +320,7 @@ namespace angular6.ViewModels.ResourcesViewModel
 
             if (Film != null)
             {
+                IsPresent = true;
                 //Overwrite entries
                 Id = Film.Id;
                 
@@ -298,13 +363,30 @@ namespace angular6.ViewModels.ResourcesViewModel
                         }
                     }
                 }
-                IsPresent = true;
+                //Remove from TestAvailable all the Test which are already inserted
+                for (int k = 0; k < TestAvailable.Count; k++)
+                {
+                    for (int h = 0; h <TestInserted.Count; h++)
+                    {
+                        if(TestAvailable.Count != 0)
+                        {
+                            if (TestInserted[h].Id.Equals(TestAvailable[k].Id))
+                            {
+                                TestAvailable.Remove(TestAvailable[k]);
+                                k = 0;
+                                h = -1;
+                            }
+                        }
+                    }
+                }
             }
             else
             {
                 Film = new Film();
                  
                 CastInserted = new ObservableCollection<Actor>();
+                
+                TestInserted = new ObservableCollection<Test>();
                 
             }
                 
@@ -353,6 +435,30 @@ namespace angular6.ViewModels.ResourcesViewModel
                 CastAvailable = support;
             }            
         }
+        private void TestCompleted(Picker picker)
+        {
+           Test testSelected = (Test)picker.SelectedItem;
+            if (testSelected != null)
+            {
+                TestInserted.Add(testSelected);
+                bool found = false;
+                int iterator = 0;
+                while(iterator < TestAvailable.Count && !found)
+                {
+                    if (testSelected.Id.Equals(TestAvailable[iterator].Id))
+                    {
+                        found = true;
+                    }
+                    iterator++;
+                }
+
+                //DO NOT TOUCH
+                //This allows to modify the ItemSource of the Picker dynamically where actors can be selected
+                ObservableCollection<Test> support = new ObservableCollection<Test>(TestAvailable);
+                support.RemoveAt(iterator-1);
+                TestAvailable = support;
+            }            
+        }
 
         
         private void FilmMakerCompleted(Picker picker)
@@ -382,10 +488,15 @@ namespace angular6.ViewModels.ResourcesViewModel
             
 
             
-                List<string> supportList = new List<string>();
+                List<string> supportActorList = new List<string>();
                 foreach (Actor a in CastInserted)
-                    supportList.Add(a.Id);
-                film.Cast = supportList.ToArray();
+                    supportActorList.Add(a.Id);
+                film.Cast = supportActorList.ToArray();
+            
+                List<string> supportTestList = new List<string>();
+                foreach (Test a in TestInserted)
+                    supportTestList.Add(a.Id);
+                film.Cast = supportTestList.ToArray();
             
             
                 film.FilmMaker = FilmMaker.Id;

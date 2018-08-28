@@ -54,6 +54,14 @@
                 </Label>
                 <BoxView Style="{StaticResource boxview}"/>
             </StackLayout>
+            <StackLayout Style="{StaticResource stackLayout}" >
+                <Label Text="Test" Style="{StaticResource label}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChangePage"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView Style="{StaticResource boxview}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

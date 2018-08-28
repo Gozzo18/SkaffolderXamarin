@@ -37,6 +37,8 @@ namespace angular6.Views
 
             base.OnAppearing();
             
+            //Set the ItemSource for all the Pickers
+            ViewModel.SetDataForEditingCommand.Execute(null);
         }
 
         

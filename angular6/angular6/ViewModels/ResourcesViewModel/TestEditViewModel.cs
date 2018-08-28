@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace angular6.ViewModels.ResourcesViewModel
 {
-    public class FilmMakerEditViewModel : BaseViewModel
+    public class TestEditViewModel : BaseViewModel
     {
         #region Attributes and Properties
         private string _id;
@@ -26,28 +26,16 @@ namespace angular6.ViewModels.ResourcesViewModel
         }
 
         
-        private string _name;
-        public string Name
+        private string _nome;
+        public string Nome
         {
             get
             {
-                return _name;
+                return _nome;
             }
             set
             {
-                SetValue(ref _name, value);
-            }
-        }
-        private string _surname;
-        public string Surname
-        {
-            get
-            {
-                return _surname;
-            }
-            set
-            {
-                SetValue(ref _surname, value);
+                SetValue(ref _nome, value);
             }
         }
 
@@ -56,7 +44,7 @@ namespace angular6.ViewModels.ResourcesViewModel
         
 
         private bool _isPresent;
-        //True = editing FilmMaker, False = creating new FilmMaker
+        //True = editing Test, False = creating new Test
         public bool IsPresent
         {
             get
@@ -84,16 +72,16 @@ namespace angular6.ViewModels.ResourcesViewModel
 
         
 
-        private FilmMaker _filmmaker;
-        public FilmMaker FilmMaker
+        private Test _test;
+        public Test Test
         {
             get
             {
-                return _filmmaker;
+                return _test;
             }
             set
             {
-                SetValue(ref _filmmaker, value);
+                SetValue(ref _test, value);
             }
         }
 
@@ -104,9 +92,7 @@ namespace angular6.ViewModels.ResourcesViewModel
         public ICommand BackCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         
-        public ICommand NameCompletedCommand { get; private set; }
-        
-        public ICommand SurnameCompletedCommand { get; private set; }
+        public ICommand NomeCompletedCommand { get; private set; }
         
         
         
@@ -115,18 +101,16 @@ namespace angular6.ViewModels.ResourcesViewModel
         
         #endregion
 
-        public FilmMakerEditViewModel(FilmMaker filmmakerToEdit)
+        public TestEditViewModel(Test testToEdit)
         {
-            FilmMaker = filmmakerToEdit;
+            Test = testToEdit;
 
             SetDataForEditingCommand = new Command(async vm => await SetData());
             
-            SaveCommand = new Command(async vm => await SaveFilmMakerData());
+            SaveCommand = new Command(async vm => await SaveTestData());
             BackCommand = new Command(async vm => await GoBack());
             
-            NameCompletedCommand = new Command<Entry>(vm => NameEntryCompleted(vm));
-            
-            SurnameCompletedCommand = new Command<Entry>(vm => SurnameEntryCompleted(vm));
+            NomeCompletedCommand = new Command<Entry>(vm => NomeEntryCompleted(vm));
             
             
             
@@ -139,15 +123,13 @@ namespace angular6.ViewModels.ResourcesViewModel
             
             
 
-            if (FilmMaker != null)
+            if (Test != null)
             {
                 IsPresent = true;
                 //Overwrite entries
-                Id = FilmMaker.Id;
+                Id = Test.Id;
                 
-                Name = FilmMaker.Name;
-                
-                Surname = FilmMaker.Surname;
+                Nome = Test.Nome;
                 
 
                 
@@ -161,20 +143,16 @@ namespace angular6.ViewModels.ResourcesViewModel
             }
             else
             {
-                FilmMaker = new FilmMaker();
+                Test = new Test();
                  
             }
                 
         }
 
         
-        private void NameEntryCompleted(Entry FilmMakerName)
+        private void NomeEntryCompleted(Entry TestNome)
         {
-            Name = FilmMakerName.Text;
-        }
-        private void SurnameEntryCompleted(Entry FilmMakerSurname)
-        {
-            Surname = FilmMakerSurname.Text;
+            Nome = TestNome.Text;
         }
 
         
@@ -192,14 +170,12 @@ namespace angular6.ViewModels.ResourcesViewModel
             
         }
 
-        private async Task SaveFilmMakerData()
+        private async Task SaveTestData()
         {
-            FilmMaker filmmaker = new FilmMaker();
+            Test test = new Test();
 
             
-                filmmaker.Name = Name;
-            
-                filmmaker.Surname = Surname;
+                test.Nome = Nome;
             
             
             
@@ -208,11 +184,11 @@ namespace angular6.ViewModels.ResourcesViewModel
             
                 if (IsPresent)
                 {
-                    filmmaker.Id = FilmMaker.Id;
-                    await App.filmmakerService.PUT(filmmaker);
+                    test.Id = Test.Id;
+                    await App.testService.PUT(test);
                 }
                 else
-                    await App.filmmakerService.POST(filmmaker);
+                    await App.testService.POST(test);
 
                 var masterDetailPage = App.Current.MainPage as MasterDetailPage;
                 await masterDetailPage.Detail.Navigation.PopAsync();   

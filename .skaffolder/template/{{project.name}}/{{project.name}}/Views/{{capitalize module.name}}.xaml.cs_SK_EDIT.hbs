@@ -23,7 +23,7 @@ namespace {{project.name}}.Views
             }
         }
 
-        public {{capitalize crudResource.name}}Edit ({{capitalize crudResource.name}} {{lowercase crudResource.name}}{{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}, ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
+        public {{capitalize crudResource.name}}Edit ({{capitalize crudResource.name}} {{lowercase crudResource.name}}{{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}, ObservableCollection<{{capitalize _ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
 		{
             //Setting BindingContext
             ViewModel = new {{capitalize crudResource.name}}EditViewModel({{lowercase crudResource.name}}{{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}, {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}});
@@ -36,9 +36,9 @@ namespace {{project.name}}.Views
             this.Navigation.RemovePage(this.Navigation.NavigationStack[this.Navigation.NavigationStack.Count - 2 ]);
 
             base.OnAppearing();
-            {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
+            
             //Set the ItemSource for all the Pickers
-            ViewModel.SetDataForEditingCommand.Execute(null);{{/equal}}{{/equal}}{{/each}}
+            ViewModel.SetDataForEditingCommand.Execute(null);
         }
 
         {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}

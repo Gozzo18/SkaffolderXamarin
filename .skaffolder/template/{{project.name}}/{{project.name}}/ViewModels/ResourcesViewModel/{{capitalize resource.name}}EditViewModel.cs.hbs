@@ -144,9 +144,9 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
         }
 
         {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-        private ObservableCollection<{{_ent2.name}}> _{{lowercase name}}Inserted;
+        private ObservableCollection<{{capitalize _ent2.name}}> _{{lowercase name}}Inserted;
         //This is the collection of {{lowercase _ent2.name}}s that are ALREADY inserted as {{name}} members for the {{lowercase resource.name}}
-        public ObservableCollection<{{_ent2.name}}> {{capitalize name}}Inserted
+        public ObservableCollection<{{capitalize _ent2.name}}> {{capitalize name}}Inserted
         {
             get
             {
@@ -158,9 +158,9 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
             }
         }
 
-        private ObservableCollection<{{_ent2.name}}> _{{lowercase name}}Available;
+        private ObservableCollection<{{capitalize _ent2.name}}> _{{lowercase name}}Available;
         //This is the collection of {{lowercase _ent2.name}}s that CAN BE inserted as {{name}} members for the {{lowercase ent_1.name}}
-        public ObservableCollection<{{_ent2.name}}> {{capitalize name}}Available
+        public ObservableCollection<{{capitalize _ent2.name}}> {{capitalize name}}Available
         {
             get
             {
@@ -183,13 +183,13 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
         public ICommand Selected{{capitalize name}}Command { get; private set; }
         {{/notNull}}{{/each}}
         {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-        public ICommand Selected{{_ent2.name}}Command { get; private set; }
+        public ICommand Selected{{capitalize _ent2.name}}Command { get; private set; }
         {{/equal}}{{/equal}}{{/each}}
 
-        {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
         public ICommand SetDataForEditingCommand { get; private set; }
+        {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
         public ICommand Selected{{capitalize name}}Command { get; private set; }
-        public ICommand DeleteItemCommand
+        public ICommand DeleteItem{{capitalize name}}Command
         {
             get
             {
@@ -213,19 +213,11 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
         }{{/equal}}{{/equal}}{{/each}}
         #endregion
 
-        public {{capitalize resource.name}}EditViewModel({{capitalize resource.name}} {{lowercase resource.name}}ToEdit{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, ObservableCollection<{{_ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
+        public {{capitalize resource.name}}EditViewModel({{capitalize resource.name}} {{lowercase resource.name}}ToEdit{{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}, ObservableCollection<{{capitalize _ent2.name}}> {{lowercase _ent2.name}}s{{/equal}}{{/equal}}{{/each}})
         {
             {{capitalize resource.name}} = {{lowercase resource.name}}ToEdit;
-            {{#each resource._entity._relations}}{{#notEqual ./../resource._entity._id _ent1._id}}
-            if({{capitalize ./../resource.name}} != null)
-            {
-                {{#each ./../resource._entity._attrs}}
-                {{capitalize name}} = {{capitalize ./../../resource.name}}.{{capitalize name}};
-                {{/each}}
-                IsPresent = true;
-            }
-            {{/notEqual}}{{/each}}
 
+            SetDataForEditingCommand = new Command(async vm => await SetData());
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
             //Remove from {{lowercase _ent2.name}}s all the elements that are null
             if({{lowercase _ent2.name}}s != null){
@@ -239,7 +231,6 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
                 }
             }
             {{capitalize name}}Inserted = {{lowercase _ent2.name}}s;
-            SetDataForEditingCommand = new Command(async vm => await SetData());
             Selected{{capitalize name}}Command = new Command<Picker>(vm =>{{capitalize _ent2.name}}Completed(vm));{{/equal}}{{/equal}}{{/each}}
             SaveCommand = new Command(async vm => await Save{{capitalize resource.name}}Data());
             BackCommand = new Command(async vm => await GoBack());
@@ -253,10 +244,10 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
             Selected{{capitalize name}}Command = new Command<Picker>(vm => {{capitalize name}}Completed(vm));
             {{/notNull}}{{/each}}
             {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-            Selected{{_ent2.name}}Command = new Command<Picker>(vm => {{_ent2.name}}Completed(vm));
+            Selected{{capitalize _ent2.name}}Command = new Command<Picker>(vm => {{capitalize _ent2.name}}Completed(vm));
             {{/equal}}{{/equal}}{{/each}}
         }
-        {{#equal resource._entity._relations.0.type "m:m"}}{{#equal resource._entity._id resource._entity._relations.0._ent1._id}}
+        
         private async Task SetData()
         {
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
@@ -264,11 +255,12 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
             {{/equal}}{{/equal}}{{/each}}
             
             {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-            {{_ent2.name}}sAvailable = await App.{{lowercase _ent2.name}}Service.GETList();
+            {{capitalize _ent2.name}}sAvailable = await App.{{lowercase _ent2.name}}Service.GETList();
             {{/equal}}{{/equal}}{{/each}}
 
             if ({{capitalize resource.name}} != null)
             {
+                IsPresent = true;
                 //Overwrite entries
                 Id = {{capitalize resource.name}}.Id;
                 {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Number"}}{{#isNull _enum}}
@@ -285,7 +277,7 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
             
 
                 {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-                //Overwrite {{_ent2.name}} entry 
+                //Overwrite {{capitalize _ent2.name}} entry 
                 for (int i = 0; i < {{capitalize _ent2.name}}sAvailable.Count; i++)
                 {
                     if ({{capitalize _ent2.name}}sAvailable[i].Id.Equals({{./../resource.name}}.{{capitalize _ent2.name}}))
@@ -295,7 +287,7 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
                 }{{/equal}}{{/equal}}{{/each}}
 
                 {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-                //Remove from {{capitalize name}}Available all the {{_ent2.name}} which are already inserted
+                //Remove from {{capitalize name}}Available all the {{capitalize _ent2.name}} which are already inserted
                 for (int k = 0; k < {{capitalize name}}Available.Count; k++)
                 {
                     for (int h = 0; h <{{capitalize name}}Inserted.Count; h++)
@@ -311,7 +303,6 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
                         }
                     }
                 }{{/equal}}{{/equal}}{{/each}}
-                IsPresent = true;
             }
             else
             {
@@ -321,7 +312,7 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
                 {{/equal}}{{/equal}}{{/each}}
             }
                 
-        }{{/equal}}{{/equal}}
+        }
 
         {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
         private void {{capitalize name}}EntryCompleted(Entry {{capitalize ./../resource.name}}{{capitalize name}})
@@ -382,7 +373,7 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
 
         private async Task Save{{capitalize resource.name}}Data()
         {
-            {{resource.name}} {{lowercase resource.name}} = new {{resource.name}}();
+            {{capitalize resource.name}} {{lowercase resource.name}} = new {{capitalize resource.name}}();
 
             {{#each resource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Number"}}{{#isNull _enum}}
                 {{lowercase ./../resource.name}}.{{capitalize name}} = {{capitalize name}};
@@ -395,10 +386,10 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
             {{/notNull}}{{/notEqual}}{{/each}}
 
             {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
-                List<string> supportList = new List<string>();
+                List<string> support{{capitalize _ent2.name}}List = new List<string>();
                 foreach ({{capitalize _ent2.name}} a in {{capitalize name}}Inserted)
-                    supportList.Add(a.Id);
-                {{lowercase ./../resource.name}}.Cast = supportList.ToArray();
+                    support{{capitalize _ent2.name}}List.Add(a.Id);
+                {{lowercase ./../resource.name}}.Cast = support{{capitalize _ent2.name}}List.ToArray();
             {{/equal}}{{/equal}}{{/each}}
             {{#each resource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../resource._entity._id _ent1._id}}
                 {{lowercase ./../resource.name}}.{{capitalize _ent2.name}} = {{capitalize _ent2.name}}.Id;

@@ -38,6 +38,9 @@ namespace angular6.Views
             if (label.Text.Equals("User"))
                 
                 masterPage.Detail = new NavigationPage(new UsersListStatic());
+            if (label.Text.Equals("Test"))
+                masterPage.Detail = new NavigationPage(new TestList());
+                
         }
     }
 }
