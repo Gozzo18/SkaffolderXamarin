@@ -69,6 +69,12 @@ namespace {{project.name}}.Views
         private void Picker{{capitalize name}}_SelectedIndexChanged(object sender, EventArgs e)
         {
                 ViewModel.Selected{{capitalize name}}Command.Execute(sender as Picker);
+                {{name}}Inserted.HeightRequest += 15;
+        }
+
+        private void {{capitalize name}}ItemRemove_Clicked(object sender, EventArgs e)
+        {
+            {{name}}Inserted.HeightRequest -= 30;
         }
 
         private void show{{capitalize name}}Picker(object sender, EventArgs e)

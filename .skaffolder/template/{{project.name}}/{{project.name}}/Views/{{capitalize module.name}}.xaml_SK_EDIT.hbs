@@ -52,71 +52,71 @@
                         Type=RelativeToParent,
                         Property=Height,
                         Factor=0.8}">
-                <StackLayout>
-                    <ListView CachingStrategy="RecycleElement" {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}x:Name="{{name}}Inserted" ItemsSource="{Binding {{capitalize name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected"{{/equal}}{{/equal}}{{/each}} RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
-                        <ListView.Header>
-                            <StackLayout VerticalOptions="FillAndExpand"> 
-                                {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-                                <Picker x:Name="{{name}}Picker" IsVisible="False" ItemsSource="{Binding {{capitalize name}}Available}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged"/>
-                                {{/equal}}{{/equal}}{{/each}}                                
-                                {{#each crudResource._entity._attrs}}{{#notNull _enum}}
-                                <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
-                                <Picker Title="{{capitalize name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
-                                    <Picker.ItemsSource>
-                                        <x:Array Type="{x:Type x:{{type}} }">
-                                            {{#each _enum}}
-                                            <x:{{./../type}}>{{name}}</x:{{./../type}}>
-                                            {{/each}}
-                                        </x:Array>
-                                    </Picker.ItemsSource>
-                                </Picker>{{/notNull}}{{/each}}
-                                {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
-                                <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
-                                <Entry Placeholder="{{capitalize name}}" PlaceholderColor="White" FontSize="Small" Text="{Binding {{capitalize name}} }" {{#equal type "Number"}}Keyboard = "Numeric"{{/equal}} TextColor="White" Unfocused="{{capitalize name}}Entry_Unfocused" {{#equal type "Date"}}Keyboard="Numeric"{{/equal}} Margin="0,-6,0,0"/>
-                                {{/isNull}}{{/notEqual}}{{/notEqual}}{{/each}}
-                                {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#equal type "Date"}}{{#isNull _enum}}
-                                <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
-                                <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding {{capitalize name}} }" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
-                                {{/isNull}}{{/equal}}{{/notEqual}}{{/each}}
-                                {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
-                                    <Label Text="{{capitalize name}}" VerticalOptions="Center" FontSize="Medium">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="show{{capitalize name}}Picker"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <Image Source="littleadd.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="show{{capitalize name}}Picker"/>
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                </StackLayout>
-                                {{/equal}}{{/equal}}{{/each}}
-                            </StackLayout>
-                        </ListView.Header>
-                         {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <customrenderer:CustomViewCell>
-                                    <StackLayout x:Name="Item" Orientation="Horizontal" Margin="0,-10,0,0">
-                                        <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding Delete{{capitalize crudResource.name}}ItemCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
-                                        <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
+               <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout VerticalOptions="Start">
+                        <StackLayout VerticalOptions="FillAndExpand"> 
+                            {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
+                            <Picker x:Name="{{name}}Picker" IsVisible="False" ItemsSource="{Binding {{capitalize name}}Available}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged"/>
+                            {{/equal}}{{/equal}}{{/each}}                                
+                            {{#each crudResource._entity._attrs}}{{#notNull _enum}}
+                            <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
+                            <Picker Title="{{capitalize name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:{{type}} }">
+                                        {{#each _enum}}
+                                        <x:{{./../type}}>{{name}}</x:{{./../type}}>
+                                        {{/each}}
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>{{/notNull}}{{/each}}
+                            {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#notEqual type "Date"}}{{#isNull _enum}}
+                            <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
+                            <Entry Placeholder="{{capitalize name}}" PlaceholderColor="White" FontSize="Small" Text="{Binding {{capitalize name}} }" {{#equal type "Number"}}Keyboard = "Numeric"{{/equal}} TextColor="White" Unfocused="{{capitalize name}}Entry_Unfocused" {{#equal type "Date"}}Keyboard="Numeric"{{/equal}} Margin="0,-6,0,0"/>
+                            {{/isNull}}{{/notEqual}}{{/notEqual}}{{/each}}
+                            {{#each crudResource._entity._attrs}}{{#notEqual name "password"}}{{#equal type "Date"}}{{#isNull _enum}}
+                            <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
+                            <DatePicker TextColor="White" MinimumDate="01/01/1900" Date="{Binding {{capitalize name}} }" MaximumDate="{x:Static sys:DateTime.Now}" DateSelected="BirthDate_Selected" Margin="0,-6,0,0"/>
+                            {{/isNull}}{{/equal}}{{/notEqual}}{{/each}}
+                        </StackLayout>
+                        <StackLayout VerticalOptions="Start">
+                            {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
+                            <ListView CachingStrategy="RecycleElement" HeightRequest="100" x:Name="{{name}}Inserted" ItemsSource="{Binding {{capitalize name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected" RowHeight="10" HasUnevenRows="True" SeparatorVisibility="None">
+                                <ListView.Header>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
+                                        <Label Text="{{capitalize name}}" VerticalOptions="Center" FontSize="Medium">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="show{{capitalize name}}Picker"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Image Source="littleadd.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="show{{capitalize name}}Picker"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
                                     </StackLayout>
-                                </customrenderer:CustomViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                                </ListView.Header>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <customrenderer:CustomViewCell>
+                                            <StackLayout x:Name="{{capitalize name}}Item" Orientation="Horizontal" Margin="0,-10,0,0">
+                                                <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference {{name}}Inserted}, Path=BindingContext}" Command="{Binding Delete{{capitalize name}}ItemCommand}" CommandParameter="{Binding Source={x:Reference {{capitalize name}}Item}, Path=BindingContext}" Clicked="{{capitalize name}}ItemRemove_Clicked"/>
+                                                <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </customrenderer:CustomViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                        </ListView>
                         {{/equal}}{{/equal}}{{/each}}
-                        <ListView.Footer>
-                            <StackLayout>
-                                {{#each crudResource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-                                <Label Text="{{_ent2.name}}" Margin="12,0,0,0"/>
-                                <Picker Title="{{_ent2.name}}" TextColor="White" FontSize="Small" ItemsSource="{Binding {{_ent2.name}}sAvailable}" SelectedItem="{Binding {{_ent2.name}}, Mode=TwoWay}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{_ent2.name}}_SelectedIndexChanged"/>
-                                <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>
-                                {{/equal}}{{/equal}}{{/each}}
-                            </StackLayout>
-                        </ListView.Footer>
-                    </ListView>
-                </StackLayout>
+                        </StackLayout>    
+                        <StackLayout>
+                            {{#each crudResource._entity._relations}}{{#equal type "1:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
+                            <Label Text="{{_ent2.name}}" Margin="12,0,0,0"/>
+                            <Picker Title="{{_ent2.name}}" TextColor="White" FontSize="Small" ItemsSource="{Binding {{_ent2.name}}sAvailable}" SelectedItem="{Binding {{_ent2.name}}, Mode=TwoWay}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="Picker{{_ent2.name}}_SelectedIndexChanged"/>
+                            <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>
+                            {{/equal}}{{/equal}}{{/each}}
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                     RelativeLayout.YConstraint="{ConstraintExpression

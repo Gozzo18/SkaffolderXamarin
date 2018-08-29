@@ -68,6 +68,12 @@ namespace angular6.Views
         private void PickerCast_SelectedIndexChanged(object sender, EventArgs e)
         {
                 ViewModel.SelectedCastCommand.Execute(sender as Picker);
+                castInserted.HeightRequest += 15;
+        }
+
+        private void CastItemRemove_Clicked(object sender, EventArgs e)
+        {
+            castInserted.HeightRequest -= 30;
         }
 
         private void showCastPicker(object sender, EventArgs e)
@@ -85,6 +91,12 @@ namespace angular6.Views
         private void PickerTest_SelectedIndexChanged(object sender, EventArgs e)
         {
                 ViewModel.SelectedTestCommand.Execute(sender as Picker);
+                testInserted.HeightRequest += 15;
+        }
+
+        private void TestItemRemove_Clicked(object sender, EventArgs e)
+        {
+            testInserted.HeightRequest -= 30;
         }
 
         private void showTestPicker(object sender, EventArgs e)

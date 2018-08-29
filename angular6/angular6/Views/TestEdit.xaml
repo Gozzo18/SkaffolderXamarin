@@ -52,28 +52,25 @@
                         Type=RelativeToParent,
                         Property=Height,
                         Factor=0.8}">
-                <StackLayout>
-                    <ListView CachingStrategy="RecycleElement"  RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
-                        <ListView.Header>
-                            <StackLayout VerticalOptions="FillAndExpand"> 
-                                                                
-                                
-                                
-                                <Label Text="Nome" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Nome" PlaceholderColor="White" FontSize="Small" Text="{Binding Nome }"  TextColor="White" Unfocused="NomeEntry_Unfocused"  Margin="0,-6,0,0"/>
-                                
-                                
-                                
-                            </StackLayout>
-                        </ListView.Header>
-                         
-                        <ListView.Footer>
-                            <StackLayout>
-                                
-                            </StackLayout>
-                        </ListView.Footer>
-                    </ListView>
-                </StackLayout>
+               <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout VerticalOptions="Start">
+                        <StackLayout VerticalOptions="FillAndExpand"> 
+                                                            
+                            
+                            
+                            <Label Text="Nome" Margin="3,0,0,0"/>
+                            <Entry Placeholder="Nome" PlaceholderColor="White" FontSize="Small" Text="{Binding Nome }"  TextColor="White" Unfocused="NomeEntry_Unfocused"  Margin="0,-6,0,0"/>
+                            
+                            
+                        </StackLayout>
+                        <StackLayout VerticalOptions="Start">
+                            
+                        </StackLayout>    
+                        <StackLayout>
+                            
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                     RelativeLayout.YConstraint="{ConstraintExpression

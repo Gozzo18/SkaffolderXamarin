@@ -189,7 +189,7 @@ namespace {{project.name}}.ViewModels.ResourcesViewModel
         public ICommand SetDataForEditingCommand { get; private set; }
         {{#each resource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../resource._entity._id _ent1._id}}
         public ICommand Selected{{capitalize name}}Command { get; private set; }
-        public ICommand DeleteItem{{capitalize name}}Command
+        public ICommand Delete{{capitalize name}}ItemCommand
         {
             get
             {

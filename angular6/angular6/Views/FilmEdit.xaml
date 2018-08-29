@@ -52,88 +52,101 @@
                         Type=RelativeToParent,
                         Property=Height,
                         Factor=0.8}">
-                <StackLayout>
-                    <ListView CachingStrategy="RecycleElement" x:Name="castInserted" ItemsSource="{Binding CastInserted}" ItemSelected="castInserted_ItemSelected" RowHeight="10" HeightRequest="220" HasUnevenRows="True" SeparatorVisibility="None">
-                        <ListView.Header>
-                            <StackLayout VerticalOptions="FillAndExpand"> 
-                                
-                                <Picker x:Name="castPicker" IsVisible="False" ItemsSource="{Binding CastAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerCast_SelectedIndexChanged"/>
-                                
-                                <Picker x:Name="testPicker" IsVisible="False" ItemsSource="{Binding TestAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerTest_SelectedIndexChanged"/>
-                                                                
-                                
-                                <Label Text="Genre" Margin="3,0,0,0"/>
-                                <Picker Title="Genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre }" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
-                                    <Picker.ItemsSource>
-                                        <x:Array Type="{x:Type x:String }">
-                                            <x:String>Action</x:String>
-                                            <x:String>Crime</x:String>
-                                            <x:String>Fantasy</x:String>
-                                            <x:String>Horror</x:String>
-                                        </x:Array>
-                                    </Picker.ItemsSource>
-                                </Picker>
-                                
-                                <Label Text="Title" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Title" PlaceholderColor="White" FontSize="Small" Text="{Binding Title }"  TextColor="White" Unfocused="TitleEntry_Unfocused"  Margin="0,-6,0,0"/>
-                                
-                                <Label Text="Year" Margin="3,0,0,0"/>
-                                <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year }" Keyboard = "Numeric" TextColor="White" Unfocused="YearEntry_Unfocused"  Margin="0,-6,0,0"/>
-                                
-                                
-                                
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
-                                    <Label Text="Cast" VerticalOptions="Center" FontSize="Medium">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="showCastPicker"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <Image Source="littleadd.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="showCastPicker"/>
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                </StackLayout>
-                                
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
-                                    <Label Text="Test" VerticalOptions="Center" FontSize="Medium">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="showTestPicker"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <Image Source="littleadd.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="showTestPicker"/>
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                </StackLayout>
-                                
-                            </StackLayout>
-                        </ListView.Header>
-                         
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <customrenderer:CustomViewCell>
-                                    <StackLayout x:Name="Item" Orientation="Horizontal" Margin="0,-10,0,0">
-                                        <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding DeleteCastItemCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
-                                        <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
+               <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout VerticalOptions="Start">
+                        <StackLayout VerticalOptions="FillAndExpand"> 
+                            
+                            <Picker x:Name="castPicker" IsVisible="False" ItemsSource="{Binding CastAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerCast_SelectedIndexChanged"/>
+                            
+                            <Picker x:Name="testPicker" IsVisible="False" ItemsSource="{Binding TestAvailable}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerTest_SelectedIndexChanged"/>
+                                                            
+                            
+                            <Label Text="Genre" Margin="3,0,0,0"/>
+                            <Picker Title="Genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre }" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String }">
+                                        <x:String>Action</x:String>
+                                        <x:String>Crime</x:String>
+                                        <x:String>Fantasy</x:String>
+                                        <x:String>Horror</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                            
+                            <Label Text="Title" Margin="3,0,0,0"/>
+                            <Entry Placeholder="Title" PlaceholderColor="White" FontSize="Small" Text="{Binding Title }"  TextColor="White" Unfocused="TitleEntry_Unfocused"  Margin="0,-6,0,0"/>
+                            
+                            <Label Text="Year" Margin="3,0,0,0"/>
+                            <Entry Placeholder="Year" PlaceholderColor="White" FontSize="Small" Text="{Binding Year }" Keyboard = "Numeric" TextColor="White" Unfocused="YearEntry_Unfocused"  Margin="0,-6,0,0"/>
+                            
+                            
+                        </StackLayout>
+                        <StackLayout VerticalOptions="Start">
+                            
+                            <ListView CachingStrategy="RecycleElement" HeightRequest="100" x:Name="castInserted" ItemsSource="{Binding CastInserted}" ItemSelected="castInserted_ItemSelected" RowHeight="10" HasUnevenRows="True" SeparatorVisibility="None">
+                                <ListView.Header>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
+                                        <Label Text="Cast" VerticalOptions="Center" FontSize="Medium">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="showCastPicker"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Image Source="littleadd.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="showCastPicker"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
                                     </StackLayout>
-                                </customrenderer:CustomViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-
+                                </ListView.Header>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <customrenderer:CustomViewCell>
+                                            <StackLayout x:Name="CastItem" Orientation="Horizontal" Margin="0,-10,0,0">
+                                                <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding DeleteCastItemCommand}" CommandParameter="{Binding Source={x:Reference CastItem}, Path=BindingContext}" Clicked="CastItemRemove_Clicked"/>
+                                                <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </customrenderer:CustomViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                        </ListView>
                         
-                        <ListView.Footer>
-                            <StackLayout>
-                                
-                                <Label Text="FilmMaker" Margin="12,0,0,0"/>
-                                <Picker Title="FilmMaker" TextColor="White" FontSize="Small" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
-                                <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>
-                                
-                            </StackLayout>
-                        </ListView.Footer>
-                    </ListView>
-                </StackLayout>
+                            <ListView CachingStrategy="RecycleElement" HeightRequest="100" x:Name="testInserted" ItemsSource="{Binding TestInserted}" ItemSelected="testInserted_ItemSelected" RowHeight="10" HasUnevenRows="True" SeparatorVisibility="None">
+                                <ListView.Header>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
+                                        <Label Text="Test" VerticalOptions="Center" FontSize="Medium">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="showTestPicker"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Image Source="littleadd.png" VerticalOptions="End" WidthRequest="35" HeightRequest="35">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="showTestPicker"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </StackLayout>
+                                </ListView.Header>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <customrenderer:CustomViewCell>
+                                            <StackLayout x:Name="TestItem" Orientation="Horizontal" Margin="0,-10,0,0">
+                                                <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference testInserted}, Path=BindingContext}" Command="{Binding DeleteTestItemCommand}" CommandParameter="{Binding Source={x:Reference TestItem}, Path=BindingContext}" Clicked="TestItemRemove_Clicked"/>
+                                                <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </customrenderer:CustomViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                        </ListView>
+                        
+                        </StackLayout>    
+                        <StackLayout>
+                            
+                            <Label Text="FilmMaker" Margin="12,0,0,0"/>
+                            <Picker Title="FilmMaker" TextColor="White" FontSize="Small" ItemsSource="{Binding FilmMakersAvailable}" SelectedItem="{Binding FilmMaker, Mode=TwoWay}" ItemDisplayBinding="{Binding Id}" SelectedIndexChanged="PickerFilmMaker_SelectedIndexChanged"/>
+                            <Label Text="{Binding ErrorMessage}" TextColor="Red" FontSize="Medium"/>
+                            
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
             </Frame>
             <StackLayout x:Name="Buttons" BackgroundColor="#7970F5" Orientation="Horizontal" HorizontalOptions="FillAndExpand"
                     RelativeLayout.YConstraint="{ConstraintExpression

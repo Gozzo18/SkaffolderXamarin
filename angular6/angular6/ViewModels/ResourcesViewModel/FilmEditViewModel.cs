@@ -211,7 +211,7 @@ namespace angular6.ViewModels.ResourcesViewModel
         public ICommand SetDataForEditingCommand { get; private set; }
         
         public ICommand SelectedCastCommand { get; private set; }
-        public ICommand DeleteItemCastCommand
+        public ICommand DeleteCastItemCommand
         {
             get
             {
@@ -234,7 +234,7 @@ namespace angular6.ViewModels.ResourcesViewModel
             }
         }
         public ICommand SelectedTestCommand { get; private set; }
-        public ICommand DeleteItemTestCommand
+        public ICommand DeleteTestItemCommand
         {
             get
             {
