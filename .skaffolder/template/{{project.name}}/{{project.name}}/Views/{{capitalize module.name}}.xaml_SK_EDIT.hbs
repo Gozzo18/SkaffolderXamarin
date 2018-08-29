@@ -60,7 +60,7 @@
                             {{/equal}}{{/equal}}{{/each}}                                
                             {{#each crudResource._entity._attrs}}{{#notNull _enum}}
                             <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
-                            <Picker Title="{{lowercase name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
+                            <Picker Title="{{capitalize name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:{{type}} }">
                                         {{#each _enum}}

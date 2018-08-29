@@ -62,7 +62,7 @@
                                                             
                             
                             <Label Text="Genre" Margin="3,0,0,0"/>
-                            <Picker Title="genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre }" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
+                            <Picker Title="Genre" TextColor="White" FontSize="Small" SelectedItem="{Binding Genre }" SelectedIndexChanged="PickerGenre_SelectedIndexChanged" Margin="0,-6,0,0">
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:String }">
                                         <x:String>Action</x:String>
