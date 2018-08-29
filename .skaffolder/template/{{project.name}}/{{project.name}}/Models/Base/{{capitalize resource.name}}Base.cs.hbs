@@ -53,17 +53,17 @@ namespace {{project.name}}.Models.Base
             }
         }{{/equal}}{{/equal}}{{/each}}
         {{#each resource._entity._relations}}{{#equal ./../resource._entity._id _ent1._id}}
-        private string{{#equal type "m:m"}}[]{{/equal}} {{name}};
+        private string{{#equal type "m:m"}}[]{{/equal}} {{lowercase name}};
         [JsonProperty(PropertyName = "{{name}}")]
         public string{{#equal type "m:m"}}[]{{/equal}} {{capitalize name}}
         {
             get
             {
-                return {{name}};
+                return {{lowercase name}};
             }
             set
             {
-                SetValue(ref {{name}}, value);
+                SetValue(ref {{lowercase name}}, value);
             }
         }
         {{/equal}}{{/each}}

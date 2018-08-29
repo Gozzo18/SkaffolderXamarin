@@ -78,17 +78,17 @@ namespace angular6.Models.Base
             }
         }
         
-        private string filmMaker;
+        private string filmmaker;
         [JsonProperty(PropertyName = "filmMaker")]
         public string FilmMaker
         {
             get
             {
-                return filmMaker;
+                return filmmaker;
             }
             set
             {
-                SetValue(ref filmMaker, value);
+                SetValue(ref filmmaker, value);
             }
         }
         

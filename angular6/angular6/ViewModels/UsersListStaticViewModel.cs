@@ -133,7 +133,7 @@ namespace angular6.ViewModels
         {
             AddCommand = new Command(async vm => await AddNewUser());
             RefreshCommand = new Command(async vm => await RefreshList());
-            LoadDataCommand = new Command<ObservableCollection<Actor>>(async vm => await GetRequest());
+            LoadDataCommand = new Command<ObservableCollection<User>>(async vm => await GetRequest());
             SearchCommand = new Command(SearchWord);
         }
 

@@ -60,7 +60,7 @@
                             {{/equal}}{{/equal}}{{/each}}                                
                             {{#each crudResource._entity._attrs}}{{#notNull _enum}}
                             <Label Text="{{capitalize name}}" Margin="3,0,0,0"/>
-                            <Picker Title="{{capitalize name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
+                            <Picker Title="{{lowercase name}}" TextColor="White" FontSize="Small" SelectedItem="{Binding {{capitalize name}} }" SelectedIndexChanged="Picker{{capitalize name}}_SelectedIndexChanged" Margin="0,-6,0,0">
                                 <Picker.ItemsSource>
                                     <x:Array Type="{x:Type x:{{type}} }">
                                         {{#each _enum}}
@@ -80,7 +80,7 @@
                         </StackLayout>
                         <StackLayout VerticalOptions="Start">
                             {{#each crudResource._entity._relations}}{{#equal type "m:m"}}{{#equal ./../crudResource._entity._id _ent1._id}}
-                            <ListView CachingStrategy="RecycleElement" HeightRequest="100" x:Name="{{name}}Inserted" ItemsSource="{Binding {{capitalize name}}Inserted}" ItemSelected="{{name}}Inserted_ItemSelected" RowHeight="10" HasUnevenRows="True" SeparatorVisibility="None">
+                            <ListView CachingStrategy="RecycleElement" HeightRequest="100" x:Name="{{lowercase name}}Inserted" ItemsSource="{Binding {{capitalize name}}Inserted}" ItemSelected="{{lowercase name}}Inserted_ItemSelected" RowHeight="10" HasUnevenRows="True" SeparatorVisibility="None">
                                 <ListView.Header>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Margin="0,-5,0,0">
                                         <Label Text="{{capitalize name}}" VerticalOptions="Center" FontSize="Medium">
