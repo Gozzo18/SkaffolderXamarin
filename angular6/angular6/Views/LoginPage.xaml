@@ -22,6 +22,10 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"/>
+    </ContentPage.Padding>
     <ContentPage.Content>
         <RelativeLayout>
             <Frame BackgroundColor="White" CornerRadius="10" 
@@ -58,8 +62,8 @@
 
                         <Label VerticalOptions="Start" IsVisible="{Binding ErrorData}" HorizontalOptions="Center" Text="{Binding ErrorMessage}" TextColor="Red"/>
                     </StackLayout>
-                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                        <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="30" VerticalOptions="End" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <Button x:Name="Login" Text="Login"  TextColor="White" BackgroundColor="DarkBlue" BorderRadius="15" VerticalOptions="End" HorizontalOptions="CenterAndExpand" BindingContext="{Binding Source={x:Reference MainLayout}, Path=BindingContext}" CommandParameter="{Binding .}" Clicked="Login_Clicked"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

@@ -30,6 +30,10 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"/>
+    </ContentPage.Padding>
         <ContentPage.Content>
             <RelativeLayout>
             <Label x:Name="Subtitle" Text="New User" FontSize="Large" TextColor="#7970F5"

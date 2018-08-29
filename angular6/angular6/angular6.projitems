@@ -10,20 +10,20 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Start EmbeddedResource -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\ActorEditLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorList.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\FilmEditLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmList.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\FilmMakerEditLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerList.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Home.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TestEdit.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\TestEditLoadingView.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TestList.xaml" />
-    <!-- End EmbeddedResource -->
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorEdit.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\ActorEditLoadingView.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ActorList.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmEdit.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\FilmEditLoadingView.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmList.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerEdit.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\FilmMakerEditLoadingView.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\FilmMakerList.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Home.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TestEdit.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Loading\TestEditLoadingView.xaml"/>
+		<EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TestList.xaml"/>
+	  <!-- End EmbeddedResource -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MasterPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml" />
@@ -56,74 +56,74 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterNewUserViewModel.cs" />
     <!-- Start Dynamic Resources .cs -->
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\ActorBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\ActorRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmMakerBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmMakerRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\UserBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\UserRestServiceBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Test.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Base\TestBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\TestRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Rest\Base\TestRestServiceBase.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Actor.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Base\ActorBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\ActorRestService.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\Base\ActorRestServiceBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Film.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\FilmRestService.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmRestServiceBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\FilmMaker.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Base\FilmMakerBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\FilmMakerRestService.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\Base\FilmMakerRestServiceBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\User.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Base\UserBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\UserRestService.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\Base\UserRestServiceBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Test.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Models\Base\TestBase.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\TestRestService.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)Rest\Base\TestRestServiceBase.cs"/>
     <!-- End Dynamic Resources .cs -->
     <!-- Start ViewModels -->
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ActorEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ActorListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmMakerEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmMakerListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\TestEditViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\TestListViewModel.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ActorEditViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\ActorListViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmEditViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmListViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmMakerEditViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\FilmMakerListViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\TestEditViewModel.cs"/>
+		<Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResourcesViewModel\TestListViewModel.cs"/>
     <!-- End ViewModels -->
     <!-- Start Dynamic Pages -->
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\ActorEditLoadingView.xaml.cs">
-      <DependentUpon>ActorEditLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ActorEdit.xaml.cs">
-      <DependentUpon>ActorEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ActorList.xaml.cs">
-      <DependentUpon>ActorList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\FilmEditLoadingView.xaml.cs">
-      <DependentUpon>FilmEditLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmEdit.xaml.cs">
-      <DependentUpon>FilmEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmList.xaml.cs">
-      <DependentUpon>FilmList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\FilmMakerEditLoadingView.xaml.cs">
-      <DependentUpon>FilmMakerEditLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmMakerEdit.xaml.cs">
-      <DependentUpon>FilmMakerEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FilmMakerList.xaml.cs">
-      <DependentUpon>FilmMakerList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Loading\TestEditLoadingView.xaml.cs">
-      <DependentUpon>TestEditLoadingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TestEdit.xaml.cs">
-      <DependentUpon>TestEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TestList.xaml.cs">
-      <DependentUpon>TestList.xaml</DependentUpon>
-    </Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\Loading\ActorEditLoadingView.xaml.cs">
+			<DependentUpon>ActorEditLoadingView.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\ActorEdit.xaml.cs">
+			<DependentUpon>ActorEdit.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\ActorList.xaml.cs">
+			<DependentUpon>ActorList.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\Loading\FilmEditLoadingView.xaml.cs">
+			<DependentUpon>FilmEditLoadingView.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\FilmEdit.xaml.cs">
+			<DependentUpon>FilmEdit.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\FilmList.xaml.cs">
+			<DependentUpon>FilmList.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\Loading\FilmMakerEditLoadingView.xaml.cs">
+			<DependentUpon>FilmMakerEditLoadingView.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\FilmMakerEdit.xaml.cs">
+			<DependentUpon>FilmMakerEdit.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\FilmMakerList.xaml.cs">
+			<DependentUpon>FilmMakerList.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\Loading\TestEditLoadingView.xaml.cs">
+			<DependentUpon>TestEditLoadingView.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\TestEdit.xaml.cs">
+			<DependentUpon>TestEdit.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="$(MSBuildThisFileDirectory)Views\TestList.xaml.cs">
+			<DependentUpon>TestList.xaml</DependentUpon>
+		</Compile>
     <!-- End Dynamic Pages -->
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterNewUser.xaml.cs">
       <DependentUpon>RegisterNewUser.xaml</DependentUpon>

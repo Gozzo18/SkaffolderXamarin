@@ -27,6 +27,10 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"/>
+    </ContentPage.Padding>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Spacing="40" Margin="0,30,0,0">
             {{#each resources.0._resources}}

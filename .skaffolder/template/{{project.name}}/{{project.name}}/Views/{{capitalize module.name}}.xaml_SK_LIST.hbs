@@ -4,6 +4,10 @@
              xmlns:customrenderer="clr-namespace:{{project.name}}.CustomRenderer"
              x:Class="{{project.name}}.Views.{{capitalize crudResource.name}}List"
              Title="{{capitalize crudResource.name}}">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"/>
+    </ContentPage.Padding>
     <ContentPage.Content>
         <RelativeLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7970F5"

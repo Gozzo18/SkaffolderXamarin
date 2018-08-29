@@ -13,6 +13,10 @@
             </Style>
         </ResourceDictionary>
     </MasterDetailPage.Resources>
+    <MasterDetailPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"/>
+    </MasterDetailPage.Padding>
     <MasterDetailPage.Master>
         <ContentPage Title=" " BackgroundColor="#7970F5">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

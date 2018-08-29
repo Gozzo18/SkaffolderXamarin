@@ -19,7 +19,7 @@
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="BackgroundColor" Value="DarkBlue"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="BorderRadius" Value="30"/>
+                <Setter Property="BorderRadius" Value="15"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
             </Style>
             <Style x:Key="editPageButton" TargetType="Button">

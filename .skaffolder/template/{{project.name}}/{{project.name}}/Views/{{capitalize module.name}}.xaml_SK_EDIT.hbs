@@ -18,6 +18,10 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+        <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0"/>
+    </ContentPage.Padding>
     <ContentPage.Content>
         <RelativeLayout>
             <Label x:Name="Subtitle" Text="Edit {{capitalize crudResource.name}}" FontSize="Large" TextColor="#7970F5"
@@ -95,7 +99,7 @@
                             <DataTemplate>
                                 <customrenderer:CustomViewCell>
                                     <StackLayout x:Name="Item" Orientation="Horizontal" Margin="0,-10,0,0">
-                                        <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding Delete{{capitalize name}}ItemCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
+                                        <Button Image="delete.png" BackgroundColor="Transparent" WidthRequest="30" BindingContext="{Binding Source={x:Reference castInserted}, Path=BindingContext}" Command="{Binding Delete{{capitalize crudResource.name}}ItemCommand}" CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
                                         <Label Text="{Binding Id}" TextColor="White" VerticalOptions="Center"/>
                                     </StackLayout>
                                 </customrenderer:CustomViewCell>
